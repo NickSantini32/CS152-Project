@@ -26,7 +26,7 @@ Whitespace is ignored
 | Comments | ##This is a comment
 | Functions | Foo(x, y, 1, 2); Foo2(var);
 
-| Symbol in Language| Token Name |
+| Token Name | Symbol |
 |---|---|
 | INT | 0-9 |
 | STRING | a-zA-Z |
@@ -59,5 +59,6 @@ Whitespace is ignored
 | R_CURLY | } |
 | AND | && |
 | OR | \|\| |
+| ESCAPE | \ |
 
 

@@ -37,6 +37,8 @@ Whitespace is ignored
 | MULT | * |
 | DIV | / |
 | EQUAL | == |
+| GREATER | > |
+| LESSER | < |
 | LEQ | <= |
 | GEQ | >= |
 | ASSIGN | = |

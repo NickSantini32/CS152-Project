@@ -7,8 +7,11 @@ File Extension:
 Compiler Name:
 
 Miscellaneous Details:
+
 Language is not case sensitive
+
 Variable names cannot be an existing identifier
+
 Whitespace is ignored
 
 

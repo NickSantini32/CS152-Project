@@ -41,6 +41,7 @@ Whitespace is ignored
 | LESSER | < |
 | LEQ | <= |
 | GEQ | >= |
+| NEQ | != |
 | ASSIGN | = |
 | AND | && |
 | OR | \|\| |

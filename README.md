@@ -10,6 +10,7 @@ Miscellaneous Details: <br>
 Language is not case sensitive <br>
 Variable names cannot be an existing identifier <br>
 Variable names must have at least one letter <br>
+Variable names cannot start with a token <br>
 Whitespace is ignored 
 
 
@@ -23,13 +24,13 @@ Whitespace is ignored
 | While or Do-While Loops | while(premise) { x++;} , do { x++;} while (premise);
 | If-then-else statements | if (premise) {}; else if (premise) {}; else(){};
 | Read and Write Statements | read(file); write(file); 
-| Comments | ##This is a comment
-| Functions | Foo(x, y, 1, 2); Foo2(var);
+| Comments | #This is a comment
+| Functions | Foo(x, y, 1, 2) {} ; Foo2(var) {};
 
 | Token Name | Symbol |
 |---|---|
-| INT | 0-9 |
-| STRING | a-zA-Z |
+| INT | Int |
+| STRING | String |
 | STR_QUOTE | " |
 | STATE_END | ; |
 | ADD | + |
@@ -60,11 +61,6 @@ Whitespace is ignored
 | L_CURLY | { |
 | R_CURLY | } |
 | COMMENT | # |
-| COLON | : |
-| APOS | ' |
-| PERIOD | . |
 | COMMA | , |
-| UNDERSCORE | _ |
-| ESC | \ |
 
 

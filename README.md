@@ -6,7 +6,14 @@ File Extension:
 
 Compiler Name:
 
-| Statement Type | High Level Example|
+Miscellaneous Details: <br>
+Language is not case sensitive <br>
+Variable names cannot be an existing identifier <br>
+Variable names must have at least one letter <br>
+Whitespace is ignored 
+
+
+| Language Feature | Code Example|
 |---|---|
 | Integer scalar variables: | Int x; int y; int sum, avg;
 | One-dimensional array of integers | Int x[3]; int y[10]; int z[1], f[12];
@@ -19,24 +26,25 @@ Compiler Name:
 | Comments | ##This is a comment
 | Functions | Foo(x, y, 1, 2); Foo2(var);
 
-| Operator | Character Used |
+| Symbol in Language| Token Name |
 |---|---|
-| Int |  |
-| String |  |
-| Plus |  |
-| Minus |  |
-| L_paren |  |
-| R_paren |  |
-| Comment |  |
-| Mult |  |
-| Div |  |
-| EQ |  |
-| LEQ |  |
-| GEQ |  |
-| ASSIGN |  |
-| IF |  |
-| ELSE IF |  |
-| ELSE |  |
+| Int | 0-9 |
+| String start/end | " |
+| Statement End | ; |
+| Plus | + |
+| Minus | - |
+| L_paren | ( |
+| R_paren | ) |
+| Comment | # |
+| Mult | * |
+| Div | / |
+| EQUAL | == |
+| LEQ | <= |
+| GEQ | >= |
+| ASSIGN | = |
+| IF | if |
+| ELSE IF | elif |
+| ELSE | else |
 | L_ARRAY | [ |
 | R_ARRAY | ] |
 | COLON | : |

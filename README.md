@@ -6,12 +6,9 @@ File Extension:
 
 Compiler Name:
 
-Miscellaneous Details:
-
-Language is not case sensitive
-
-Variable names cannot be an existing identifier
-
+Miscellaneous Details: <br>
+Language is not case sensitive <br>
+Variable names cannot be an existing identifier <br>
 Whitespace is ignored
 
 
@@ -31,7 +28,8 @@ Whitespace is ignored
 | Symbol in Language| Token Name |
 |---|---|
 | Int | 0-9 |
-| String | a-z,A-Z |
+| String start/end | " |
+| Statement End | ; |
 | Plus | + |
 | Minus | - |
 | L_paren | ( |

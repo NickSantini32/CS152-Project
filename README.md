@@ -28,16 +28,17 @@ Whitespace is ignored
 
 | Symbol in Language| Token Name |
 |---|---|
-| Int | 0-9 |
-| String start/end | " |
-| Statement End | ; |
-| Plus | + |
-| Minus | - |
-| L_paren | ( |
-| R_paren | ) |
-| Comment | # |
-| Mult | * |
-| Div | / |
+| INT | 0-9 |
+| STRING | a-zA-Z |
+| STR_QUOTE | " |
+| STATE_END | ; |
+| PLUS | + |
+| MINUS | - |
+| L_PAREN | ( |
+| R_PAREN | ) |
+| COMMENT | # |
+| MULT | * |
+| DIV | / |
 | EQUAL | == |
 | LEQ | <= |
 | GEQ | >= |
@@ -57,6 +58,6 @@ Whitespace is ignored
 | L_CURLY | { |
 | R_CURLY | } |
 | AND | && |
-| OR | || |
+| OR | \|\| |
 
 

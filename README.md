@@ -13,7 +13,7 @@ Variable names must have at least one letter <br>
 Whitespace is ignored 
 
 
-| Language Feature | Code Example|
+| Language Feature | Code Example |
 |---|---|
 | Integer scalar variables: | int x; int y; int sum, avg;
 | One-dimensional array of integers | int x[3]; int y[10]; int z[1], f[12];
@@ -22,7 +22,7 @@ Whitespace is ignored
 | Relational Operators | int x = 4 < 5; int y = 12>= 22;
 | While or Do-While Loops | while(premise) { x++;} , do { x++;} while (premise);
 | If-then-else statements | if (premise) {}; else if (premise) {}; else(){};
-| Read and Write Statements | read(file); write(file) |
+| Read and Write Statements | read(file); write(file); 
 | Comments | ##This is a comment
 | Functions | Foo(x, y, 1, 2); Foo2(var);
 

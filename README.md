@@ -6,14 +6,7 @@ File Extension:
 
 Compiler Name:
 
-Miscellaneous Details: <br>
-Language is not case sensitive <br>
-Variable names cannot be an existing identifier <br>
-Variable names must have at least one letter <br>
-Whitespace is ignored 
-
-
-| Language Feature | Code Example|
+| Statement Type | High Level Example|
 |---|---|
 | Integer scalar variables: | Int x; int y; int sum, avg;
 | One-dimensional array of integers | Int x[3]; int y[10]; int z[1], f[12];
@@ -26,28 +19,36 @@ Whitespace is ignored
 | Comments | ##This is a comment
 | Functions | Foo(x, y, 1, 2); Foo2(var);
 
-| Symbol in Language| Token Name |
+| Operator | Character Used |
 |---|---|
-| Int | 0-9 |
-| String start/end | " |
-| Statement End | ; |
-| Plus | + |
-| Minus | - |
-| L_paren | ( |
-| R_paren | ) |
-| Comment | # |
-| Mult | * |
-| Div | / |
-| EQUAL | == |
-| LEQ | <= |
-| GEQ | >= |
-| ASSIGN | = |
-| IF | if |
-| ELSE IF | elif |
-| ELSE | else |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
+| Int |  |
+| String |  |
+| Plus |  |
+| Minus |  |
+| L_paren |  |
+| R_paren |  |
+| Comment |  |
+| Mult |  |
+| Div |  |
+| EQ |  |
+| LEQ |  |
+| GEQ |  |
+| ASSIGN |  |
+| IF |  |
+| ELSE IF |  |
+| ELSE |  |
+| L_ARRAY | [ |
+| R_ARRAY | ] |
+| COLON | : |
+| SEMICOLON | ; |
+| APOSTROPHE | ' |
+| QUOTE | " |
+| PERIOD | . |
+| COMMA | , |
+| UNDERSCORE | _ |
+| L_CURLY | { |
+| R_CURLY | } |
+| AND | && |
+| OR | || |
 
 

@@ -6,7 +6,13 @@ File Extension:
 
 Compiler Name:
 
-| Statement Type | High Level Example|
+Miscellaneous Details:
+Language is not case sensitive
+Variable names cannot be an existing identifier
+Whitespace is ignored
+
+
+| Language Feature | Code Example|
 |---|---|
 | Integer scalar variables: | Int x; int y; int sum, avg;
 | One-dimensional array of integers | Int x[3]; int y[10]; int z[1], f[12];
@@ -19,7 +25,7 @@ Compiler Name:
 | Comments | ##This is a comment
 | Functions | Foo(x, y, 1, 2); Foo2(var);
 
-| Operator | Character Used |
+| Symbol in Language| Token Name |
 |---|---|
 | Int | 0-9 |
 | String | a-z,A-Z |

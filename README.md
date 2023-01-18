@@ -34,9 +34,6 @@ Whitespace is ignored
 | STATE_END | ; |
 | ADD | + |
 | SUB | - |
-| L_PAREN | ( |
-| R_PAREN | ) |
-| COMMENT | # |
 | MULT | * |
 | DIV | / |
 | EQUAL | == |
@@ -46,23 +43,25 @@ Whitespace is ignored
 | AND | && |
 | OR | \|\| |
 | IF | if |
-| ELSE IF | elif |
+| ELSE_IF | elif |
 | ELSE | else |
 | WHILE | while |
 | FOR | for |
 | DO | do |
 | READ | read |
 | WRITE | write |
+| L_PAREN | ( |
+| R_PAREN | ) |
 | L_ARRAY | [ |
 | R_ARRAY | ] |
+| L_CURLY | { |
+| R_CURLY | } |
+| COMMENT | # |
 | COLON | : |
 | APOS | ' |
-| QUOTE | " |
 | PERIOD | . |
 | COMMA | , |
 | UNDERSCORE | _ |
-| L_CURLY | { |
-| R_CURLY | } |
 | ESC | \ |
 
 

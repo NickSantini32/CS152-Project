@@ -9,7 +9,8 @@ Compiler Name:
 Miscellaneous Details: <br>
 Language is not case sensitive <br>
 Variable names cannot be an existing identifier <br>
-Whitespace is ignored
+Variable names must have at least one letter <br>
+Whitespace is ignored 
 
 
 | Language Feature | Code Example|

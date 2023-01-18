@@ -32,8 +32,8 @@ Whitespace is ignored
 | STRING | a-zA-Z |
 | STR_QUOTE | " |
 | STATE_END | ; |
-| PLUS | + |
-| MINUS | - |
+| ADD | + |
+| SUB | - |
 | L_PAREN | ( |
 | R_PAREN | ) |
 | COMMENT | # |
@@ -50,16 +50,19 @@ Whitespace is ignored
 | ELSE | else |
 | WHILE | while |
 | FOR | for |
+| DO | do |
+| READ | read |
+| WRITE | write |
 | L_ARRAY | [ |
 | R_ARRAY | ] |
 | COLON | : |
-| APOSTROPHE | ' |
+| APOS | ' |
 | QUOTE | " |
 | PERIOD | . |
 | COMMA | , |
 | UNDERSCORE | _ |
 | L_CURLY | { |
 | R_CURLY | } |
-| ESCAPE | \ |
+| ESC | \ |
 
 

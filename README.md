@@ -21,22 +21,22 @@ Compiler Name:
 
 | Operator | Character Used |
 |---|---|
-| Int |  |
-| String |  |
-| Plus |  |
-| Minus |  |
-| L_paren |  |
-| R_paren |  |
-| Comment |  |
-| Mult |  |
-| Div |  |
-| EQ |  |
-| LEQ |  |
-| GEQ |  |
-| ASSIGN |  |
-| IF |  |
-| ELSE IF |  |
-| ELSE |  |
+| Int | 0-9 |
+| String | a-z,A-Z |
+| Plus | + |
+| Minus | - |
+| L_paren | ( |
+| R_paren | ) |
+| Comment | # |
+| Mult | * |
+| Div | / |
+| EQUAL | == |
+| LEQ | <= |
+| GEQ | >= |
+| ASSIGN | = |
+| IF | if |
+| ELSE IF | elif |
+| ELSE | else |
 |  |  |
 |  |  |
 |  |  |

@@ -102,7 +102,7 @@ STR_QUOTE "\""
 {IDENT} {printf("IDENT: %s\n", yytext);}
 {NUM} {printf("NUMBER: %s\n", yytext);}
 
-.        yyerror("Unrecognized input: %s\n Terminating program.", yytext);
+. {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%
 
 yywrap() {}

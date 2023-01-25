@@ -99,6 +99,7 @@ STRING "[a-zA-Z]*"
 {L_PAREN} {printf("L_PAREN\n");}
 {R_PAREN} {printf("R_PAREN\n");}
 {EQUAL} {printf("EQUAL\n");}
+{ASSIGN} {printf("ASSIGN\n");}
 
 
 %%

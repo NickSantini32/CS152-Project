@@ -50,11 +50,11 @@ void yyerror (char const *s) {
 
 {STRING} {printf("STRING: %s\n", yytext);}
 .        yyerror("Unrecognized input. Terminating program.");
-{NUM}+ {printf("NUMBER: %s\n", yytext);}
+
 */
 
 /* Rules */
-NUM [0-9]
+NUM [0-9]+
 INT "int "
 STR_QUOTE "\""
 STATE_END ";"
@@ -68,7 +68,7 @@ LESSER "<"
 LEQ "<="
 GEQ ">="
 NEQ "!="
-ASSIGN "="
+ASSIGN " "*"="" "*
 AND "&&"
 OR "||"
 IF "if"
@@ -107,7 +107,7 @@ IDENT [a-zA-Z][a-zA-Z0-9]*" "
 {STATE_END} {printf("STATE_END\n");}
 
 {IDENT} {printf("IDENT: \"%s\"\n", yytext);}
-
+{NUM} {printf("NUMBER: %s\n", yytext);}
 
 
 

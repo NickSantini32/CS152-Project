@@ -89,7 +89,7 @@ PERIOD "."
 COMMA ","
 UNDERSCORE "_"
 STRING "[a-zA-Z]*"
-IDENT [a - z A - Z _][a - z A - Z 0 - 9 _]*" "
+IDENT [a - z A - Z _][a - z A - Z 0 - 9 _]* " "|"\n"
 
 %%
 
@@ -105,6 +105,7 @@ IDENT [a - z A - Z _][a - z A - Z 0 - 9 _]*" "
 {INT} {printf("INT\n");}
 
 {IDENT} {printf("IDENT: %s\n", yytext);}
+
 {NUM}+ {printf("NUMBER: %s\n", yytext);}
 
 

@@ -6,7 +6,8 @@
 DIGIT [0-9]
 
 /* temp code
-
+^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
+^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
 */
 %%
 
@@ -47,8 +48,7 @@ DIGIT [0-9]
 "," printf("COMMA\n");
 "return" printf("RETURN\n");
 
-^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
-^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
+
 ^[0-9][0-9]* printf("NUMBER ", yytext);
 
 %%

@@ -95,6 +95,7 @@ STR_QUOTE "\""
 "do" {printf("DO\n");}
 "read" {printf("READ\n");}
 "write" {printf("WRITE\n");}
+"function" {printf("FUNC\n");}
 
 {COMMENT} {printf("COMMENT: %s\n", yytext);}
 {IDENT} {printf("IDENT: %s\n", yytext);}

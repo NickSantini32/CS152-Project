@@ -91,14 +91,14 @@ STRING "[a-zA-Z]*"
 
 %%
 
-{ADD}+ {printf("PLUS\n");}
-{IF}+ {printf("IF\n");}
-{SUB}+ {printf("MINUS\n");}
-{MULT}+ {printf("MULT\n");}
-{DIV}+ {printf("DIV\n");}
-{L_PAREN}+ {printf("L_PAREN\n");}
-{R_PAREN}+ {printf("R_PAREN\n");}
-{EQUAL}+ {printf("EQUAL\n");}
+{ADD} {printf("PLUS\n");}
+{IF} {printf("IF\n");}
+{SUB} {printf("MINUS\n");}
+{MULT} {printf("MULT\n");}
+{DIV} {printf("DIV\n");}
+{L_PAREN} {printf("L_PAREN\n");}
+{R_PAREN} {printf("R_PAREN\n");}
+{EQUAL} {printf("EQUAL\n");}
 {STRING} {printf("STRING: %s\n", yytext);}
 {NUM}+ {printf("STRING: %s\n", yytext);}
 

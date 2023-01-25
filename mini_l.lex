@@ -54,45 +54,51 @@ void yyerror (char const *s) {
 
 /* Rules */
 NUM [0-9]
-STR_QUOTE ["]
-STATE_END [;]
-ADD [+]
-SUB [-]
-MULT [*]
-DIV [/]
-EQUAL [==]
-GREATER [>]
-LESSER [<]
-LEQ [<=]
-GEQ [>=]
-NEQ [!=]
-ASSIGN [=]
-AND [&&]
-OR [||]
+STR_QUOTE "\""
+STATE_END ";"
+ADD "+"
+SUB "-"
+MULT "*"
+DIV "/"
+EQUAL "=="
+GREATER ">"
+LESSER "<"
+LEQ "<="
+GEQ ">="
+NEQ "!="
+ASSIGN "="
+AND "&&"
+OR "||"
 IF "if"
-ELSE_IF [elif]
-ELSE [else]
-WHILE [while]
-FOR [for]
-DO [do]
-READ [read]
-WRITE [write]
-L_PAREN [(]
-R_PAREN [)]
-L_ARRAY [[]
-R_ARRAY []]
-COMMENT [#]
-COLON [:]
-APOS [']
-PERIOD [.]
-COMMA [,]
-UNDERSCORE [_]
+ELSE_IF "elif"
+ELSE "else"
+WHILE "while"
+FOR "for"
+DO "do"
+READ "read"
+WRITE "write"
+L_PAREN "("
+R_PAREN ")"
+L_ARRAY "["
+R_ARRAY "]"
+COMMENT "#"
+COLON ":"
+APOS "'"
+PERIOD "."
+COMMA ","
+UNDERSCORE "_"
 STRING "[a-zA-Z]*"
 
 %%
 
 {ADD} {printf("PLUS\n");}
 {IF} {printf("IF\n");}
+{SUB} {printf("MINUS\n");}
+{MULT} {printf("MULT\n");}
+{DIV} {printf("DIV\n");}
+{L_PAREN} {printf("L_PAREN\n");}
+{R_PAREN} {printf("R_PAREN\n");}
+{EQUAL} {printf("EQUAL\n");}
 
 
 %%

@@ -83,7 +83,7 @@ L_PAREN "("
 R_PAREN ")"
 L_ARRAY "["
 R_ARRAY "]"
-COMMENT "#"
+COMMENT "#".*"\n" 
 COLON ":"
 APOS "'"
 PERIOD "."
@@ -105,6 +105,7 @@ IDENT [a-zA-Z][a-zA-Z0-9]*" "
 {ASSIGN} {printf("ASSIGN\n");}
 {INT} {printf("INT\n");}
 {STATE_END} {printf("STATE_END\n");}
+{COMMENT} {printf("STATE_END\n");}
 
 {IDENT} {printf("IDENT: \"%s\"\n", yytext);}
 {NUM} {printf("NUMBER: %s\n", yytext);}

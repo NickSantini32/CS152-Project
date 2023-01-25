@@ -63,7 +63,7 @@ STR_QUOTE "\""
 
 %%
 " " {}
-
+"\n" {printf("\n");}
 ";" {printf("STATE_END\n");}
 "+" {printf("PLUS\n");}
 "-" {printf("MINUS\n");}

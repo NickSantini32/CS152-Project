@@ -40,8 +40,7 @@
 "#" printf("COMMENT\n");
 "," printf("COMMA\n");
 "return" printf("RETURN\n");
-[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ");
-[0-9][0-9]* printf("NUMBER ");
+
 
 %%
 

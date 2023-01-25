@@ -54,45 +54,17 @@ void yyerror (char const *s) {
 */
 
 /* Rules */
-WHITESPACE " "
 NUM [0-9]+
-INT "int"
-STR_QUOTE "\""
-STATE_END ";"
-ADD "+"
-SUB "-"
-MULT "*"
-DIV "/"
-EQUAL "=="
-GREATER ">"
-LESSER "<"
-LEQ "<="
-GEQ ">="
-NEQ "!="
-ASSIGN "="
-AND "&&"
-OR "||"
-IF "if"
-ELSE_IF "elif"
-ELSE "else"
-WHILE "while"
-FOR "for"
-DO "do"
-READ "read"
-WRITE "write"
 COMMENT "#".*"\n"
-COLON ":"
-APOS "'"
-PERIOD "."
-COMMA ","
-UNDERSCORE "_"
 STRING "[a-zA-Z]*"
 IDENT [a-zA-Z][a-zA-Z0-9]*
 
+STR_QUOTE "\""
+
 %%
-{WHITESPACE} {}
+" " {}
+";" {printf("STATE_END\n");}
 "+" {printf("PLUS\n");}
-{IF} {printf("IF\n");}
 "-" {printf("MINUS\n");}
 "*" {printf("MULT\n");}
 "/" {printf("DIV\n");}
@@ -101,16 +73,29 @@ IDENT [a-zA-Z][a-zA-Z0-9]*
 "(" {printf("L_PAREN\n");}
 ")" {printf("R_PAREN\n");}
 "==" {printf("EQUAL\n");}
-{ASSIGN} {printf("ASSIGN\n");}
-{INT} {printf("INT\n");}
-{STATE_END} {printf("STATE_END\n");}
-{COMMENT} {printf("COMMENT: \"%s\"\n", yytext);}
+">" {printf("GREATER\n");}
+"<" {printf("LESSER\n");}
+"<=" {printf("LEQ\n");}
+">=" {printf("GEQ\n");}
+"!=" {printf("NEQ\n");}
+"=" {printf("ASSIGN\n");}
+"&&" {printf("AND\n");}
+"||" {printf("OR\n");}
 
+"," {printf("COMMA\n");}
+"int" {printf("INT\n");}
+"if" {printf("IF\n");}
+"elif" {printf("ELSE IF\n");}
+"else" {printf("ELSE\n");}
+"while" {printf("WHILE\n");}
+"for" {printf("FOR\n");}
+"do" {printf("DO\n");}
+"read" {printf("READ\n");}
+"write" {printf("WRITE\n");}
+
+{COMMENT} {printf("COMMENT: \"%s\"\n", yytext);}
 {IDENT} {printf("IDENT: \"%s\"\n", yytext);}
 {NUM} {printf("NUMBER: %s\n", yytext);}
-
-
-
 
 %%
 

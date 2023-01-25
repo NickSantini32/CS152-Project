@@ -90,20 +90,20 @@ APOS [']
 PERIOD [.]
 COMMA [,]
 UNDERSCORE [_]
-STRING [a-zA-Z]
+STRING "[a-zA-Z]*"
 
 %%
 
 {INT}+ {printf("NUMBER: %s\n", yytext);}
 {ADD}+ {printf("PLUS: %s\n", yytext);}
 {IF}+ {printf("IF: %s \n", yytext);}
-{STRING}+ {printf("STRING: %s\n", yytext);}
 {SUB}+ {printf("MINUS: %s\n", yytext);}
 {MULT}+ {printf("MULT: %s\n", yytext);}
 {DIV}+ {printf("DIV: %s\n", yytext);}
 {L_PAREN}+ {printf("L_PAREN: %s\n", yytext);}
 {R_PAREN}+ {printf("R_PAREN: %s\n", yytext);}
 {EQUAL}+ {printf("EQUAL: %s\n", yytext);}
+{STRING} {printf("STRING: %s\n", yytext);}
 
 
 %%

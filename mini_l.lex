@@ -54,12 +54,13 @@ void yyerror (char const *s) {
 */
 
 /* Rules */
+WHITESPACE " "
 NUM [0-9]+
-INT "int "
+INT "int"
 STR_QUOTE "\""
 STATE_END ";"
 ADD "+"
-SUB " "*"-"" "*
+SUB "-"
 MULT "*"
 DIV "/"
 EQUAL "=="
@@ -68,7 +69,7 @@ LESSER "<"
 LEQ "<="
 GEQ ">="
 NEQ "!="
-ASSIGN " "*"="" "*
+ASSIGN "="
 AND "&&"
 OR "||"
 IF "if"
@@ -93,7 +94,7 @@ STRING "[a-zA-Z]*"
 IDENT [a-zA-Z][a-zA-Z0-9]*" "
 
 %%
-
+{WHITESPACE} {}
 {ADD} {printf("PLUS\n");}
 {IF} {printf("IF\n");}
 {SUB} {printf("MINUS\n");}

@@ -80,10 +80,6 @@ FOR "for"
 DO "do"
 READ "read"
 WRITE "write"
-L_PAREN "("
-R_PAREN ")"
-L_ARRAY "["
-R_ARRAY "]"
 COMMENT "#".*"\n"
 COLON ":"
 APOS "'"
@@ -95,16 +91,16 @@ IDENT [a-zA-Z][a-zA-Z0-9]*
 
 %%
 {WHITESPACE} {}
-{ADD} {printf("PLUS\n");}
+"+" {printf("PLUS\n");}
 {IF} {printf("IF\n");}
-{SUB} {printf("MINUS\n");}
-{MULT} {printf("MULT\n");}
-{DIV} {printf("DIV\n");}
+"-" {printf("MINUS\n");}
+"*" {printf("MULT\n");}
+"/" {printf("DIV\n");}
 "[" {printf("L_ARRAY\n");}
-{R_ARRAY} {printf("R_ARRAY\n");}
-{L_PAREN} {printf("L_PAREN\n");}
-{R_PAREN} {printf("R_PAREN\n");}
-{EQUAL} {printf("EQUAL\n");}
+"]" {printf("R_ARRAY\n");}
+"(" {printf("L_PAREN\n");}
+")" {printf("R_PAREN\n");}
+"==" {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
 {INT} {printf("INT\n");}
 {STATE_END} {printf("STATE_END\n");}

@@ -48,7 +48,7 @@ void yyerror (char const *s) {
 "," printf("COMMA\n");
 "return" printf("RETURN\n");
 
-
+{STRING} {printf("STRING: %s\n", yytext);}
 .        yyerror("Unrecognized input. Terminating program.");
 */
 
@@ -101,7 +101,7 @@ STRING "[a-zA-Z]*"
 {EQUAL} {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
 
-^{NUM}+ {printf("STRING: %s\n", yytext);}
+{NUM}+ {printf("NUMBER: %s\n", yytext);}
 
 
 

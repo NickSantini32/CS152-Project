@@ -51,6 +51,8 @@ NUM [0-9]
 "," printf("COMMA\n");
 "return" printf("RETURN\n");
 
+
+.        yyerror("Unrecognized input. Terminating program.");
 */
 
 
@@ -102,7 +104,7 @@ STRING [a-zA-Z]
 {L_PAREN}+ {printf("L_PAREN: %s\n", yytext);}
 {R_PAREN}+ {printf("R_PAREN: %s\n", yytext);}
 {EQUAL}+ {printf("EQUAL: %s\n", yytext);}
-.        yyerror("Unrecognized input. Terminating program.");
+
 
 %%
 

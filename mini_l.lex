@@ -101,6 +101,9 @@ STRING "[a-zA-Z]*"
 {EQUAL} {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
 
+^{NUM}+ {printf("STRING: %s\n", yytext);}
+
+
 
 %%
 

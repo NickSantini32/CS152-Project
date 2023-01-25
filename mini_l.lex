@@ -8,9 +8,6 @@ void yyerror (char const *s) {
 
 %}
 
-/* Rules */
-NUM [0-9]
-
 /* temp code
 ^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
 ^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
@@ -55,8 +52,8 @@ NUM [0-9]
 .        yyerror("Unrecognized input. Terminating program.");
 */
 
-
-INT [0-9]
+/* Rules */
+NUM [0-9]
 STR_QUOTE ["]
 STATE_END [;]
 ADD [+]
@@ -94,16 +91,16 @@ STRING "[a-zA-Z]*"
 
 %%
 
-{INT}+ {printf("NUMBER: %s\n", yytext);}
-{ADD}+ {printf("PLUS: %s\n", yytext);}
-{IF}+ {printf("IF: %s \n", yytext);}
-{SUB}+ {printf("MINUS: %s\n", yytext);}
-{MULT}+ {printf("MULT: %s\n", yytext);}
-{DIV}+ {printf("DIV: %s\n", yytext);}
-{L_PAREN}+ {printf("L_PAREN: %s\n", yytext);}
-{R_PAREN}+ {printf("R_PAREN: %s\n", yytext);}
-{EQUAL}+ {printf("EQUAL: %s\n", yytext);}
+{ADD}+ {printf("PLUS\n");}
+{IF}+ {printf("IF\n");}
+{SUB}+ {printf("MINUS\n");}
+{MULT}+ {printf("MULT\n");}
+{DIV}+ {printf("DIV\n");}
+{L_PAREN}+ {printf("L_PAREN\n");}
+{R_PAREN}+ {printf("R_PAREN\n");}
+{EQUAL}+ {printf("EQUAL\n");}
 {STRING} {printf("STRING: %s\n", yytext);}
+{NUM}+ {printf("STRING: %s\n", yytext);}
 
 
 %%

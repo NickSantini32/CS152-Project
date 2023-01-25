@@ -59,7 +59,7 @@ INT "int "
 STR_QUOTE "\""
 STATE_END ";"
 ADD "+"
-SUB "-"
+SUB " "*"-"" "*
 MULT "*"
 DIV "/"
 EQUAL "=="
@@ -90,7 +90,7 @@ PERIOD "."
 COMMA ","
 UNDERSCORE "_"
 STRING "[a-zA-Z]*"
-IDENT " "*[a-zA-Z][a-zA-Z0-9]*" "
+IDENT [a-zA-Z][a-zA-Z0-9]*" "
 
 %%
 

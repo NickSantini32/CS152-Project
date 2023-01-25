@@ -56,8 +56,8 @@ void yyerror (char const *s) {
 /* Rules */
 NUM [0-9]+
 COMMENT "#".*"\n"
-STRING "[a-zA-Z]*"
-IDENT [a-zA-Z][a-zA-Z0-9]*
+STRING "[a-zA-Z_]*"
+IDENT [a-zA-Z_][a-zA-Z0-9_]*
 
 STR_QUOTE "\""
 

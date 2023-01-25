@@ -54,6 +54,7 @@ void yyerror (char const *s) {
 
 /* Rules */
 NUM [0-9]
+INT "int"
 STR_QUOTE "\""
 STATE_END ";"
 ADD "+"
@@ -100,6 +101,7 @@ STRING "[a-zA-Z]*"
 {R_PAREN} {printf("R_PAREN\n");}
 {EQUAL} {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
+{INT} {printf("INT\n");}
 
 {NUM}+ {printf("NUMBER: %s\n", yytext);}
 

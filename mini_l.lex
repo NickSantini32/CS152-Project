@@ -5,7 +5,7 @@ void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
    exit(1);
 }
-int lc=0;
+int lc=1;
 
 %}
 

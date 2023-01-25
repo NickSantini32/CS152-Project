@@ -69,7 +69,7 @@ NEQ [!=]
 ASSIGN [=]
 AND [&&]
 OR [||]
-IF [if]
+IF "if"
 ELSE_IF [elif]
 ELSE [else]
 WHILE [while]

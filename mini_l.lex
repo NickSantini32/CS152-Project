@@ -100,7 +100,7 @@ IDENT [a-zA-Z][a-zA-Z0-9]*
 {SUB} {printf("MINUS\n");}
 {MULT} {printf("MULT\n");}
 {DIV} {printf("DIV\n");}
-{L_ARRAY} {printf("L_ARRAY\n");}
+"[" {printf("L_ARRAY\n");}
 {R_ARRAY} {printf("R_ARRAY\n");}
 {L_PAREN} {printf("L_PAREN\n");}
 {R_PAREN} {printf("R_PAREN\n");}

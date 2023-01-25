@@ -1,5 +1,11 @@
 %{
 
+//Needed to call yyerror, which is the error function for task 1
+void yyerror (char const *s) {
+   fprintf (stderr, "%s\n", s);
+   exit(1);
+}
+
 %}
 
 /* Rules */

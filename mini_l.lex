@@ -63,6 +63,7 @@ STR_QUOTE "\""
 
 %%
 " " {}
+"\n" {}
 ";" {printf("STATE_END\n");}
 "+" {printf("PLUS\n");}
 "-" {printf("MINUS\n");}
@@ -72,6 +73,8 @@ STR_QUOTE "\""
 "]" {printf("R_ARRAY\n");}
 "(" {printf("L_PAREN\n");}
 ")" {printf("R_PAREN\n");}
+"{" {printf("L_BRACE\n");}
+"}" {printf("R_BRACE\n");}
 "==" {printf("EQUAL\n");}
 ">" {printf("GREATER\n");}
 "<" {printf("LESSER\n");}

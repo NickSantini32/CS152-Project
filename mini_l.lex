@@ -92,7 +92,7 @@ STRING "[a-zA-Z]*"
 %%
 
 {ADD} {printf("PLUS\n");}
-
+{IF} {printf("IF\n");}
 
 
 %%

@@ -45,24 +45,65 @@ NUM [0-9]
 "," printf("COMMA\n");
 "return" printf("RETURN\n");
 
-
-
-
 */
+
+
+INT [0-9]
+STR_QUOTE ["]
+STATE_END [;]
+ADD [+]
+SUB [-]
+MULT [*]
+DIV [/]
+EQUAL [==]
+GREATER [>]
+LESSER [<]
+LEQ [<=]
+GEQ [>=]
+NEQ [!=]
+ASSIGN [=]
+AND [&&]
+OR [||]
+IF [if]
+ELSE_IF [elif]
+ELSE [else]
+WHILE [while]
+FOR [for]
+DO [do]
+READ [read]
+WRITE [write]
+L_PAREN [(]
+R_PAREN [)]
+L_ARRAY [[]
+RARRAY []]
+COMMENT [#]
+COLON [:]
+APOS [']
+PERIOD [.]
+COMMA [,]
+UNDERSCORE []
+STRING [a-zA-Z]
+
 %%
 
-
-
-
-
-{NUM}+ {printf("NUMBER %s\n", yytext);}
+{INT}+ {printf("NUMBER: %s\n", yytext);}
+{ADD}+ {printf("PLUS: %s\n", yytext);}
+{IF}+ {printf("IF: %s \n", yytext);}
+{STRING}+ {printf("STRING: %s\n", yytext);}
+{SUB}+ {printf("MINUS: %s\n", yytext);}
+{MULT}+ {printf("MULT: %s\n", yytext);}
+{DIV}+ {printf("DIV: %s\n", yytext);}
+{L_PAREN}+ {printf("L_PAREN: %s\n", yytext);}
+{R_PAREN}+ {printf("R_PAREN: %s\n", yytext);}
+{EQUAL}+ {printf("EQUAL: %s\n", yytext);}
+.        yyerror("Unrecognized input. Terminating program.");
 
 %%
 
 yywrap() {}
 
 int main() {
-     printf("Enter string: ");
+     //printf("Enter string: ");
      yylex();
 
      return 0;

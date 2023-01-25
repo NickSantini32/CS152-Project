@@ -91,6 +91,7 @@ STRING "[a-zA-Z]*"
 
 %%
 
+{ADD} {printf("PLUS\n");}
 
 
 

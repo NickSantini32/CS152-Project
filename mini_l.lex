@@ -50,7 +50,7 @@ int lc=0;
 "return" printf("RETURN\n");
 
 {STRING} {printf("STRING: %s\n", yytext);}
-.        yyerror("Unrecognized input. Terminating program.");
+
 
 */
 
@@ -102,6 +102,7 @@ STR_QUOTE "\""
 {IDENT} {printf("IDENT: %s\n", yytext);}
 {NUM} {printf("NUMBER: %s\n", yytext);}
 
+.        yyerror("Unrecognized input: %s\n Terminating program.", yytext);
 %%
 
 yywrap() {}

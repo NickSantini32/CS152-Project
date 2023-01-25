@@ -97,6 +97,7 @@ STR_QUOTE "\""
 "read" {printf("READ\n");}
 "write" {printf("WRITE\n");}
 "function" {printf("FUNC\n");}
+"return" {printf("RETURN\n");}
 
 {COMMENT} {printf("COMMENT: %s\n", yytext);}
 {IDENT} {printf("IDENT: %s\n", yytext);}

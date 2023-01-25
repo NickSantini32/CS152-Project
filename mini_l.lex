@@ -3,14 +3,11 @@
 %}
 
 /* Rules */
-DIGIT [0-9]
+NUM [0-9]
 
 /* temp code
 ^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
 ^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
-*/
-%%
-
 
 "function" printf("FUNC\n");
 "int"   printf("INT\n");
@@ -49,7 +46,16 @@ DIGIT [0-9]
 "return" printf("RETURN\n");
 
 
-{DIGIT}+ printf("%s\n", yytext);
+
+
+*/
+%%
+
+
+
+
+
+{NUM}+ {printf("NUMBER %s\n", yytext);}
 
 %%
 

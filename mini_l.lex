@@ -96,8 +96,8 @@ STR_QUOTE "\""
 "read" {printf("READ\n");}
 "write" {printf("WRITE\n");}
 
-{COMMENT} {printf("COMMENT: \"%s\"\n", yytext);}
-{IDENT} {printf("IDENT: \"%s\"\n", yytext);}
+{COMMENT} {printf("COMMENT: %s\n", yytext);}
+{IDENT} {printf("IDENT: %s\n", yytext);}
 {NUM} {printf("NUMBER: %s\n", yytext);}
 
 %%

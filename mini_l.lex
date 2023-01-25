@@ -55,7 +55,7 @@ void yyerror (char const *s) {
 
 /* Rules */
 NUM [0-9]
-INT "int"
+INT "int "
 STR_QUOTE "\""
 STATE_END ";"
 ADD "+"

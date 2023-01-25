@@ -49,7 +49,7 @@ DIGIT [0-9]
 "return" printf("RETURN\n");
 
 
-^[0-9][0-9]* printf("NUMBER ", yytext);
+[0-9][0-9]* printf("NUMBER ", yytext);
 
 %%
 

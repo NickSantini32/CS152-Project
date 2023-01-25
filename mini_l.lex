@@ -109,7 +109,7 @@ yywrap() {}
 int main() {
      //printf("Enter string: ");
      yylex();
-     printf("Number of lines: %s", lc);
+     //printf("Number of lines: %s", lc);
      return 0;
 
 }

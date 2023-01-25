@@ -5,6 +5,7 @@ void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
    exit(1);
 }
+int lc=0;
 
 %}
 
@@ -63,7 +64,7 @@ STR_QUOTE "\""
 
 %%
 " " {}
-"\n" {printf("\n");}
+"\n" {printf("\n"); lc++;}
 ";" {printf("STATE_END\n");}
 "+" {printf("PLUS\n");}
 "-" {printf("MINUS\n");}
@@ -108,7 +109,7 @@ yywrap() {}
 int main() {
      //printf("Enter string: ");
      yylex();
-
+     printf("Number of lines: %s", lc);
      return 0;
 
 }

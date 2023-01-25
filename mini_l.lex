@@ -90,7 +90,7 @@ PERIOD "."
 COMMA ","
 UNDERSCORE "_"
 STRING "[a-zA-Z]*"
-IDENT [a-z A-Z][a-z A-Z 0-9 _]*" "
+IDENT [a-zA-Z][a-zA-Z0-9]*" "
 
 %%
 
@@ -103,10 +103,9 @@ IDENT [a-z A-Z][a-z A-Z 0-9 _]*" "
 {R_PAREN} {printf("R_PAREN\n");}
 {EQUAL} {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
-{IDENT} {printf("IDENT: %s\n", yytext);}
 {INT} {printf("INT\n");}
 
-
+{IDENT} {printf("IDENT: %s\n", yytext);}
 
 
 

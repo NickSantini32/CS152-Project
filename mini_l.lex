@@ -104,6 +104,7 @@ IDENT [a-zA-Z][a-zA-Z0-9]*" "
 {EQUAL} {printf("EQUAL\n");}
 {ASSIGN} {printf("ASSIGN\n");}
 {INT} {printf("INT\n");}
+{STATE_END} {printf("STATE_END\n");}
 
 {IDENT} {printf("IDENT: \"%s\"\n", yytext);}
 

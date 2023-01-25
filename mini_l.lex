@@ -73,7 +73,7 @@ yywrap() {}
 int main() {
      //printf("Enter string: ");
      yylex();
-     printf("Number of lines: %d", lc);
+     printf("Number of lines: %d\n", lc);
      return 0;
 
 }

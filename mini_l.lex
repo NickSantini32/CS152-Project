@@ -22,12 +22,12 @@ NUM [0-9]+
 COMMENT "#".*"\n"
 STRING "[a-zA-Z_0-9]*"
 IDENT [a-zA-Z_][a-zA-Z0-9_]*
-INVIDENT [0-9][a-zA-Z0-9_]*
+INVIDENT [0-9][a-zA-Z0-9_]+
 
 STR_QUOTE "\""
 
 %%
-" " {}
+" " {pn += yyleng;}
 "\n" { pn=0; lc++;}
 ";" {printf("STATE_END\n"); pn += yyleng;}
 "+" {printf("PLUS\n"); pn += yyleng;}

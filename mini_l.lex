@@ -47,6 +47,7 @@ STR_QUOTE "\""
 "=" {printf("ASSIGN\n");}
 "&&" {printf("AND\n");}
 "||" {printf("OR\n");}
+"." {printf("DOT\n");}
 
 "," {printf("COMMA\n");}
 "int" {printf("INT\n");}

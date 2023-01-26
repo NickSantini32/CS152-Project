@@ -21,8 +21,6 @@ if (var1 != 0){
 
 }
 
-23ab;
-
 # HELLO THIS IS A TEST COMMENT
 
 int function func_name (int x, int y) {

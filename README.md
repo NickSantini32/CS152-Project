@@ -62,5 +62,6 @@ Whitespace is ignored
 | R_CURLY | } |
 | COMMENT | # |
 | COMMA | , |
+| DOT | . |
 
 

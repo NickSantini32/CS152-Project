@@ -9,7 +9,7 @@ Compiler Name:
 Miscellaneous Details: <br>
 Language is not case sensitive <br>
 Variable names cannot be an existing identifier <br>
-Variable names must start with a letter and can only contain letters, numbers, and underscores <br>
+Variable names must not start with a number and can only contain letters, numbers, and underscores <br>
 Whitespace is ignored 
 
 

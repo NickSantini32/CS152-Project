@@ -26,7 +26,7 @@ STR_QUOTE "\""
 
 %%
 " " {}
-"\n" {printf("\n"); lc++;}
+"\n" { lc++;}
 ";" {printf("STATE_END\n");}
 "+" {printf("PLUS\n");}
 "-" {printf("MINUS\n");}

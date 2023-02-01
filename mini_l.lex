@@ -16,7 +16,6 @@ COMMENT "#".*"\n"
 STRING "[a-zA-Z_0-9]*"
 IDENT [a-zA-Z_][a-zA-Z0-9_]*
 INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
-
 STR_QUOTE "\""
 
 %%

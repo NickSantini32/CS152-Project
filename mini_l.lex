@@ -1,5 +1,5 @@
 %{
-
+#include "y.tab.h"
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
@@ -9,13 +9,6 @@ int lc=1;
 int pn=0;
 
 %}
-
-/* temp code
-^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
-^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
-{STRING} {printf("STRING: %s\n", yytext);}
-
-*/
 
 /* Rules */
 NUM [0-9]+
@@ -27,6 +20,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 STR_QUOTE "\""
 
 %%
+//change all the prints to return
 " " {pn += yyleng;}
 "\n" { pn=0; lc++;}
 ";" {printf("STATE_END\n"); pn += yyleng;}

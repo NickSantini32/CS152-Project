@@ -74,10 +74,10 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 
 yywrap() {}
 
-int main() {
-     //printf("Enter string: ");
-     yylex();
-     printf("Number of lines: %d\n", lc);
-     return 0;
+// int main() {
+//      //printf("Enter string: ");
+//      yylex();
+//      printf("Number of lines: %d\n", lc);
+//      return 0;
 
-}
+// }

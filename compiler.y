@@ -45,7 +45,7 @@ if_loop_body:  /* epsilon */ {printf("if_loop_body -> epsilon\n");}
           | loop if_loop_body {printf("if_loop_body -> loop if_loop_body\n");}
           | statement if_loop_body {printf("if_loop_body -> statement if_loop_body\n");}
 
-num_exp : num_exp num_op num_exp {printf("num_exp -> num_exp num_op num_exp\n");}\}
+num_exp : num_exp num_op num_exp {printf("num_exp -> num_exp num_op num_exp\n");}
           | NUM {printf("num_exp -> NUM\n");}
           | IDENT {printf("num_exp -> IDENT\n");}
           | int_arr_access {printf("num_exp -> int_arr_access\n");}

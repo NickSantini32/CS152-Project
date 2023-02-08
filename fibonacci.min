@@ -5,7 +5,7 @@ function int fibonacci(int k) {
    return (fibonacci(k-1) + fibonnacci(k-2));
 }
 
-void main() {
+function void main() {
    int n;
    int fib_n;
 

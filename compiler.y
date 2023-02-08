@@ -4,7 +4,7 @@ extern FILE* yyin;
 %}
 
 %start prog_start
-%token INT STATE_END IDENT COMMA function //etc... LIST ALL TOKEN NEMAES HERE (in print statements)
+%token INT STATE_END IDENT COMMA L_PAREN R_PAREN L_BRACE R_BRACE//etc... LIST ALL TOKEN NEMAES HERE (in print statements)
 
 %%
 prog_start: /* epsilon */ {printf("prog_start->epsilon\n");}
@@ -13,7 +13,7 @@ prog_start: /* epsilon */ {printf("prog_start->epsilon\n");}
 functions: function {printf("functions -> function\n");}
           | function functions {printf("function -> functions\n");}
 
-//function: INT IDENT LPR arguments RPR LBR statements
+function: INT IDENT L_PAREN arguments R_PAREN L_BRACE statements R_BRACE
 
 arguments: argument {printf("arguments -> argument\n");}
           | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}

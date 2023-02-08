@@ -8,6 +8,8 @@ void yyerror (char const *s) {
 int lc=1;
 int pn=0;
 
+// change all the prints to return
+
 %}
 
 /* Rules */
@@ -18,7 +20,6 @@ IDENT [a-zA-Z_][a-zA-Z0-9_]*
 INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 STR_QUOTE "\""
 
-// change all the prints to return
 %%
 " " {pn += yyleng;}
 "\n" { pn=0; lc++;}

@@ -25,12 +25,12 @@ statement: int_declaration {printf("statement -> int_declaration\n");}
           | return_statement {printf("statement -> return_statement\n");}
           | IO {printf("statement -> IO\n");}
 
-int_declaration: INT IDENT STATE_END {printf("int_declaration -> INT IDENT STATE_END)\n");}
-int_dec_assignment: INT IDENT ASSIGN num_exp STATE_END {printf("int_dec_assignment -> INT IDENT ASSIGN num_exp STATE_END)\n");}
-int_arr_declaration: INT IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("int_arr_declaration -> INT IDENT L_ARRAY NUM R_ARRAY STATE_END)\n");}
-int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARRAY NUM R_ARRAY)\n");}
+int_declaration: INT identifier STATE_END {printf("int_declaration -> INT identifier STATE_END)\n");}
+int_dec_assignment: INT identifier ASSIGN num_exp STATE_END {printf("int_dec_assignment -> INT identifier ASSIGN num_exp STATE_END)\n");}
+int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END {printf("int_arr_declaration -> INT identifier L_ARRAY NUM R_ARRAY STATE_END)\n");}
+int_arr_access: identifier L_ARRAY NUM R_ARRAY {printf("int_arr_access -> identifier L_ARRAY NUM R_ARRAY)\n");}
 
-assignment: IDENT ASSIGN num_exp STATE_END {printf("assignment -> IDENT ASSIGN num_exp STATE_END)\n");}
+assignment: identifier ASSIGN num_exp STATE_END {printf("assignment -> identifier ASSIGN num_exp STATE_END)\n");}
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
         | RETURN STATE_END {printf("return_statement -> RETURN STATE_END\n");}
@@ -50,7 +50,7 @@ if_loop_body:  /* epsilon */ {printf("if_loop_body -> epsilon\n");}
 
 num_exp : num_exp num_op num_exp {printf("num_exp -> num_exp num_op num_exp\n");}
           | NUM {printf("num_exp -> NUM\n");}
-          | IDENT {printf("num_exp -> IDENT\n");}
+          | identifier {printf("num_exp -> identifier\n");}
           | int_arr_access {printf("num_exp -> int_arr_access\n");}
           | func_call {printf("num_exp -> func_call\n");}
           | L_PAREN num_exp R_PAREN {printf("num_exp -> L_PAREN num_exp R_PAREN\n");}
@@ -78,8 +78,8 @@ bool : TRUE {printf("bool -> TRUE\n");}
 logic_op : AND {printf("logic_op -> AND\n");}
         | OR {printf("logic_op -> OR\n");}
 
-IO : readWrite IDENT STATE_END {printf("IO -> readWrite IDENT STATE_END\n");}
-    | readWrite IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("IO -> readWrite IDENT L_ARRAY num_exp R_ARRAY STATE_END\n");}
+IO : readWrite identifier STATE_END {printf("IO -> readWrite identifier STATE_END\n");}
+    | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END {printf("IO -> readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END\n");}
 
 readWrite: READ
         | WRITE
@@ -87,9 +87,9 @@ readWrite: READ
 return_type : INT {printf("return_type -> INT\n");}
             | VOID {printf("return_type -> VOID\n");}
 
-function: FUNC return_type IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
+function: FUNC return_type identifier L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT identifier L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
-func_call: IDENT L_PAREN literal_args R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
+func_call: identifier L_PAREN literal_args R_PAREN {printf("func_call -> identifier L_PAREN arguments R_PAREN\n");}
 
 arguments: argument {printf("arguments -> argument\n");}
           | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}
@@ -98,9 +98,9 @@ literal_args: num_exp {printf("literal_args -> num_exp\n");}
             | num_exp COMMA literal_args {printf("literal_args -> num_exp COMMA literal_args\n");}
 
 argument: /*epsilon*/ {printf("argument -> epsilon\n");}
-          | INT IDENT {printf("argument -> INT IDENT\n");}
+          | INT identifier {printf("argument -> INT identifier\n");}
 
-
+identifier: IDENT {printf("identifier -> IDENT %s\n", yytext);}
 
 %%
 

@@ -1,0 +1,16 @@
+int fibonacci() {
+   int k;
+   if(k <= 1) {
+      return 1;
+   }
+   return (fibonacci(k-1) + fibonnacci(k-2));
+}
+
+void main() {
+   int n;
+   int fib_n;
+
+   read n;
+   fib_n = fibonacci(n);
+   write fib_n; 
+}

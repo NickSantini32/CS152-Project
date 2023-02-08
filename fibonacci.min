@@ -1,4 +1,4 @@
-int fibonacci(int k) {
+function int fibonacci(int k) {
    if(k <= 1) {
       return 1;
    }

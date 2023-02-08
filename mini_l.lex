@@ -18,30 +18,30 @@ IDENT [a-zA-Z_][a-zA-Z0-9_]*
 INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 STR_QUOTE "\""
 
+// change all the prints to return
 %%
-//change all the prints to return
 " " {pn += yyleng;}
 "\n" { pn=0; lc++;}
-";" {printf("STATE_END\n"); pn += yyleng;}
-"+" {printf("PLUS\n"); pn += yyleng;}
-"-" {printf("MINUS\n"); pn += yyleng;}
-"*" {printf("MULT\n"); pn += yyleng;}
-"/" {printf("DIV\n"); pn += yyleng;}
-"[" {printf("L_ARRAY\n"); pn += yyleng;}
-"]" {printf("R_ARRAY\n"); pn += yyleng;}
-"(" {printf("L_PAREN\n"); pn += yyleng;}
-")" {printf("R_PAREN\n"); pn += yyleng;}
-"{" {printf("L_BRACE\n"); pn += yyleng;}
-"}" {printf("R_BRACE\n"); pn += yyleng;}
-"==" {printf("EQUAL\n"); pn += yyleng;}
-">" {printf("GREATER\n"); pn += yyleng;}
-"<" {printf("LESSER\n"); pn += yyleng;}
-"<=" {printf("LEQ\n"); pn += yyleng;}
-">=" {printf("GEQ\n"); pn += yyleng;}
-"!=" {printf("NEQ\n"); pn += yyleng;}
-"=" {printf("ASSIGN\n"); pn += yyleng;}
-"&&" {printf("AND\n"); pn += yyleng;}
-"||" {printf("OR\n"); pn += yyleng;}
+";" { pn += yyleng; return STATE_END; }
+"+" { pn += yyleng; return PLUS; }
+"-" { pn += yyleng; return MINUS; }
+"*" { pn += yyleng; return MULT; }
+"/" { pn += yyleng; return DIV; }
+"[" { pn += yyleng; return L_ARRAY; }
+"]" { pn += yyleng; return R_ARRAY; }
+"(" { pn += yyleng; return L_PAREN; }
+")" { pn += yyleng; return R_PAREN; }
+"{" { pn += yyleng; return L_BRACE; }
+"; }" { pn += yyleng; return R_BRACE; }
+"==" { pn += yyleng; return EQUAL; }
+">" { pn += yyleng; return GREATER; }
+"<" { pn += yyleng; return LESSER; }
+"<=" { pn += yyleng; return LEQ; }
+">=" { pn += yyleng; return GEQ; }
+"!=" { pn += yyleng; return NEQ; }
+"=" { pn += yyleng; return ASSIGN; }
+"&&" { pn += yyleng; return AND; }
+"||" { pn += yyleng; return OR; }
 
 "," {printf("COMMA\n"); pn += yyleng;}
 "int" {printf("INT\n"); pn += yyleng;}

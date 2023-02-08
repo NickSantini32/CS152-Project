@@ -16,7 +16,7 @@ functions: function {printf("functions -> function\n");}
 //function: INT IDENT LPR arguments RPR LBR statements
 
 arguments: argument {printf("arguments -> argument\n");}
-          | COMMA arguments {printf("arguments -> COMMA arguments\n");}
+          | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}
 
 argument: /*epsilon*/ {printf("argument -> epsilon\n");}
           | INT IDENT {printf("argument -> INT IDENT\n");}

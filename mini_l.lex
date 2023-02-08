@@ -65,7 +65,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
 {NUM} { pn += yyleng; return NUM;}
-{IDENT} { pn += yyleng; ECHO; return IDENT;}
+{IDENT} { pn += yyleng; return IDENT;}
 
 {INVIDENT} {
    printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);

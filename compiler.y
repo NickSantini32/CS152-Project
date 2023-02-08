@@ -5,7 +5,7 @@ extern FILE* yyin;
 
 %start prog_start
 //etc... LIST ALL TOKEN NEMAES HERE (in print statements)
-%token STATE_END PLUS MINUS MULT DIV L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN TRUE FALSE COMMENT NUM IDENT
+%token STATE_END PLUS MINUS MULT DIV L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT NUM IDENT
 
 %%
 prog_start: /* epsilon */ {printf("prog_start -> epsilon\n");}
@@ -29,6 +29,7 @@ int_arr_assignment: INT IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("int_arr
 int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARRAY NUM R_ARRAY)\n");}
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
+        | RETURN STATE_END {printf("return_statement -> RETURN STATE_END\n");}
 
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_exp -> IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
 if_else_exp : /* epsilon */ {printf("if_else_exp -> epsilon\n");}
@@ -73,7 +74,10 @@ bool : TRUE {printf("bool -> TRUE\n");}
 logic_op : AND {printf("logic_op -> AND\n");}
         | OR {printf("logic_op -> OR\n");}
 
-function: FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
+return_type : INT {printf("return_type -> INT\n");}
+            | VOID {printf("return_type -> VOID\n");}
+
+function: FUNC return_type IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
 func_call: IDENT L_PAREN literal_args R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
 

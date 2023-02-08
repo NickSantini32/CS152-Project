@@ -64,6 +64,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "write" { pn += yyleng; return WRITE;}
 "function" { pn += yyleng; return FUNC;}
 "return" { pn += yyleng; return RETURN;}
+"void" { pn += yyleng; return VOID;}
 "true" { pn += yyleng; return TRUE;}
 "false" { pn += yyleng; return FALSE;}
 

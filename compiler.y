@@ -17,17 +17,20 @@ components: /* epsilon */ {printf("components -> epsilon\n");}
           | statement components {printf("components -> statement components\n");}
 
 statement: int_declaration {printf("statement -> int_declaration\n");}
-          | int_assignment {printf("statement -> int_assignment\n");}
-          | int_arr_assignment {printf("statement -> int_arr_assignment\n");}
+          | assignment {printf("statement -> int_assignment\n");}
+          | int_dec_assignment {printf("statement -> int_dec_assignment\n");}
+          | int_arr_declaration {printf("statement -> int_arr_declaration\n");}
           | if_exp {printf("statement -> if_exp\n");}
           | COMMENT {printf("statement -> COMMENT\n");}
           | return_statement {printf("statement -> return_statement\n");}
           | IO {printf("statement -> IO\n");}
 
 int_declaration: INT IDENT STATE_END {printf("int_declaration -> INT IDENT STATE_END)\n");}
-int_assignment: INT IDENT ASSIGN num_exp STATE_END {printf("int_assignment -> INT IDENT ASSIGN num_exp STATE_END)\n");}
-int_arr_assignment: INT IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("int_arr_assignment -> INT IDENT L_ARRAY NUM R_ARRAY STATE_END)\n");}
+int_dec_assignment: INT IDENT ASSIGN num_exp STATE_END {printf("int_dec_assignment -> INT IDENT ASSIGN num_exp STATE_END)\n");}
+int_arr_declaration: INT IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("int_arr_declaration -> INT IDENT L_ARRAY NUM R_ARRAY STATE_END)\n");}
 int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARRAY NUM R_ARRAY)\n");}
+
+assignment: IDENT ASSIGN num_exp STATE_END {printf("assignment -> IDENT ASSIGN num_exp STATE_END)\n");}
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
         | RETURN STATE_END {printf("return_statement -> RETURN STATE_END\n");}

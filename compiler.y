@@ -24,7 +24,7 @@ argument: /*epsilon*/ {printf("argument -> epsilon\n");}
 statements: /*epsilon*/ {printf("statements -> epsilon\n");}
           | statement STATE_END statements {printf("statement -> STATE_END statements\n");}
 
-statement: /*epsilon*/
+statement: /*epsilon*/ {printf("statement -> epsilon\n");}
 
 %%
 

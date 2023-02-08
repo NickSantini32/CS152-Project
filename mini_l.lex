@@ -1,5 +1,7 @@
 %{
 #include "y.tab.h"
+int lc=1;
+int pn=0;
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
    printf("lc: %d, pn: %d\n", lc, pn);
@@ -7,8 +9,7 @@ void yyerror (char const *s) {
 
    exit(1);
 }
-int lc=1;
-int pn=0;
+
 
 // change all the prints to return
 // STR_QUOTE "\""

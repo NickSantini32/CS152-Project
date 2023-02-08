@@ -103,7 +103,7 @@ literal_args: num_exp {printf("literal_args -> num_exp\n");}
 argument: /*epsilon*/ {printf("argument -> epsilon\n");}
           | INT identifier {printf("argument -> INT identifier\n");}
 
-identifier: IDENT 
+identifier: IDENT {printf("identifier -> IDENT\n");}
 
 %%
 

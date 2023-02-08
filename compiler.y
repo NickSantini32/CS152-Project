@@ -30,8 +30,6 @@ int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARR
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
 
-func_call: IDENT L_PAREN arguments R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
-
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_exp -> IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
 if_else_exp : /* epsilon */ {printf("if_else_exp -> epsilon\n");}
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_else_exp -> ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
@@ -77,8 +75,13 @@ logic_op : AND {printf("logic_op -> AND\n");}
 
 function: FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
+func_call: IDENT L_PAREN num_exp R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
+
 arguments: argument {printf("arguments -> argument\n");}
           | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}
+
+literal_args: num_exp {printf("literal_args -> num_exp\n");}
+            | num_exp COMMA literal_args {printf("literal_args -> num_exp COMMA literal_args\n");}
 
 argument: /*epsilon*/ {printf("argument -> epsilon\n");}
           | INT IDENT {printf("argument -> INT IDENT\n");}

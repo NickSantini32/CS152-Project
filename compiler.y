@@ -16,8 +16,7 @@ components: /* epsilon */ {printf("components -> epsilon\n");}
           | loop components {printf("components -> loop components\n");}
           | statement components {printf("components -> statement components\n");}
 
-statement: /*epsilon*/ {printf("statement -> epsilon\n");}
-          | int_declaration {printf("statement -> int_declaration\n");}
+statement: int_declaration {printf("statement -> int_declaration\n");}
           | int_assignment {printf("statement -> int_assignment\n");}
           | int_arr_assignment {printf("statement -> int_arr_assignment\n");}
           | if_exp {printf("statement -> if_exp\n");}

@@ -12,6 +12,12 @@ int pn=0;
 // STR_QUOTE "\""
 // STRING "[a-zA-Z_0-9]*"
 
+// {INVIDENT} {
+//    printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
+//    yyerror("");
+//    pn += yyleng;
+//    return INVIDENT;
+// }
 %}
 
 /* Rules */
@@ -56,20 +62,12 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "write" { pn += yyleng; return WRITE;}
 "function" { pn += yyleng; return FUNC;}
 "return" { pn += yyleng; return RETURN;}
-"void" { pn += yyleng; return VOID;}
 "true" { pn += yyleng; return TRUE;}
 "false" { pn += yyleng; return FALSE;}
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
 {NUM} { pn += yyleng; return NUM;}
 {IDENT} { pn += yyleng; return IDENT;}
-{INVIDENT} {
-   printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
-   yyerror("");
-   pn += yyleng;
-   return INVIDENT;
-}
-
 
 . {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%

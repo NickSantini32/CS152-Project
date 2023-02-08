@@ -14,12 +14,7 @@ void yyerror (char const *s) {
 // STR_QUOTE "\""
 // STRING "[a-zA-Z_0-9]*"
 
-// {INVIDENT} {
-//    printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
-//    yyerror("");
-//    pn += yyleng;
-//    return INVIDENT;
-// }
+
 %}
 
 /* Rules */
@@ -72,6 +67,11 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 {NUM} { pn += yyleng; return NUM;}
 {IDENT} { pn += yyleng; return IDENT;}
 
+{INVIDENT} {
+   printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
+   yyerror("");
+   pn += yyleng;
+}
 . {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%
 

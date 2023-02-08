@@ -22,6 +22,7 @@ statement: int_declaration {printf("statement -> int_declaration\n");}
           | if_exp {printf("statement -> if_exp\n");}
           | COMMENT {printf("statement -> COMMENT\n");}
           | return_statement {printf("statement -> return_statement\n");}
+          | IO {printf("statement -> IO\n");}
 
 int_declaration: INT IDENT STATE_END {printf("int_declaration -> INT IDENT STATE_END)\n");}
 int_assignment: INT IDENT ASSIGN num_exp STATE_END {printf("int_assignment -> INT IDENT ASSIGN num_exp STATE_END)\n");}
@@ -73,6 +74,12 @@ bool : TRUE {printf("bool -> TRUE\n");}
 
 logic_op : AND {printf("logic_op -> AND\n");}
         | OR {printf("logic_op -> OR\n");}
+
+IO : readWrite IDENT STATE_END {printf("IO -> readWrite IDENT STATE_END\n");}
+    | readWrite IDENT L_ARRAY num_exp R_ARRAY STATE_END {printf("IO -> readWrite IDENT L_ARRAY num_exp R_ARRAY STATE_END\n");}
+
+readWrite: READ
+        | WRITE
 
 return_type : INT {printf("return_type -> INT\n");}
             | VOID {printf("return_type -> VOID\n");}

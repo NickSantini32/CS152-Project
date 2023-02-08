@@ -8,7 +8,7 @@ extern FILE* yyin;
 //etc... LIST ALL TOKEN NEMAES HERE (in print statements)
 %token STATE_END PLUS MINUS MULT DIV L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT NUM IDENT
 
-%printer { fprintf (yyo, "'%c'", $$); } IDENT
+%printer { fprintf (yyo, "WOAH %s", $$); } IDENT
 
 %%
 prog_start: /* epsilon */ {printf("prog_start -> epsilon\n");}

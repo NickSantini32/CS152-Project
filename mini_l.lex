@@ -9,16 +9,16 @@ int lc=1;
 int pn=0;
 
 // change all the prints to return
+// STR_QUOTE "\""
+// STRING "[a-zA-Z_0-9]*"
 
 %}
 
 /* Rules */
 NUM [0-9]+
 COMMENT "#".*"\n"
-STRING "[a-zA-Z_0-9]*"
 IDENT [a-zA-Z_][a-zA-Z0-9_]*
 INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
-STR_QUOTE "\""
 
 %%
 " " {pn += yyleng;}

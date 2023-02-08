@@ -9,12 +9,12 @@ extern FILE* yyin;
 
 %%
 prog_start: /* epsilon */ {printf("prog_start -> epsilon\n");}
-          | component {printf("prog_start -> component\n");}
+          | components {printf("prog_start -> components\n");}
 
-component: /* epsilon */ {printf("component -> epsilon\n");}
-          | function component {printf("component -> functions component\n");}
-          | loop component {printf("component -> loop component\n");}
-          | statement component {printf("component -> statement component\n");}
+components: /* epsilon */ {printf("components -> epsilon\n");}
+          | function components {printf("components -> functions components\n");}
+          | loop components {printf("components -> loop components\n");}
+          | statement components {printf("components -> statement components\n");}
 
 statement: /*epsilon*/ {printf("statement -> epsilon\n");}
           | int_declaration {printf("statement -> int_declaration\n");}
@@ -31,18 +31,18 @@ int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARR
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
 
-if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp
-if_else_exp : /* epsilon */
-        | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp
-        | ELSE L_BRACE if_loop_body R_BRACE
+if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_exp -> IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
+if_else_exp : /* epsilon */ {printf("if_else_exp -> epsilon\n");}
+        | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_else_exp -> ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
+        | ELSE L_BRACE if_loop_body R_BRACE {printf("if_else_exp -> ELSE L_BRACE if_loop_body R_BRACE\n");}
 
-loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body
-    | DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN
-    | FOR L_PAREN int_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE 
+loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body {printf("loop -> WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body\n");}
+    | DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN {printf("loop -> DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN\n");}
+    | FOR L_PAREN int_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE {printf("loop -> FOR L_PAREN int_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
 if_loop_body:  /* epsilon */ {printf("if_loop_body -> epsilon\n");}
-          | loop if_loop_body {printf("component -> loop if_loop_body\n");}
-          | statement if_loop_body {printf("component -> statement if_loop_body\n");}
+          | loop if_loop_body {printf("if_loop_body -> loop if_loop_body\n");}
+          | statement if_loop_body {printf("if_loop_body -> statement if_loop_body\n");}
 
 num_exp : NUM num_op num_exp {printf("num_exp -> NUM num_op num_exp\n");}
           | IDENT num_op num_exp {printf("num_exp -> IDENT num_op num_exp\n");}
@@ -52,15 +52,15 @@ num_exp : NUM num_op num_exp {printf("num_exp -> NUM num_op num_exp\n");}
           | int_arr_access {printf("num_exp -> int_arr_access\n");}
           | L_PAREN num_exp R_PAREN {printf("num_exp -> L_PAREN num_exp R_PAREN\n");}
 
-bool_exp : num_exp comparator num_exp
-         | bool_exp logic_op bool_exp
-         | bool
-         | num_exp
+bool_exp : num_exp comparator num_exp {printf("bool_exp -> num_exp comparator num_exp\n");}
+         | bool_exp logic_op bool_exp {printf("bool_exp -> bool_exp logic_op bool_exp\n");}
+         | bool {printf("bool_exp -> bool\n");}
+         | num_exp {printf("bool_exp -> num_exp\n");}
 
-num_op : PLUS
-        | MINUS
-        | MULT
-        | DIV
+num_op : PLUS {printf("num_op -> PLUS\n");}
+        | MINUS {printf("num_op -> MINUS\n");}
+        | MULT {printf("num_op -> MULT\n");}
+        | DIV  {printf("num_op -> DIV\n");}
     
 comparator : GREATER {printf("comparator -> GREATER\n");}
        | LESSER {printf("comparator -> LESSER\n");}
@@ -69,11 +69,13 @@ comparator : GREATER {printf("comparator -> GREATER\n");}
        | EQUAL {printf("comparator -> EQUAL\n");}
        | NEQ {printf("comparator -> NEQ\n");}
 
-bool : TRUE | FALSE
+bool : TRUE {printf("bool -> TRUE\n");} 
+    | FALSE {printf("bool -> FALSE\n");}
 
-logic_op : AND | OR
+logic_op : AND {printf("logic_op -> AND\n");}
+        | OR {printf("logic_op -> OR\n");}
 
-function: FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE
+function: FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
 arguments: argument {printf("arguments -> argument\n");}
           | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}

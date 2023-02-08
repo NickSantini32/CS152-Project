@@ -30,6 +30,8 @@ int_arr_access: IDENT L_ARRAY NUM R_ARRAY {printf("int_arr_access -> IDENT L_ARR
 
 return_statement: RETURN num_exp STATE_END {printf("return_statement -> RETURN num_exp STATE_END\n");}
 
+func_call: IDENT L_PAREN arguments R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
+
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_exp -> IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
 if_else_exp : /* epsilon */ {printf("if_else_exp -> epsilon\n");}
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_else_exp -> ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
@@ -43,12 +45,11 @@ if_loop_body:  /* epsilon */ {printf("if_loop_body -> epsilon\n");}
           | loop if_loop_body {printf("if_loop_body -> loop if_loop_body\n");}
           | statement if_loop_body {printf("if_loop_body -> statement if_loop_body\n");}
 
-num_exp : NUM num_op num_exp {printf("num_exp -> NUM num_op num_exp\n");}
-          | IDENT num_op num_exp {printf("num_exp -> IDENT num_op num_exp\n");}
-          | int_arr_access num_op num_exp {printf("num_exp -> int_arr_access num_op num_exp\n");}
+num_exp : num_exp num_op num_exp {printf("num_exp -> num_exp num_op num_exp\n");}\}
           | NUM {printf("num_exp -> NUM\n");}
           | IDENT {printf("num_exp -> IDENT\n");}
           | int_arr_access {printf("num_exp -> int_arr_access\n");}
+          | func_call {printf("num_exp -> func_call\n");}
           | L_PAREN num_exp R_PAREN {printf("num_exp -> L_PAREN num_exp R_PAREN\n");}
 
 bool_exp : num_exp comparator num_exp {printf("bool_exp -> num_exp comparator num_exp\n");}

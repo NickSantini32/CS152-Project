@@ -33,7 +33,7 @@ STR_QUOTE "\""
 "(" { pn += yyleng; return L_PAREN; }
 ")" { pn += yyleng; return R_PAREN; }
 "{" { pn += yyleng; return L_BRACE; }
-"; }" { pn += yyleng; return R_BRACE; }
+"}" { pn += yyleng; return R_BRACE; }
 "==" { pn += yyleng; return EQUAL; }
 ">" { pn += yyleng; return GREATER; }
 "<" { pn += yyleng; return LESSER; }
@@ -44,23 +44,32 @@ STR_QUOTE "\""
 "&&" { pn += yyleng; return AND; }
 "||" { pn += yyleng; return OR; }
 
-"," {printf("COMMA\n"); pn += yyleng;}
-"int" {printf("INT\n"); pn += yyleng;}
-"if" {printf("IF\n"); pn += yyleng;}
-"elif" {printf("ELSE IF\n"); pn += yyleng;}
-"else" {printf("ELSE\n"); pn += yyleng;}
-"while" {printf("WHILE\n"); pn += yyleng;}
-"for" {printf("FOR\n"); pn += yyleng;}
-"do" {printf("DO\n"); pn += yyleng;}
-"read" {printf("READ\n"); pn += yyleng;}
-"write" {printf("WRITE\n"); pn += yyleng;}
-"function" {printf("FUNC\n"); pn += yyleng;}
-"return" {printf("RETURN\n"); pn += yyleng;}
+"," { pn += yyleng; return COMMA;}
+"int" { pn += yyleng; return INT;}
+"if" { pn += yyleng; return IF;}
+"elif" { pn += yyleng; return ELIF;}
+"else" { pn += yyleng; return ELSE;}
+"while" { pn += yyleng; return WHILE;}
+"for" { pn += yyleng; return FOR;}
+"do" { pn += yyleng; return DO;}
+"read" { pn += yyleng; return READ;}
+"write" { pn += yyleng; return WRITE;}
+"function" { pn += yyleng; return FUNC;}
+"return" { pn += yyleng; return RETURN;}
+"void" { pn += yyleng; return VOID;}
+"true" { pn += yyleng; return TRUE;}
+"false" { pn += yyleng; return FALSE;}
 
-{COMMENT} {printf("COMMENT: %s\n", yytext); lc++; pn=0;}
-{IDENT} {printf("IDENT: %s\n", yytext); pn += yyleng;}
-{INVIDENT} {printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext); yyerror(""); pn += yyleng;}
-{NUM} {printf("NUMBER: %s\n", yytext); pn += yyleng;}
+{COMMENT} { lc++; pn=0; return COMMENT;}
+{NUM} { pn += yyleng; return NUM;}
+{IDENT} { pn += yyleng; return IDENT;}
+{INVIDENT} {
+   printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
+   yyerror("");
+   pn += yyleng;
+   return INVIDENT;
+}
+
 
 . {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%

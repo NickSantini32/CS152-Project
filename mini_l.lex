@@ -2,7 +2,9 @@
 #include "y.tab.h"
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
+   printf("lc: %d, pn: %d\n", lc, pn);
    fprintf (stderr, "%s\n", s);
+
    exit(1);
 }
 int lc=1;

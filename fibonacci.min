@@ -1,5 +1,4 @@
-int fibonacci() {
-   int k;
+int fibonacci(int k) {
    if(k <= 1) {
       return 1;
    }

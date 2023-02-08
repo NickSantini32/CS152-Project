@@ -4,7 +4,7 @@ extern FILE* yyin;
 %}
 
 %start prog_start
-%token INT STATE_END IDENT //etc... LIST ALL TOKEN NEMAES HERE (in print statements)
+%token INT STATE_END IDENT COMMA function //etc... LIST ALL TOKEN NEMAES HERE (in print statements)
 
 %%
 prog_start: /* epsilon */ {printf("prog_start->epsilon\n");}

@@ -75,7 +75,7 @@ logic_op : AND {printf("logic_op -> AND\n");}
 
 function: FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE {printf("function -> FUNC INT IDENT L_PAREN arguments R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 
-func_call: IDENT L_PAREN num_exp R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
+func_call: IDENT L_PAREN literal_args R_PAREN {printf("func_call -> IDENT L_PAREN arguments R_PAREN\n");}
 
 arguments: argument {printf("arguments -> argument\n");}
           | argument COMMA arguments {printf("arguments -> COMMA arguments\n");}

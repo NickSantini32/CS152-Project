@@ -1,11 +1,11 @@
-int factorial(int k) {
+function int factorial(int k) {
    if(k <= 1) {
       return 1;
    }
    return (k * factorial(k - 1));
 }
 
-void main() {
+function void main() {
    int n;
    int fac;
 

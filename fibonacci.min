@@ -1,11 +1,11 @@
-int fibonacci(int k) {
+function int fibonacci(int k) {
    if(k <= 1) {
       return 1;
    }
    return (fibonacci(k-1) + fibonnacci(k-2));
 }
 
-void main() {
+function void main() {
    int n;
    int fib_n;
 

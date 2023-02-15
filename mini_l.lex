@@ -1,82 +1,86 @@
 %{
-
+#include "y.tab.h"
+int lc=1;
+int pn=0;
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
+   printf("lc: %d, pn: %d\n", lc, pn);
    exit(1);
 }
-int lc=1;
-int pn=0;
+
+
+// change all the prints to return
+// STR_QUOTE "\""
+// STRING "[a-zA-Z_0-9]*"
+
 
 %}
-
-/* temp code
-^[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("IDENT ", yytext);
-^[0-9][0-9]*[a - z A - Z _][a - z A - Z 0 - 9 _]* printf("INVALID IDENT ", yytext);
-{STRING} {printf("STRING: %s\n", yytext);}
-
-*/
 
 /* Rules */
 NUM [0-9]+
 COMMENT "#".*"\n"
-STRING "[a-zA-Z_0-9]*"
 IDENT [a-zA-Z_][a-zA-Z0-9_]*
 INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
-
-STR_QUOTE "\""
 
 %%
 " " {pn += yyleng;}
 "\n" { pn=0; lc++;}
-";" {printf("STATE_END\n"); pn += yyleng;}
-"+" {printf("PLUS\n"); pn += yyleng;}
-"-" {printf("MINUS\n"); pn += yyleng;}
-"*" {printf("MULT\n"); pn += yyleng;}
-"/" {printf("DIV\n"); pn += yyleng;}
-"[" {printf("L_ARRAY\n"); pn += yyleng;}
-"]" {printf("R_ARRAY\n"); pn += yyleng;}
-"(" {printf("L_PAREN\n"); pn += yyleng;}
-")" {printf("R_PAREN\n"); pn += yyleng;}
-"{" {printf("L_BRACE\n"); pn += yyleng;}
-"}" {printf("R_BRACE\n"); pn += yyleng;}
-"==" {printf("EQUAL\n"); pn += yyleng;}
-">" {printf("GREATER\n"); pn += yyleng;}
-"<" {printf("LESSER\n"); pn += yyleng;}
-"<=" {printf("LEQ\n"); pn += yyleng;}
-">=" {printf("GEQ\n"); pn += yyleng;}
-"!=" {printf("NEQ\n"); pn += yyleng;}
-"=" {printf("ASSIGN\n"); pn += yyleng;}
-"&&" {printf("AND\n"); pn += yyleng;}
-"||" {printf("OR\n"); pn += yyleng;}
+";" { pn += yyleng; return STATE_END; }
+"+" { pn += yyleng; return PLUS; }
+"-" { pn += yyleng; return MINUS; }
+"*" { pn += yyleng; return MULT; }
+"/" { pn += yyleng; return DIV; }
+"[" { pn += yyleng; return L_ARRAY; }
+"]" { pn += yyleng; return R_ARRAY; }
+"(" { pn += yyleng; return L_PAREN; }
+")" { pn += yyleng; return R_PAREN; }
+"{" { pn += yyleng; return L_BRACE; }
+"}" { pn += yyleng; return R_BRACE; }
+"==" { pn += yyleng; return EQUAL; }
+">" { pn += yyleng; return GREATER; }
+"<" { pn += yyleng; return LESSER; }
+"<=" { pn += yyleng; return LEQ; }
+">=" { pn += yyleng; return GEQ; }
+"!=" { pn += yyleng; return NEQ; }
+"=" { pn += yyleng; return ASSIGN; }
+"&&" { pn += yyleng; return AND; }
+"||" { pn += yyleng; return OR; }
 
-"," {printf("COMMA\n"); pn += yyleng;}
-"int" {printf("INT\n"); pn += yyleng;}
-"if" {printf("IF\n"); pn += yyleng;}
-"elif" {printf("ELSE IF\n"); pn += yyleng;}
-"else" {printf("ELSE\n"); pn += yyleng;}
-"while" {printf("WHILE\n"); pn += yyleng;}
-"for" {printf("FOR\n"); pn += yyleng;}
-"do" {printf("DO\n"); pn += yyleng;}
-"read" {printf("READ\n"); pn += yyleng;}
-"write" {printf("WRITE\n"); pn += yyleng;}
-"function" {printf("FUNC\n"); pn += yyleng;}
-"return" {printf("RETURN\n"); pn += yyleng;}
+"," { pn += yyleng; return COMMA;}
+"int" { pn += yyleng; return INT;}
+"if" { pn += yyleng; return IF;}
+"elif" { pn += yyleng; return ELIF;}
+"else" { pn += yyleng; return ELSE;}
+"while" { pn += yyleng; return WHILE;}
+"for" { pn += yyleng; return FOR;}
+"do" { pn += yyleng; return DO;}
+"read" { pn += yyleng; return READ;}
+"write" { pn += yyleng; return WRITE;}
+"function" { pn += yyleng; return FUNC;}
+"return" { pn += yyleng; return RETURN;}
+"void" { pn += yyleng; return VOID;}
+"true" { pn += yyleng; return TRUE;}
+"false" { pn += yyleng; return FALSE;}
 
-{COMMENT} {printf("COMMENT: %s\n", yytext); lc++; pn=0;}
-{IDENT} {printf("IDENT: %s\n", yytext); pn += yyleng;}
-{INVIDENT} {printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext); yyerror(""); pn += yyleng;}
-{NUM} {printf("NUMBER: %s\n", yytext); pn += yyleng;}
+{COMMENT} { lc++; pn=0; return COMMENT;}
+{NUM} { pn += yyleng; return NUM;}
+{IDENT} { printf("identifier -> IDENT: %s\n", yytext); pn += yyleng; return IDENT;}
 
+{INVIDENT} {
+   printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
+   yyerror("");
+   pn += yyleng;
+}
 . {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%
 
 yywrap() {}
 
-int main() {
-     //printf("Enter string: ");
-     yylex();
-     printf("Number of lines: %d\n", lc);
-     return 0;
+// int main() {
+//      //printf("Enter string: ");
+//      yylex();
+//      printf("Number of lines: %d\n", lc);
+//      return 0;
 
-}
+// }

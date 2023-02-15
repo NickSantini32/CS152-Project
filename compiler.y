@@ -42,7 +42,7 @@ if_else_exp : /* epsilon */ {printf("if_else_exp -> epsilon\n");}
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp {printf("if_else_exp -> ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp\n");}
         | ELSE L_BRACE if_loop_body R_BRACE {printf("if_else_exp -> ELSE L_BRACE if_loop_body R_BRACE\n");}
 
-loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE{printf("loop -> WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body\n");}
+loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE {printf("loop -> WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body\n");}
     | DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN {printf("loop -> DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN\n");}
     | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE {printf("loop -> FOR L_PAREN int_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE\n");}
 

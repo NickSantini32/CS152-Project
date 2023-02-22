@@ -1,0 +1,20 @@
+function int add(int a, int b) {
+   return (a + b);
+}
+
+function int mult(int a, int b) {
+   return (a * b);
+}
+
+function void main() {
+   int a;
+   int b;
+   int c;
+   int d;
+   a = 100;
+   b = 50;
+   c = add(a, b);
+   write c;
+   d = mult(c, a + b);
+   write d;
+}

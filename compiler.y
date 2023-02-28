@@ -186,11 +186,11 @@ int main(int argc, char **argv)
    return 0;
 }
 
-void yyerror(const char *msg)
+/* void yyerror(const char *msg)
 {
    printf("** Line %d: %s\n", currLine, msg);
    exit(1);
-}
+} */
 
 /* void main(int argc, char** argv){
 void main(int argc, char** argv){

@@ -81,13 +81,14 @@ void print_symbol_table(void) {
 }
 %token <op_val> NUM
 %token <op_val> IDENT
+%type <op_val> identifier
 
 
 %%
 prog_start: function 
 
 function: FUNC return_type identifier L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
-{ printf("%s \n", $3); }
+
 
 
 func_call: identifier L_PAREN literal_args R_PAREN 
@@ -176,7 +177,11 @@ literal_args: num_exp
 argument: /*epsilon*/ 
           | INT identifier
 
-identifier: IDENT
+identifier: IDENT 
+{ 
+  printf("symbol -> IDENT %s\n", $1); 
+  $$ = $1; 
+}
 
 %%
 

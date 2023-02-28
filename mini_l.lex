@@ -1,6 +1,6 @@
 %option noyywrap
 %{
-#define YYSTYPE char*
+#define YYSTYPE char *
 #include "y.tab.h"
 
 int lc=1;

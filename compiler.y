@@ -1,6 +1,6 @@
 %{
 #include<stdio.h>
-#include<vector>
+#include<vector.h>
 #include<string.h>
 #include "y.tab.h"
 extern FILE* yyin;

@@ -86,11 +86,8 @@ void print_symbol_table(void) {
 %%
 prog_start: function 
 
-function: FUNC return_type 
-{ printf("func "); }
-        identifier 
+function: FUNC return_type identifier L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 { printf("%s \n", $3); }
-        L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 
 
 func_call: identifier L_PAREN literal_args R_PAREN 

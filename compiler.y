@@ -87,7 +87,7 @@ prog_start: function
 function: FUNC return_type 
 { printf("func "); }
         identifier 
-{ printf("\n"); }
+{ printf("%s \n", $3); }
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 
 

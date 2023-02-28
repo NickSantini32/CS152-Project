@@ -1,7 +1,10 @@
 %{
 #include "y.tab.h"
+#include "bison.tab.h"
 int lc=1;
 int pn=0;
+extern char *identToken;
+extern int numberToken;
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
@@ -66,8 +69,8 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 {COMMENT} { lc++; pn=0; return COMMENT;}
 {NUM} { pn += yyleng; return NUM;}
 {IDENT} {  
+   // printf("%s", yytext); 
 
-   printf("%s", yytext); 
    pn += yyleng; 
    char * token = new char[yyleng];
    strcpy(token, yytext);

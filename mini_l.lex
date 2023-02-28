@@ -1,6 +1,8 @@
 %option noyywrap
 %{
-#include "y.tab.h"
+// #include "y.tab.h"
+#include "bison.tab.h"
+
 int lc=1;
 int pn=0;
 extern char *identToken;
@@ -70,12 +72,10 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 {NUM} { pn += yyleng; return NUM;}
 {IDENT} {  
    // printf("%s", yytext); 
-
    pn += yyleng; 
    char * token = new char[yyleng];
    strcpy(token, yytext);
-   // yylval.op_val = token;
-   yylval.op_val = yytext;
+   yylval.op_val = token;
    identToken = yytext;
    return IDENT;
 }

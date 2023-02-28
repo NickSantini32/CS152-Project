@@ -1,3 +1,4 @@
+%option noyywrap
 %{
 #include "y.tab.h"
 int lc=1;
@@ -73,7 +74,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
    pn += yyleng; 
    char * token = new char[yyleng];
    strcpy(token, yytext);
-   yylval.op_val = token;
+   yylval->op_val = token;
    identToken = yytext;
    return IDENT;
 }

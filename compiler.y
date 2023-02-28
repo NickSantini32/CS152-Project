@@ -1,6 +1,6 @@
 %{
 #include<stdio.h>
-#include<vector.h>
+#include<vector>
 #include<string.h>
 #include "y.tab.h"
 extern FILE* yyin;
@@ -9,7 +9,7 @@ extern FILE* yyin;
 extern int yylex(void);
 void yyerror(const char *msg);
 extern int currLine;
-
+        
 char *identToken;
 int numberToken;
 int  count_names = 0;

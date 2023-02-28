@@ -87,7 +87,11 @@ void print_symbol_table(void) {
 %%
 prog_start: function 
 
-function: FUNC return_type identifier L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
+function: FUNC return_type
+{printf("func ");} 
+        identifier 
+{printf("\n");} 
+        L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 
 
 
@@ -179,7 +183,7 @@ argument: /*epsilon*/
 
 identifier: IDENT 
 { 
-  printf("symbol -> IDENT %s\n", $1); 
+  printf("%s", $1); 
   $$ = $1; 
 }
 

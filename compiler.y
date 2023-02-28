@@ -90,7 +90,7 @@ prog_start: function
 function: FUNC return_type identifier 
 {printf("func %s\n", $3);} 
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
-
+{printf("endfunc\n");} 
 
 
 func_call: identifier L_PAREN literal_args R_PAREN 
@@ -165,11 +165,11 @@ bool : TRUE
 logic_op : AND
         | OR
 
-IO : readWrite identifier STATE_END
+IO : readWrite identifier STATE_END {printf("%s\n", $2);}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 
-readWrite: READ
-        | WRITE
+readWrite: READ  {printf("< ");}
+        | WRITE {printf("> ");}
 
 return_type : INT
         | VOID

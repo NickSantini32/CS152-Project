@@ -1,6 +1,6 @@
 %option noyywrap
-%define api.value.type { char* }
 %{
+#define YYSTYPE char*
 #include "y.tab.h"
 
 int lc=1;

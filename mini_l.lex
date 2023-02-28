@@ -1,7 +1,8 @@
 %option noyywrap
 %{
-#define YYSTYPE char *
+// #define YYSTYPE char *
 #include "y.tab.h"
+extern YYSTYPE yylval;
 
 int lc=1;
 int pn=0;

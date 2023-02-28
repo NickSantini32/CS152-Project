@@ -80,16 +80,8 @@ void print_symbol_table(void) {
 %%
 prog_start: function 
 
-function: FUNC return_type IDENT 
-{
-  // midrule:
-  // add the function to the symbol table.
-//   std::string func_name = $3;
-//   add_function_to_symbol_table(func_name);
-}
-        L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
-
-{ printf("func %s\n", $3); }
+function: FUNC return_type IDENT L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
+{ printf("func %s %s %s\n", $1, $2, $3); }
 
 func_call: IDENT L_PAREN literal_args R_PAREN 
 
@@ -185,6 +177,7 @@ int main(int argc, char **argv)
    print_symbol_table();
    return 0;
 }
+
 
 /* void yyerror(const char *msg)
 {

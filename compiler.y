@@ -110,7 +110,7 @@ statement: int_declaration
         | return_statement
         | IO
 
-int_declaration: INT {printf(". ");} identifier {println();} STATE_END
+int_declaration: INT {printf(". ");} identifier {printf("\n");} STATE_END
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 int_arr_access: identifier L_ARRAY NUM R_ARRAY

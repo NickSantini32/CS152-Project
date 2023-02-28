@@ -84,8 +84,8 @@ function: FUNC return_type IDENT
 {
   // midrule:
   // add the function to the symbol table.
-  std::string func_name = $3;
-  add_function_to_symbol_table(func_name);
+//   std::string func_name = $3;
+//   add_function_to_symbol_table(func_name);
 }
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 

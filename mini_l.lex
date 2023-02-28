@@ -1,8 +1,14 @@
 %option noyywrap
+
+%union 
+{
+        int number;
+        char *string;
+}
+
 %{
 // #define YYSTYPE char *
 #include "y.tab.h"
-extern YYSTYPE yylval;
 
 int lc=1;
 int pn=0;

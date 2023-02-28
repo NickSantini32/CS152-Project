@@ -1,6 +1,5 @@
 %{
 #include "y.tab.h"
-#include "bison.tab.h"
 int lc=1;
 int pn=0;
 extern char *identToken;

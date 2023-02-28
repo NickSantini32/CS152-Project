@@ -88,7 +88,11 @@ void print_symbol_table(void) {
 prog_start: function 
 
 function: FUNC return_type identifier 
-{printf("func %s\n", $3);} 
+{
+        std::string func_name = $3;
+        add_function_to_symbol_table(func_name);
+        printf("func %s\n", $3);
+} 
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 {printf("endfunc\n");} 
 
@@ -109,7 +113,13 @@ statement: int_declaration
         | IO
 
 int_declaration: INT identifier STATE_END 
-{ printf(". %s\n", $2); } 
+{ 
+        // add the variable to the symbol table.
+        std::string value = $2;
+        Type t = Integer;
+        add_variable_to_symbol_table(value, t);
+        printf(". %s\n", $2); 
+} 
         
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
@@ -168,8 +178,8 @@ logic_op : AND
 IO : readWrite identifier STATE_END {printf("%s\n", $2);}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 
-readWrite: READ  {printf("< ");}
-        | WRITE {printf("> ");}
+readWrite: READ  {printf(".< ");}
+        | WRITE {printf(".> ");}
 
 return_type : INT
         | VOID

@@ -189,6 +189,7 @@ void yyerror(const char *msg)
 }
 
 /* void main(int argc, char** argv){
+void main(int argc, char** argv){
   if(argc >=2){
     yyin = fopen(argv[1], "r");
     if (yyin == NULL){
@@ -199,3 +200,4 @@ void yyerror(const char *msg)
   }
   yyparse();
 } */
+

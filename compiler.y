@@ -81,13 +81,13 @@ void print_symbol_table(void) {
 prog_start: function 
 
 function: FUNC return_type 
-{ printf("func"); }
-        IDENT 
+{ printf("func "); }
+        identifier 
 { printf("\n"); }
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 
 
-func_call: IDENT L_PAREN literal_args R_PAREN 
+func_call: identifier L_PAREN literal_args R_PAREN 
 
 components: /* epsilon */
         | loop components
@@ -102,12 +102,12 @@ statement: int_declaration
         | return_statement
         | IO
 
-int_declaration: INT IDENT STATE_END
-int_dec_assignment: INT IDENT ASSIGN num_exp STATE_END
-int_arr_declaration: INT IDENT L_ARRAY num_exp R_ARRAY STATE_END
-int_arr_access: IDENT L_ARRAY NUM R_ARRAY
+int_declaration: INT identifier STATE_END
+int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
+int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
+int_arr_access: identifier L_ARRAY NUM R_ARRAY
 
-assignment: IDENT ASSIGN num_exp STATE_END
+assignment: identifier ASSIGN num_exp STATE_END
 
 return_statement: RETURN num_exp STATE_END
         | RETURN STATE_END
@@ -127,7 +127,7 @@ if_loop_body: /* epsilon */
 
 num_exp : num_exp num_op num_exp
         | NUM
-        | IDENT
+        | identifier
         | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN
@@ -155,8 +155,8 @@ bool : TRUE
 logic_op : AND
         | OR
 
-IO : readWrite IDENT STATE_END
-        | readWrite IDENT L_ARRAY num_exp R_ARRAY STATE_END
+IO : readWrite identifier STATE_END
+        | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 
 readWrite: READ
         | WRITE
@@ -171,7 +171,9 @@ literal_args: num_exp
             | num_exp COMMA literal_args 
 
 argument: /*epsilon*/ 
-          | INT IDENT
+          | INT identifier
+
+identifier: IDENT
 
 %%
 

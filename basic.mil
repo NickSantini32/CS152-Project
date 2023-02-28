@@ -1,6 +1,6 @@
 func main
-. n
-= n, 150
-.> n
+. a
+= a, 150
+.> a
 endfunc
 

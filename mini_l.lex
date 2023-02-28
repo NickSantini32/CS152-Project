@@ -70,7 +70,14 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "false" { pn += yyleng; return FALSE;}
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
-{NUM} { pn += yyleng; return NUM;}
+{NUM} { 
+   pn += yyleng; 
+   char * token = new char[yyleng];
+   strcpy(token, yytext);
+   yylval.op_val = token;
+   numberToken = atoi(yytext); 
+   return NUM;
+}
 {IDENT} {  
    // printf("%s", yytext); 
    pn += yyleng; 

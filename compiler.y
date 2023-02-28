@@ -108,13 +108,15 @@ statement: int_declaration
         | return_statement
         | IO
 
-int_declaration: INT identifier STATE_END { printf(". %s\n", $2); } 
+int_declaration: INT identifier STATE_END 
+{ printf(". %s\n", $2); } 
         
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 int_arr_access: identifier L_ARRAY NUM R_ARRAY
 
-assignment: identifier ASSIGN num_exp STATE_END
+assignment: identifier ASSIGN num_exp STATE_END 
+{ printf("= %s, %s\n", $2, $3); } 
 
 return_statement: RETURN num_exp STATE_END
         | RETURN STATE_END

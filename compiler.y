@@ -81,7 +81,7 @@ void print_symbol_table(void) {
 prog_start: function 
 
 function: FUNC return_type IDENT L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
-{ printf("func %c %c %c %c %c\n", $1, $2, $3, $4, $5); }
+{ printf("func %i %i %i %i %i\n", $1, $2, $3, $4, $5); }
 
 func_call: IDENT L_PAREN literal_args R_PAREN 
 

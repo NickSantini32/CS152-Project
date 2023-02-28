@@ -182,7 +182,7 @@ argument: /*epsilon*/
 
 identifier: IDENT 
 { 
-  printf("%s", $1); 
+  //printf("%s", $1); 
   $$ = $1; 
 }
 

@@ -1,7 +1,7 @@
 %option noyywrap
+%define api.value.type { char* }
 %{
-// #include "y.tab.h"
-#include "bison.tab.h"
+#include "y.tab.h"
 
 int lc=1;
 int pn=0;

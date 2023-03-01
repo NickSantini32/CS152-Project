@@ -105,7 +105,9 @@ std::string createTempVar(){
 
 %union {
   const char *op_val;
-  struct Terminal Terminal;
+     struct {
+      std::string ret;
+   } Terminal;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite

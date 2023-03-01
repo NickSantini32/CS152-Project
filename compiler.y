@@ -107,7 +107,7 @@ std::string createTempVar(){
 %type <op_val> num_op
 %type <op_val> num_or_ident
 %type <op_val> num_exp
-%type <op_val< int_arr_access
+%type <op_val> int_arr_access
 
 
 %%

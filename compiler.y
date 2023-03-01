@@ -165,8 +165,9 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 { 
-  std::string tempName = const_cast<char*>(createTempVar().c_str())
-  char *e = "=[] " + tempName + ", " + $1 + ", " + $3;
+  std::string tempName = createTempVar();
+  std::string e1 = "[]= " + tempName + ", " + $1 + ", " + $3;
+  char *e = const_cast<char*>(e1.c_str());
   $$ = e;
 }
 

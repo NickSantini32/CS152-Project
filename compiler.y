@@ -173,7 +173,7 @@ num_exp : num_exp num_op num_exp
         | num_or_ident num_op num_or_ident
 {
   std::string t = createTempVar();
-  printf("%s, %s %s %s\n", $2, t.c_str(), $1, $3);
+  printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
 }
         /* | NUM {printf($1);}
         | identifier {printf($1);} */
@@ -189,11 +189,11 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS 
-        | MINUS 
-        | MULT 
-        | DIV 
-        | MOD 
+num_op : PLUS { $$ = "+";}
+        | MINUS { $$ = "-";}
+        | MULT { $$ = "*";}
+        | DIV { $$ = "/";}
+        | MOD { $$ = "%";}
 
 comparator : GREATER
         | LESSER

@@ -26,6 +26,9 @@ struct Function {
   std::string name;
   std::vector<Symbol> declarations;
 };
+struct Terminal{
+  std::string name;
+};
 
 std::vector <Function> symbol_table;
 
@@ -105,9 +108,7 @@ std::string createTempVar(){
 
 %union {
   const char *op_val;
-     struct {
-      std::string ret;
-   } Terminal;
+  struct Terminal Terminal;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite

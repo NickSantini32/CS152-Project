@@ -101,13 +101,14 @@ std::string createTempVar(){
 %token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
 %union {
   char *op_val;
+  std::string *str_val;
 }
 %token <op_val> NUM
 %token <op_val> IDENT
 %type <op_val> identifier
 %type <op_val> num_op
 %type <op_val> num_or_ident
-%type <op_val> num_exp
+%type <str_val> num_exp
 
 
 %%

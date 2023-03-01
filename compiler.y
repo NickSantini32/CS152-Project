@@ -101,7 +101,7 @@ std::string createTempVar(){
 %token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
 %union {
   char *op_val;
-  std::string str_val;
+  std::string *str_val;
 }
 %token <op_val> NUM
 %token <op_val> IDENT
@@ -155,7 +155,7 @@ int_arr_access: identifier L_ARRAY NUM R_ARRAY
 assignment: identifier ASSIGN NUM STATE_END 
 { printf("= %s, %s\n", $1, $3); } 
         | identifier ASSIGN num_exp STATE_END 
-{ printf("= %s, %s", $1, $3); }
+{ printf("= %s, %s\n", $1, $3); }
 
 return_statement: RETURN num_exp STATE_END
         | RETURN STATE_END

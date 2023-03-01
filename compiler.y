@@ -190,10 +190,10 @@ bool_exp : num_exp comparator num_exp
         | num_exp
 
 num_op : PLUS { char e[] = "+"; $$ = e;}
-        | MINUS
-        | MULT 
-        | DIV 
-        | MOD 
+        | MINUS { char e[] = "-"; $$ = e;}
+        | MULT { char e[] = "*"; $$ = e;}
+        | DIV { char e[] = "/"; $$ = e;}
+        | MOD { char e[] = "%"; $$ = e;}
 
 comparator : GREATER
         | LESSER

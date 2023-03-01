@@ -173,6 +173,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 { 
   std::string tempName = createTempVar();
   printf("=[] %s, %s, %s\n", tempName.c_str(), $1, $3);
+  printf((char*)(tempName.c_str()));
   $$ = (char*)(tempName.c_str());
 }
 

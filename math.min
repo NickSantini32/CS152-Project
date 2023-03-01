@@ -10,7 +10,8 @@ function void main() {
    write c;
    c = a * b;
    write c;
-   a = a / b ;
+   c = a / b;
+   write c;
    c = a % b;
    write c;
 }

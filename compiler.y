@@ -1,4 +1,5 @@
 %{
+#include "defs.h"
 #include<stdio.h>
 #include<sstream>
 #include<vector>
@@ -102,9 +103,6 @@ std::string createTempVar(){
 %left MULT DIV MOD
 %left R_PAREN L_PAREN
 
-%code requires {
-    std::string;
-}
 %union {
   const char *op_val;
   std::string s;

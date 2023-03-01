@@ -170,7 +170,7 @@ num_exp : num_exp num_op num_exp
         | NUM num_op NUM
 {
   std::string t = createTempVar();
-  printf("%s, %s %s %s", $2, t, $1, $3);
+  printf("%s, %s %s %s", $2, t.c_str(), $1, $3);
 }
         | NUM {printf($1);}
         | identifier {printf($1);}

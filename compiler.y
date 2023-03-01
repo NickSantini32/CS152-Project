@@ -102,9 +102,12 @@ std::string createTempVar(){
 %left MULT DIV MOD
 %left R_PAREN L_PAREN
 
+%code requires {
+    std::string;
+}
 %union {
   const char *op_val;
-  Symbol symbol;
+  std::string s;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite

@@ -105,10 +105,10 @@ std::string createTempVar(){
 
 %union {
   const char *op_val;
-  std::string s;
 }
 %token <op_val> NUM IDENT
-%type <op_val> identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite
+%type <op_val> identifier num_op num_or_ident num_exp num_exp_2 readWrite
+%type <s> int_arr_access
 
 
 %%

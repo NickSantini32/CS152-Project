@@ -28,9 +28,6 @@ struct Function {
 
 std::vector <Function> symbol_table;
 
-void add_function_to_symbol_table(std::string &value);
-void add_variable_to_symbol_table(std::string &value, Type t);
-
 bool existsInVec(std::vector<Symbol> v, std::string& val){
   for (int i = 0; i < v.size(); i++){
     if (v.at(i).name == val){
@@ -39,16 +36,6 @@ bool existsInVec(std::vector<Symbol> v, std::string& val){
   }
   return false;
 }
-
-std::string createTempVar(){ 
-  std::stringstream ss;
-  ss << "temp" << tempCount;  
-  printf(". %s\n", ss.str().c_str());
-  Type t = Integer;
-  add_variable_to_symbol_table(ss.str(), t);
-  tempCount++;
-  return ss.str(); 
- }
 
 Function *get_function() {
   int last = symbol_table.size()-1;
@@ -96,6 +83,16 @@ void print_symbol_table(void) {
   }
   printf("--------------------\n");
 }
+
+std::string createTempVar(){ 
+  std::stringstream ss;
+  ss << "temp" << tempCount;  
+  printf(". %s\n", ss.str().c_str());
+  Type t = Integer;
+  add_variable_to_symbol_table(ss.str(), t);
+  tempCount++;
+  return ss.str(); 
+ }
 
 %}
 

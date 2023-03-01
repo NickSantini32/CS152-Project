@@ -189,7 +189,7 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS { $$ = ['+'];}
+num_op : PLUS { char[] e= "+"; $$ = e;}
         | MINUS
         | MULT 
         | DIV 

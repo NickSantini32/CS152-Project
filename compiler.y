@@ -112,7 +112,10 @@ std::string createTempVar(){
 
 
 %%
-prog_start: function 
+prog_start: functions
+
+functions: /* epsilon */
+        | function functions
 
 function: FUNC return_type identifier 
 {
@@ -170,26 +173,25 @@ int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
   printf("[]= %s, %s, %s\n", $1, $3, $6);
 }
 
-assignment: identifier ASSIGN NUM STATE_END 
-{ printf("= %s, %s\n", $1, $3); } 
-        | identifier ASSIGN num_exp STATE_END 
+assignment: identifier ASSIGN num_exp STATE_END 
 { printf("= %s, %s\n", $1, $3); }
+
+/* identifier ASSIGN NUM STATE_END 
+{ printf("= %s, %s\n", $1, $3); } 
+        |  */
 
 return_statement: RETURN num_exp STATE_END
         | RETURN STATE_END
 
-if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp
+if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
 if_else_exp : /* epsilon */
-        | ELIF L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE if_else_exp
-        | ELSE L_BRACE if_loop_body R_BRACE
+        | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+        | ELSE L_BRACE components R_BRACE
 
-loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE if_loop_body R_BRACE
-        | DO L_BRACE if_loop_body R_BRACE WHILE L_PAREN bool_exp R_PAREN
-        | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE if_loop_body R_BRACE
+loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
+        | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN
+        | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
-if_loop_body: /* epsilon */
-        | loop if_loop_body
-        | statement if_loop_body
 
 num_exp : num_exp num_op num_exp
 {
@@ -201,6 +203,7 @@ num_exp : num_exp num_op num_exp
         | int_arr_access { $$ = $1; }
         /* | func_call */
         | L_PAREN num_exp R_PAREN { $$ = $2; }
+        | NUM { $$ = $1; }
 
 num_or_ident : NUM 
         | identifier
@@ -229,7 +232,7 @@ bool : TRUE
 logic_op : AND
         | OR
 
-IO : readWrite identifier STATE_END {printf("%s\n", $2);}
+IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2);}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 {
   std::string t = createTempVar();
@@ -237,8 +240,8 @@ IO : readWrite identifier STATE_END {printf("%s\n", $2);}
   printf("%s %s\n", $1, t.c_str());
 }
 
-readWrite: READ  { $$ =  ".< ";}
-        | WRITE { $$ = ".> ";}
+readWrite: READ  { char e[] = ".<"; $$ = e;}
+        | WRITE { char e[] = ".>"; $$ = e;}
 
 return_type : INT
         | VOID

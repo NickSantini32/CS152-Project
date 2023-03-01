@@ -1,5 +1,6 @@
 %{
 #include<stdio.h>
+#include<stringstream>
 #include<vector>
 #include<string>
 #include "y.tab.h"
@@ -38,8 +39,9 @@ bool existsInVec(std::vector<Symbol> v, std::string& val){
 }
 
 std::string createTempVar(){ 
-  std::string name = "_temp" + std::to_string(tempCount);
-  printf(". %s\n", name.c_str());
+  std::stringstream ss;
+  ss << name << tempCount;  
+  printf(". %s\n", ss.str());
   tempCount++;
   return name; 
  }

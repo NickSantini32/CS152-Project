@@ -28,6 +28,21 @@ struct Function {
 
 std::vector <Function> symbol_table;
 
+bool existsInVec(std::vector<Symbol> v, string& val){
+  for (int i = 0; i < v.size(); i++){
+    if (v.at(i).name == val){
+      return true;
+    }
+  }
+  return false;
+}
+
+std::string createTempVar(){ 
+  std::string name = "_temp" + tempCount;
+  printf(". " + name + "\n");
+  tempCount++;
+  return name; 
+ }
 
 Function *get_function() {
   int last = symbol_table.size()-1;
@@ -63,22 +78,6 @@ void add_variable_to_symbol_table(std::string &value, Type t) {
 
   f->declarations.push_back(s);
 }
-
-bool existsInVec(std::vector<Symbol> v, string& val){
-  for (int i = 0; i < v.size(); i++){
-    if (v.at(i).name == val){
-      return true;
-    }
-  }
-  return false;
-}
-
-std::string createTempVar(){ 
-  std::string name = "_temp" + tempCount;
-  printf(". " + name + "\n");
-  tempCount++;
-  return name; 
- }
 
 void print_symbol_table(void) {
   printf("symbol table:\n");

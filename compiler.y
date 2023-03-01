@@ -6,6 +6,7 @@
 #include "y.tab.h"
 extern FILE* yyin;
 
+//cat math.min | compiler > fdsf.mil
 
 extern int yylex(void);
 void yyerror(const char *msg);
@@ -88,8 +89,6 @@ std::string createTempVar(){
   std::stringstream ss;
   ss << "_temp" << tempCount;  
   printf(". %s\n", ss.str().c_str());
-  // Type t = Integer;
-  // add_variable_to_symbol_table(ss.str(), t);
   tempCount++;
   return ss.str(); 
  }

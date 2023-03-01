@@ -187,11 +187,11 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS //{printf(" + ");}
-        | MINUS //{printf(" - ");}
-        | MULT //{printf(" * ");} 
-        | DIV //{printf(" / ");}
-        | MOD //{printf(" % ");}
+num_op : PLUS 
+        | MINUS 
+        | MULT 
+        | DIV 
+        | MOD 
 
 comparator : GREATER
         | LESSER

@@ -172,8 +172,8 @@ num_exp : num_exp num_op num_exp
   std::string t = createTempVar();
   printf("%s, %s %s %s\n", $2, t.c_str(), $1, $3);
 }
-        | NUM {printf($1);}
-        | identifier {printf($1);}
+        | NUM {printf("%s\n", $1);}
+        | identifier {printf("%s\n", $1);}
         | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN

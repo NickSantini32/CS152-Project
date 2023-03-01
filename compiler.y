@@ -192,13 +192,15 @@ num_exp : num_exp num_op num_or_ident
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }
-        | NUM { $$ = $1; }
-        | identifier { $$ = $1; }
+        | num_or_ident { $$ = $1; }
         /* | NUM {printf($1);}
         | identifier {printf($1);} */
         /* | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN */
+
+num_or_ident : NUM 
+        | identifier
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

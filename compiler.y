@@ -130,6 +130,7 @@ components: /* epsilon */
 
 statement: int_declaration
         | assignment
+        | int_arr_assignment
         | int_dec_assignment
         | int_arr_declaration
         | if_exp
@@ -147,8 +148,22 @@ int_declaration: INT identifier STATE_END
 } 
         
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
+
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
-int_arr_access: identifier L_ARRAY NUM R_ARRAY
+{ 
+        // add the variable to the symbol table.
+        std::string value = $2;
+        Type t = Integer;
+        add_variable_to_symbol_table(value, t);
+        printf(".[] %s, %s\n", $2, $4); 
+} 
+
+int_arr_access: identifier L_ARRAY num_exp R_ARRAY
+
+int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END;
+{
+  printf("[]= %s, %s\n", $1, $3, $5);
+}
 
 assignment: identifier ASSIGN NUM STATE_END 
 { printf("= %s, %s\n", $1, $3); } 
@@ -177,18 +192,13 @@ num_exp : num_exp num_op num_or_ident
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }
-        | num_or_ident
-{
-  $$ = $1;
-}
+        | NUM { $$ = $1; }
+        | identifier { $$ = $1; }
         /* | NUM {printf($1);}
         | identifier {printf($1);} */
         /* | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN */
-
-num_or_ident : NUM 
-        | identifier
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

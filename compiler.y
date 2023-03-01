@@ -205,7 +205,7 @@ num_exp : num_exp_2 num_op num_exp
 {
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
-  $$ = const_cast<char*>(t.c_str());
+  $$ = (char*)(t.c_str());
 }
         | num_exp_2 { $$ = $1; }
 

@@ -212,7 +212,7 @@ num_exp : num_exp_2 num_op num_exp
 num_exp_2 : num_or_ident { $$ = $1; }
         | int_arr_access { $$ = $1; }
         /* | func_call */
-        | %prec L_PAREN num_exp R_PAREN { $$ = $2; }
+        | L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM 
         | identifier        

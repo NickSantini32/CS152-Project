@@ -28,7 +28,7 @@ struct Function {
 
 std::vector <Function> symbol_table;
 
-bool existsInVec(std::vector<Symbol> v, string& val){
+bool existsInVec(std::vector<Symbol> v, std::string& val){
   for (int i = 0; i < v.size(); i++){
     if (v.at(i).name == val){
       return true;

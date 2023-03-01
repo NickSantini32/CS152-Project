@@ -166,9 +166,8 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 { 
   std::string tempName = createTempVar();
-  std::string e1 = "[]= " + tempName + ", " + $1 + ", " + $3;
-  char *e = const_cast<char*>(e1.c_str());
-  $$ = e;
+  printf("[]= %s, %s, %s\n", tempName, $1, $3);
+  $$ = const_cast<char*>(tempName.c_str());
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
@@ -206,7 +205,6 @@ num_exp : num_exp num_op num_exp
         | int_arr_access { $$ = $1; }
         /* | func_call */
         | L_PAREN num_exp R_PAREN { $$ = $2; }
-        | NUM { $$ = $1; }
 
 num_or_ident : NUM 
         | identifier

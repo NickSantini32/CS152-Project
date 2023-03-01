@@ -108,6 +108,7 @@ std::string createTempVar(){
 %type <op_val> num_or_ident
 %type <op_val> num_exp
 %type <op_val> int_arr_access
+%type <op_val> readWrite
 
 
 %%
@@ -166,7 +167,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  printf("[]= %s, %s %s\n", $1, $3, $6);
+  printf("[]= %s, %s, %s\n", $1, $3, $6);
 }
 
 assignment: identifier ASSIGN NUM STATE_END 
@@ -230,9 +231,14 @@ logic_op : AND
 
 IO : readWrite identifier STATE_END {printf("%s\n", $2);}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
+{
+  std::string t = createTempVar();
+  printf("=[] %s, %s, %s\n", t.c_str(), $2, $4);
+  printf("%s %s\n", $1, t.c_str());
+}
 
-readWrite: READ  {printf(".< ");}
-        | WRITE {printf(".> ");}
+readWrite: READ  { $$ =  ".< ";}
+        | WRITE { $$ = ".> ";}
 
 return_type : INT
         | VOID

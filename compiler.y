@@ -43,7 +43,7 @@ std::string createTempVar(){
   ss << name << tempCount;  
   printf(". %s\n", ss.str().c_str());
   tempCount++;
-  return name; 
+  return ss.str(); 
  }
 
 Function *get_function() {

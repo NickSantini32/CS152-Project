@@ -210,8 +210,8 @@ num_exp : num_exp_2 num_op num_exp
 }
         | num_exp_2 { $$ = $1; }
 
-num_exp_2 : num_or_ident { $$ = $1; }
-        | int_arr_access { $$ = $1; }
+num_exp_2 : num_or_ident
+        | int_arr_access
         /* | func_call */
         | L_PAREN num_exp R_PAREN { $$ = $2; }
 

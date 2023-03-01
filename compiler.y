@@ -190,7 +190,7 @@ if_loop_body: /* epsilon */
         | loop if_loop_body
         | statement if_loop_body
 
-num_exp : num_exp num_op num_or_ident
+num_exp : num_exp num_op num_exp
 {
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);

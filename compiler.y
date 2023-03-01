@@ -98,6 +98,7 @@ std::string createTempVar(){
 %start prog_start
 //etc... LIST ALL TOKEN NAMES HERE (in print statements)
 %token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
+%right R_PAREN
 %union {
   char *op_val;
 }
@@ -198,7 +199,6 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 num_exp : num_exp num_op num_exp
 {
   std::string t = createTempVar();
-  printf("eeeee %s", $1);
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }

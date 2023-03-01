@@ -104,7 +104,7 @@ std::string createTempVar(){
 %left R_PAREN L_PAREN
 
 %union {
-  char *op_val;
+  const char *op_val;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite
@@ -205,7 +205,7 @@ num_exp : num_exp_2 num_op num_exp
         | num_exp_2 { $$ = $1; }
 
 num_exp_2 : num_or_ident
-        | int_arr_access { printf("arr access: %s\n", $1); $$ = $1;}
+        | int_arr_access 
         | L_PAREN num_exp R_PAREN { $$ = $2; }
         /* | func_call */
 

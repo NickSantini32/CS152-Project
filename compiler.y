@@ -195,10 +195,10 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
 
-num_exp : num_exp_2 num_op num_exp
+num_exp : num_exp num_op num_exp_2
 {
-  const std::string right = $3;
-  const std::string left = $1;
+  const std::string right = $1;
+  const std::string left = $3;
   printf("eeeeee %s, %s\n", right.c_str(), left.c_str());
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());

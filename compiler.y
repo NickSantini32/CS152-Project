@@ -176,7 +176,8 @@ num_exp : num_exp num_op num_or_ident
 {
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
-  $$ = t;
+  std::string s = t.c_str();
+  $$ = s;
 }
         | num_or_ident
 {

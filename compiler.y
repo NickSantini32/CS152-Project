@@ -174,19 +174,19 @@ if_loop_body: /* epsilon */
 
 num_exp : num_exp num_op num_or_ident
 {
-  $$ = "";
-}
-        | num_or_ident
-{
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = t.c_str();
 }
+        | num_or_ident
+{
+  $$ = $1;
+}
         /* | NUM {printf($1);}
         | identifier {printf($1);} */
-        | int_arr_access
+        /* | int_arr_access
         | func_call
-        | L_PAREN num_exp R_PAREN
+        | L_PAREN num_exp R_PAREN */
 
 num_or_ident : NUM 
         | identifier

@@ -1,6 +1,6 @@
 %{
 #include<stdio.h>
-#include<stringstream>
+#include<sstream>
 #include<vector>
 #include<string>
 #include "y.tab.h"

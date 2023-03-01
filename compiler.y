@@ -197,11 +197,11 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 
 num_exp : num_exp_2 num_op num_exp
 {
-  std::string right = $1;
-  std::string left = $3;
-  printf("eeeeee %s, %s\n", right.c_str(), left.c_str());
+  const char* right = $1;
+  const char* left = $3;
+  // printf("eeeeee %s, %s\n", right.c_str(), left.c_str());
   std::string t = createTempVar();
-  printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
+  printf("%s %s, %s, %s\n", $2, t.c_str(), right, left);
   $$ = (char*)(t.c_str());
 }
         | num_exp_2 { $$ = $1; }

@@ -12,7 +12,8 @@ extern int currLine;
 
 char *identToken;
 int numberToken;
-int  count_names = 0;
+int count_names = 0;
+int tempCount = 0;
 
 
 enum Type { Integer, Array };
@@ -55,8 +56,29 @@ void add_variable_to_symbol_table(std::string &value, Type t) {
   s.name = value;
   s.type = t;
   Function *f = get_function();
+
+  if (existsInVec(f->declarations, value)){
+    yyerror("ERROR: Duplicate variable declaration");
+  }
+
   f->declarations.push_back(s);
 }
+
+bool existsInVec(std::vector<Symbol> v, string& val){
+  for (int i = 0; i < v.size(); i++){
+    if (v.at(i).name == val){
+      return true;
+    }
+  }
+  return false;
+}
+
+std::string createTempVar(){ 
+  std::string name = "_temp" + tempCount;
+  printf(". " + name + "\n");
+  tempCount++;
+  return name; 
+ }
 
 void print_symbol_table(void) {
   printf("symbol table:\n");
@@ -74,7 +96,7 @@ void print_symbol_table(void) {
 
 %start prog_start
 //etc... LIST ALL TOKEN NAMES HERE (in print statements)
-%token STATE_END PLUS MINUS MULT DIV L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
+%token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
 //DONT FORGET TO ADD FUNCTION INSTEAD OF COMPONENT
 %union {
   char *op_val;
@@ -146,8 +168,13 @@ if_loop_body: /* epsilon */
         | statement if_loop_body
 
 num_exp : num_exp num_op num_exp
-        | NUM
-        | identifier
+        | NUM num_op NUM
+{
+  std::string t = createTempVar();
+  printf("%s, %s %s %s", $2, t, $1, $3);
+}
+        | NUM {printf($1);}
+        | identifier {printf($1);}
         | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN
@@ -157,10 +184,11 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS
-        | MINUS
-        | MULT
-        | DIV
+num_op : PLUS {printf(" + ");}
+        | MINUS {printf(" - ");}
+        | MULT {printf(" * ");} 
+        | DIV {printf(" / ");}
+        | MOD {printf(" % ");}
 
 comparator : GREATER
         | LESSER

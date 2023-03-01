@@ -87,7 +87,7 @@ void print_symbol_table(void) {
 
 std::string createTempVar(){ 
   std::stringstream ss;
-  ss << "t" << tempCount;  
+  ss << "_temp" << tempCount;  
   printf(". %s\n", ss.str().c_str());
   tempCount++;
   return ss.str(); 
@@ -106,15 +106,7 @@ std::string createTempVar(){
 %union {
   char *op_val;
 }
-%token <op_val> NUM
-%token <op_val> IDENT
-%type <op_val> identifier
-%type <op_val> num_op
-%type <op_val> num_or_ident
-%type <op_val> num_exp
-%type <op_val> num_exp_2
-%type <op_val> int_arr_access
-%type <op_val> readWrite
+%token <op_val> NUM IDENT identifier num_op num_or_ident num_exp num_exp_2 int_arr_access readWrite
 
 
 %%
@@ -175,7 +167,6 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
   $$ = (char*)temp.c_str();
-  // $$ = "eeeee";
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END

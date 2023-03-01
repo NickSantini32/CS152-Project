@@ -162,7 +162,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  printf("[]= %s, %s\n", $1, $3, $5);
+  printf("[]= %s, %s\n", $1, $3, $6);
 }
 
 assignment: identifier ASSIGN NUM STATE_END 

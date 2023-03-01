@@ -196,8 +196,8 @@ num_exp : num_exp num_op num_or_ident
         /* | NUM {printf($1);}
         | identifier {printf($1);} */
         /* | int_arr_access
-        | func_call
-        | L_PAREN num_exp R_PAREN */
+        | func_call */
+        | L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM 
         | identifier

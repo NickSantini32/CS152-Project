@@ -180,7 +180,7 @@ num_exp : num_exp num_op num_or_ident
 }
         | num_or_ident
 {
-  $$ = "";
+  $$ = $1;
 }
         /* | NUM {printf($1);}
         | identifier {printf($1);} */

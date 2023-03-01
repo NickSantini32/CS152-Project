@@ -103,6 +103,7 @@ void print_symbol_table(void) {
 %token <op_val> IDENT
 %type <op_val> identifier
 %type <op_val> num_op
+%type <op_val> num_or_ident
 
 
 %%

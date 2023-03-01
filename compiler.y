@@ -88,8 +88,8 @@ std::string createTempVar(){
   std::stringstream ss;
   ss << "temp" << tempCount;  
   printf(". %s\n", ss.str().c_str());
-  Type t = Integer;
-  add_variable_to_symbol_table(ss.str().c_str(), t);
+  // Type t = Integer;
+  // add_variable_to_symbol_table(ss.str(), t);
   tempCount++;
   return ss.str(); 
  }

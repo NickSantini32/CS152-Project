@@ -38,7 +38,7 @@ bool existsInVec(std::vector<Symbol> v, std::string& val){
 }
 
 std::string createTempVar(){ 
-  std::string name = "_temp" + tempCount;
+  char name[] = "_temp" + tempCount;
   printf(". %s\n", name);
   tempCount++;
   return name; 

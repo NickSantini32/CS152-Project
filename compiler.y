@@ -16,9 +16,6 @@ int numberToken;
 int count_names = 0;
 int tempCount = 0;
 
-void add_function_to_symbol_table(std::string &value);
-void add_variable_to_symbol_table(std::string &value, Type t);
-
 enum Type { Integer, Array };
 struct Symbol {
   std::string name;
@@ -30,6 +27,9 @@ struct Function {
 };
 
 std::vector <Function> symbol_table;
+
+void add_function_to_symbol_table(std::string &value);
+void add_variable_to_symbol_table(std::string &value, Type t);
 
 bool existsInVec(std::vector<Symbol> v, std::string& val){
   for (int i = 0; i < v.size(); i++){

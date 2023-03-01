@@ -16,6 +16,8 @@ int numberToken;
 int count_names = 0;
 int tempCount = 0;
 
+void add_function_to_symbol_table(std::string &value);
+void add_variable_to_symbol_table(std::string &value, Type t);
 
 enum Type { Integer, Array };
 struct Symbol {

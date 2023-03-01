@@ -198,7 +198,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 num_exp : num_exp num_op num_exp
 {
   std::string t = createTempVar();
-  printf("eeeee %s", $1)
+  printf("eeeee %s", $1);
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }

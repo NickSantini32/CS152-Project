@@ -107,6 +107,7 @@ std::string createTempVar(){
 %type <op_val> identifier
 %type <op_val> num_op
 %type <op_val> num_or_ident
+%type <op_val> num_exp
 
 
 %%
@@ -153,6 +154,7 @@ int_arr_access: identifier L_ARRAY NUM R_ARRAY
 assignment: identifier ASSIGN NUM STATE_END 
 { printf("= %s, %s\n", $1, $3); } 
         | identifier ASSIGN num_exp STATE_END 
+{ printf("= %s, %s", $1, $3); }
 
 return_statement: RETURN num_exp STATE_END
         | RETURN STATE_END
@@ -170,11 +172,15 @@ if_loop_body: /* epsilon */
         | loop if_loop_body
         | statement if_loop_body
 
-num_exp : num_exp num_op num_exp
-        | num_or_ident num_op num_or_ident
+num_exp : num_exp num_op num_or_ident
+{
+  $$ = "";
+}
+        | num_or_ident
 {
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
+  $$ = t.c_str();
 }
         /* | NUM {printf($1);}
         | identifier {printf($1);} */

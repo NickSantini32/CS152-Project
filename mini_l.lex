@@ -37,7 +37,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "-" { pn += yyleng; return MINUS; }
 "*" { pn += yyleng; return MULT; }
 "/" { pn += yyleng; return DIV; }
-"%" { pn += yyleng; return MO; }
+"%" { pn += yyleng; return DIV; }
 "[" { pn += yyleng; return L_ARRAY; }
 "]" { pn += yyleng; return R_ARRAY; }
 "(" { pn += yyleng; return L_PAREN; }

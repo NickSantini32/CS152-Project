@@ -207,7 +207,7 @@ num_exp : num_exp_2 num_op num_exp
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }
-        | num_exp_2
+        | num_exp_2 { $$ = $1; }
 
 num_exp_2 : num_or_ident { $$ = $1; }
         | int_arr_access { $$ = $1; }

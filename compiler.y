@@ -108,6 +108,7 @@ std::string createTempVar(){
 %type <op_val> num_op
 %type <op_val> num_or_ident
 %type <op_val> num_exp
+%type <op_val> num_exp_2
 %type <op_val> int_arr_access
 %type <op_val> readWrite
 
@@ -196,19 +197,21 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
 
-num_exp : num_exp num_op num_exp
+num_exp : num_exp_2 num_op num_exp
 {
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), $1, $3);
   $$ = const_cast<char*>(t.c_str());
 }
-        | num_or_ident { $$ = $1; }
+        | num_exp_2
+
+num_exp_2 : num_or_ident { $$ = $1; }
         | int_arr_access { $$ = $1; }
         /* | func_call */
         | L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM 
-        | identifier
+        | identifier        
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

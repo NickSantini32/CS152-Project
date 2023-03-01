@@ -173,8 +173,8 @@ num_exp : num_exp num_op num_exp
   std::string t = createTempVar();
   printf("%s, %s %s %s\n", $2, t.c_str(), $1, $3);
 }
-        | NUM {printf($1);}
-        | identifier {printf($1);}
+        /* | NUM {printf($1);}
+        | identifier {printf($1);} */
         | int_arr_access
         | func_call
         | L_PAREN num_exp R_PAREN
@@ -187,11 +187,11 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS {printf(" + ");}
-        | MINUS {printf(" - ");}
-        | MULT {printf(" * ");} 
-        | DIV {printf(" / ");}
-        | MOD {printf(" % ");}
+num_op : PLUS //{printf(" + ");}
+        | MINUS //{printf(" - ");}
+        | MULT //{printf(" * ");} 
+        | DIV //{printf(" / ");}
+        | MOD //{printf(" % ");}
 
 comparator : GREATER
         | LESSER

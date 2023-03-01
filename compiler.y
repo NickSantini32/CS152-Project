@@ -107,6 +107,7 @@ std::string createTempVar(){
 %type <op_val> num_op
 %type <op_val> num_or_ident
 %type <op_val> num_exp
+%type <op_val< int_arr_access
 
 
 %%
@@ -158,7 +159,10 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
         printf(".[] %s, %s\n", $2, $4); 
 } 
 
-int_arr_access: identifier L_ARRAY num_exp R_ARRAY
+int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
+{ 
+  $$ = "";
+}
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
@@ -193,10 +197,8 @@ num_exp : num_exp num_op num_or_ident
   $$ = const_cast<char*>(t.c_str());
 }
         | num_or_ident { $$ = $1; }
-        /* | NUM {printf($1);}
-        | identifier {printf($1);} */
-        /* | int_arr_access
-        | func_call */
+        | int_arr_access { $$ = $1; }
+        /* | func_call */
         | L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM 

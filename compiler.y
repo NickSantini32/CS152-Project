@@ -173,9 +173,8 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 { 
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
-  printf("%s\n", (char*)temp.c_str());
-  char *e = "yooooo";//(char*)temp.c_str();
-  $$ = e;
+  // printf("%s\n", (char*)temp.c_str());
+  $$ = (char*)temp.c_str();
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
@@ -212,9 +211,9 @@ num_exp : num_exp_2 num_op num_exp
         | num_exp_2 { $$ = $1; }
 
 num_exp_2 : num_or_ident
-        | int_arr_access
-        /* | func_call */
+        | int_arr_access { printf("%s\n", $1); $$ = $1;}
         | L_PAREN num_exp R_PAREN { $$ = $2; }
+        /* | func_call */
 
 num_or_ident : NUM 
         | identifier        

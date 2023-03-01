@@ -189,11 +189,11 @@ bool_exp : num_exp comparator num_exp
         | bool
         | num_exp
 
-num_op : PLUS { $$ = '+';}
-        | MINUS { $$ = '-';}
-        | MULT { $$ = '*';}
-        | DIV { $$ = '/';}
-        | MOD { $$ = '%';}
+num_op : PLUS { $$ = ['+'];}
+        | MINUS
+        | MULT 
+        | DIV 
+        | MOD 
 
 comparator : GREATER
         | LESSER

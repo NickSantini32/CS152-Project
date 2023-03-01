@@ -10,6 +10,6 @@ function void main() {
    #write a[1];
    #a[2] = 200;
    #write a[2];
-   a[3] = a[0] * (a[1] + c);
+   a[3] = a[0] * a[1];
    write a[3];
 }

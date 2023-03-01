@@ -211,7 +211,7 @@ num_exp : num_exp_2 num_op num_exp
         | num_exp_2 { $$ = $1; }
 
 num_exp_2 : num_or_ident
-        | int_arr_access { printf("%s\n", $1); $$ = $1;}
+        | int_arr_access { printf("arr access: %s\n", $1); $$ = $1;}
         | L_PAREN num_exp R_PAREN { $$ = $2; }
         /* | func_call */
 

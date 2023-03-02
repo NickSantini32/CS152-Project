@@ -157,7 +157,8 @@ function: FUNC return_type identifier
   printf("func %s\n", $3);
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
-{printf("endfunc\n\n");} 
+{printf("endfunc\n\n");}
+        | COMMENT
 
 components: /* epsilon */
         | loop components

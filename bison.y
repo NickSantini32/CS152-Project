@@ -112,11 +112,13 @@ std::string createTempVar(){
 }
 %union {
   const char *op_val;
+  const int arg_val;
   struct Node *node;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
 %type <node> int_arr_access num_exp_2 num_or_ident func_call //dynamic allocation cleaned up in num_exp
+%type <arg_val> argument arguments //cleaned up in args
 
 
 %%
@@ -270,7 +272,7 @@ args: /* epsilon */
         | arguments
 
 arguments: argument 
-          | arguments COMMA argument 
+          | argument COMMA arguments 
 
 argument: INT identifier 
 { 

@@ -212,7 +212,7 @@ num_exp_2: num_exp_3
   const std::string right = $1->name;
   const std::string left = $3->name;
   std::string t = createTempVar();
-  
+
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = new Node();
   $$->name = t;
@@ -223,7 +223,7 @@ num_exp_3 : num_or_ident
         | paren_exp
         | func_call
 
-paren_exp : L_PAREN num_exp_2 R_PAREN { $$ = new Node(); $$->name = $2; }
+paren_exp : L_PAREN num_exp_2 R_PAREN { $$ = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
         | IDENT { $$ = new Node(); $$->name = $1;}

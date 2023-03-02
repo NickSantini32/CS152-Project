@@ -17,6 +17,7 @@ void yyerror(const char *msg);
 extern int currLine;
 
 std::vector<std::string> args;
+bool inLoop = false;
 
 char *identToken;
 int numberToken;
@@ -107,7 +108,10 @@ void checkIfVarIsDuplicate(const std::string value){
 }
 
 void checkIfVarIsKeyword(const std::string value){
-  if (value == "int" || value == "if" || value == "elif" || value == "else" || value == "while" || value == "for" || value == "do" || value == "read" || value == "write" || value == "function" || value == "return" || value == "void" || value == "true" || value == "false"){
+  if (value == "int" || value == "if" || value == "elif" || value == "else" || 
+  value == "while" || value == "for" || value == "do" || value == "read" || 
+  value == "write" || value == "function" || value == "return" || value == "void" || 
+   value == "true" || value == "false" || value == "continue"){
     std::stringstream ss;
     ss << "ERROR: Variable '" << value << "' is a keyword";
     yyerror(ss.str().c_str());
@@ -178,7 +182,7 @@ void checkIfMainDefined(){
 
 %start prog_start
 //etc... LIST ALL TOKEN NAMES HERE (in print statements)
-%token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT
+%token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT CONTINUE
 
 %left PLUS MINUS
 %left MULT DIV MOD
@@ -228,6 +232,7 @@ statement: int_declaration
         | if_exp
         | COMMENT
         | return_statement
+        | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
         | IO
 
 int_declaration: INT identifier STATE_END 

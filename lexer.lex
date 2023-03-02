@@ -71,6 +71,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "void" { pn += yyleng; return VOID;}
 "true" { pn += yyleng; return TRUE;}
 "false" { pn += yyleng; return FALSE;}
+"continue" { pn += yyleng; return CONTINUE;}
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
 {NUM} { 

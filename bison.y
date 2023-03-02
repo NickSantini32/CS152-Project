@@ -116,7 +116,7 @@ std::string createTempVar(){
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_2 num_or_ident
+%type <node> int_arr_access num_exp_2 num_or_ident //dynamic allocation cleaned up in num_exp
 
 
 %%

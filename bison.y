@@ -96,8 +96,7 @@ std::string createTempVar(){
   return ss.str(); 
 }
 
-void checkIfVarIsDuplicate(const char* v){
-  std::string value(v);
+void checkIfVarIsDuplicate(const string value){
   if (find(value)){
     std::stringstream ss;
     ss << "ERROR: Duplicate variable declaration '" << value << "'";
@@ -105,8 +104,7 @@ void checkIfVarIsDuplicate(const char* v){
   }
 }
 
-void checkIfVarIsKeyword(const char* v){
-  std::string value(v);
+void checkIfVarIsKeyword(const string value){
   if (value == "int" || value == "if" || value == "elif" || value == "else" || value == "while" || value == "for" || value == "do" || value == "read" || value == "write" || value == "function" || value == "return" || value == "void" || value == "true" || value == "false"){
     std::stringstream ss;
     ss << "ERROR: Variable '" << value << "' is a keyword";
@@ -114,8 +112,7 @@ void checkIfVarIsKeyword(const char* v){
   }
 }
 
-void checkIfVarDeclared(const char* v){
-  std::string value(v);
+void checkIfVarDeclared(const string value){
   if (!find(value)){
     std::stringstream ss;
     ss << "ERROR: Variable '" << value << "' not declared";
@@ -124,8 +121,7 @@ void checkIfVarDeclared(const char* v){
   checkIfVarIsKeyword(v);
 }
 
-void checkIfFuncDefined(const char* v){
-  std::string value(v);
+void checkIfFuncDefined(const string value){
   for (int i = 0; i < symbol_table.size(); i++){
     if (symbol_table.at(i).name == value){
       return;
@@ -204,9 +200,9 @@ statement: int_declaration
 
 int_declaration: INT identifier STATE_END 
 {  
-  checkIfVarIsDuplicate($2);
   // add the variable to the symbol table.
   std::string value = $2;
+  checkIfVarIsDuplicate(value.c_str());
   Type t = Integer;
   add_variable_to_symbol_table(value, t);
   printf(". %s\n", $2); 
@@ -214,22 +210,18 @@ int_declaration: INT identifier STATE_END
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
-  printf(".[] %s, %s\n", $2, $4);
-  //printf($4);
-  
   // add the variable to the symbol table.
   std::string value = $2;
-  //checkIfVarIsDuplicate(value.c_str());
-  //printf($4);
+  checkIfVarIsDuplicate(value.c_str());
   Type t = Integer;
   add_variable_to_symbol_table(value, t);
-  printf($4);
-  
+  printf(".[] %s, %s\n", $2, $4);
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
-  checkIfVarDeclared($1);
+  std::string value = $1;
+  checkIfVarDeclared(value.c_str());
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());

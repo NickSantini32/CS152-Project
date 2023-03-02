@@ -218,9 +218,10 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   checkIfVarIsDuplicate($2);
   // add the variable to the symbol table.
   std::string value = $2;
+  std::string size = $4;
   Type t = Integer;
   add_variable_to_symbol_table(value, t);
-  printf(".[] %s, %s\n", $2, $4); 
+  printf(".[] %s, %s\n", value.c_str(), size.c_str());); 
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 

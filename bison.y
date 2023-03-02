@@ -176,6 +176,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
+  $$ = new Node();
   $$->name = temp.c_str();
 }
 

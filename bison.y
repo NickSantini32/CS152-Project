@@ -94,7 +94,13 @@ std::string createTempVar(){
   printf(". %s\n", ss.str().c_str());
   tempCount++;
   return ss.str(); 
- }
+}
+
+void checkIfDeclared(std::string &value){
+  if (!find(value)){
+    yyerror("ERROR: Variable '%s' not declared", value.c_str());
+  }
+}
 
 %}
 
@@ -143,7 +149,7 @@ components: /* epsilon */
 statement: int_declaration
         | assignment
         | int_arr_assignment
-        | int_dec_assignment
+        /* | int_dec_assignment */
         | int_arr_declaration
         | if_exp
         | COMMENT
@@ -158,8 +164,6 @@ int_declaration: INT identifier STATE_END
         add_variable_to_symbol_table(value, t);
         printf(". %s\n", $2); 
 } 
-        
-int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
@@ -203,6 +207,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
+int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
 num_exp : num_exp_node { $$ = (char*)$1->name.c_str(); delete $1; }
 

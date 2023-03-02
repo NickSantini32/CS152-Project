@@ -220,7 +220,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   std::string value = $2;
   Type t = Integer;
   add_variable_to_symbol_table(value, t);
-  printf(".[] %s, %s\n", $2, $4);); 
+  printf(".[] %s, %s\n", $2, $4);
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 

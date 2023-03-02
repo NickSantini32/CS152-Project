@@ -1,0 +1,6 @@
+func main
+. a
+= a, 150
+.> a
+endfunc
+

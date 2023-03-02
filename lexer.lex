@@ -1,7 +1,15 @@
+%option noyywrap
+
 %{
+// #define YYSTYPE char *
+// #include "defs.h"
+#include <string>
 #include "y.tab.h"
+
 int lc=1;
 int pn=0;
+extern char *identToken;
+extern int numberToken;
 //Needed to call yyerror, which is the error function for task 1
 void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
@@ -31,6 +39,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "-" { pn += yyleng; return MINUS; }
 "*" { pn += yyleng; return MULT; }
 "/" { pn += yyleng; return DIV; }
+"%" { pn += yyleng; return MOD; }
 "[" { pn += yyleng; return L_ARRAY; }
 "]" { pn += yyleng; return R_ARRAY; }
 "(" { pn += yyleng; return L_PAREN; }
@@ -62,10 +71,27 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "void" { pn += yyleng; return VOID;}
 "true" { pn += yyleng; return TRUE;}
 "false" { pn += yyleng; return FALSE;}
+"continue" { pn += yyleng; return CONTINUE;}
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
-{NUM} { pn += yyleng; return NUM;}
-{IDENT} { printf("identifier -> IDENT: %s\n", yytext); pn += yyleng; return IDENT;}
+{NUM} { 
+   pn += yyleng; 
+   char * token = new char[yyleng];
+   strcpy(token, yytext);
+   yylval.op_val = token;
+   numberToken = atoi(yytext); 
+   return NUM;
+}
+{IDENT} {  
+   // printf("%s", yytext); 
+   pn += yyleng; 
+   char * token = new char[yyleng];
+   strcpy(token, yytext);
+   yylval.op_val = token;
+   // yylval.op_val = strdup(yytext);
+   identToken = yytext;
+   return IDENT;
+}
 
 {INVIDENT} {
    printf("ERROR in line %d column %d: INVALID IDENTIFIER: %s. Identifiers cannot start with numbers\n", lc, pn, yytext);
@@ -75,7 +101,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 . {printf("Unrecognized input: %s\n Terminating program.", yytext); yyerror("");}
 %%
 
-yywrap() {}
+// yywrap() {}
 
 // int main() {
 //      //printf("Enter string: ");

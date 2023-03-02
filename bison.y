@@ -1,5 +1,5 @@
 %{
-// #include "defs.h"
+#include "defs.h"
 #include<stdio.h>
 #include<sstream>
 #include<vector>

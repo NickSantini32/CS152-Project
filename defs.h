@@ -7,9 +7,6 @@
 #include <iostream>
 
 /*data structures*/
-#include <vector>
-#include <stack>
-#include <map>
 
 
 #include <sstream>

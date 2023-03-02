@@ -211,6 +211,8 @@ num_exp_node: num_exp_terminal
 {
   const std::string right = $1->name;
   const std::string left = $3->name;
+  delete $1;
+  delete $3;
   std::string t = createTempVar();
 
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());

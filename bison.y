@@ -240,6 +240,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   std::string ident = $1->name;
   std::string index = $3->name;
   checkIfVarDeclared(ident);
+  checkIfVarIsArray(ident);
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), index.c_str());
   $$ = new Node();
@@ -252,6 +253,7 @@ int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
   std::string index = $3->name;
   std::string value = $6->name;
   checkIfVarDeclared(ident);
+  checkIfVarIsArray(ident);
   printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
 }
 

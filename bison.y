@@ -204,7 +204,7 @@ statement: int_declaration
 
 int_declaration: INT identifier STATE_END 
 { 
-  checkIfVarIsDuplicate(v);
+  checkIfVarIsDuplicate($2);
   // add the variable to the symbol table.
   std::string value = $2;
   Type t = Integer;
@@ -214,7 +214,7 @@ int_declaration: INT identifier STATE_END
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
-  checkIfVarIsDuplicate(v);
+  checkIfVarIsDuplicate($2);
   // add the variable to the symbol table.
   std::string value = $2;
   Type t = Integer;

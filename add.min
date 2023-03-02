@@ -9,6 +9,6 @@
 #}
 function void main() {
   int a;
-  int for;
+  int void;
   a = 10;
 }

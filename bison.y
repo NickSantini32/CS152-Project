@@ -121,6 +121,21 @@ void checkIfVarDeclared(const std::string value){
   checkIfVarIsKeyword(value);
 }
 
+void checkIfVarIsArray(const std::string value){
+  Function *f = get_function();
+  for (int i = 0; i < f->declarations.size(); i++){
+    if (f->declarations.at(i).name == value){
+      if (f->declarations.at(i).type == Array){
+        return;
+      }
+    }
+  }
+
+  std::stringstream ss;
+  ss << "ERROR: Variable '" << value << "' is not an array";
+  yyerror(ss.str().c_str());
+}
+
 void checkIfFuncDefined(const std::string value){
   for (int i = 0; i < symbol_table.size(); i++){
     if (symbol_table.at(i).name == value){
@@ -215,7 +230,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   std::string ident = $2->name;
   std::string size = $4->name;
   checkIfVarIsDuplicate(ident);
-  Type t = Integer;
+  Type t = Array;
   add_variable_to_symbol_table(ident, t);
   printf(".[] %s, %s\n", ident.c_str(), size.c_str());
 } 

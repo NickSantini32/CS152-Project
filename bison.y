@@ -205,7 +205,7 @@ void checkIfMainDefined(){
 
 
 %%
-prog_start: functions { checkIfMainDefined(); }
+prog_start: functions
 
 functions: /* epsilon */
         | function functions
@@ -429,6 +429,7 @@ identifier: IDENT
 int main(int argc, char **argv)
 {
    yyparse();
+   checkIfMainDefined();
    print_symbol_table();
    return 0;
 }

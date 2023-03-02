@@ -3,10 +3,13 @@
 #define _defs_h_
 
 #include <string>
-
+#include <vector>
 
 struct Node {
     std::string code;
     std::string name;
+};
+struct Args {
+    std::vector<std::string> args;
 };
 #endif

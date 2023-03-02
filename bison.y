@@ -112,7 +112,7 @@ std::string createTempVar(){
 }
 %union {
   const char *op_val;
-  const int *arg_val;
+  vector<std::string> *arg_val;
   struct Node *node;
 }
 %token <op_val> NUM IDENT
@@ -269,10 +269,10 @@ return_type : INT
         | VOID
 
 args: /* epsilon */
-        | arguments
+        | { $1 = 0; } arguments
 
-arguments: argument 
-          | argument COMMA arguments 
+arguments: { $1 = $$; } argument 
+          | { $1 = $$; $3 = $$ + 1; } argument COMMA arguments 
 
 argument: INT identifier 
 { 

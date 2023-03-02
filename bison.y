@@ -118,7 +118,7 @@ void checkIfVarDeclared(const std::string value){
     ss << "ERROR: Variable '" << value << "' not declared";
     yyerror(ss.str().c_str());
   }
-  checkIfVarIsKeyword(v);
+  checkIfVarIsKeyword(value);
 }
 
 void checkIfFuncDefined(const std::string value){
@@ -233,14 +233,14 @@ int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
   std::string ident = $1;
   checkIfVarDeclared(ident);
-  printf("[]= %s, %s, %s\n", ident, $3, $6);
+  printf("[]= %s, %s, %s\n", ident.c_str(), $3, $6);
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
   std::string ident = $1;
   checkIfVarDeclared(ident);
-  printf("= %s, %s\n", ident, $3); 
+  printf("= %s, %s\n", ident.c_str(), $3); 
 }
 
 /* identifier ASSIGN NUM STATE_END 

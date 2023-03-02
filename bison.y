@@ -214,6 +214,7 @@ int_declaration: INT identifier STATE_END
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
+  printf(".[] %s, %s\n", $2, $4);
   //printf($4);
   
   // add the variable to the symbol table.
@@ -223,7 +224,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   Type t = Integer;
   add_variable_to_symbol_table(value, t);
   //printf($4);
-  printf(".[] %s, %s\n", $2, $4);
+  
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 

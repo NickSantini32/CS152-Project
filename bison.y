@@ -218,7 +218,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   
   // add the variable to the symbol table.
   std::string value = $2;
-  checkIfVarIsDuplicate(value.c_str());
+  //checkIfVarIsDuplicate(value.c_str());
   printf($4);
   Type t = Integer;
   add_variable_to_symbol_table(value, t);

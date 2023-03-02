@@ -292,7 +292,7 @@ num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
-  std::string func_name = $1;
+  std::string func_name = $1->name;
   checkIfFuncDefined(func_name);
   $$ = new Node();
   $$->name = createTempVar();
@@ -323,11 +323,11 @@ bool : TRUE
 logic_op : AND
         | OR
 
-IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name);}
+IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name.c_str());}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 {
   std::string t = createTempVar();
-  printf("=[] %s, %s, %s\n", t.c_str(), $2->name, $4->name);
+  printf("=[] %s, %s, %s\n", t.c_str(), $2->name.c_str(), $4->name.c_str());
   printf("%s %s\n", $1, t.c_str());
 }
 
@@ -357,7 +357,7 @@ argument: INT identifier
   Type t = Integer;
   add_variable_to_symbol_table(name, t);
   args.push_back(name);
-  printf(". %s\n", $2->name);
+  printf(". %s\n", name.c_str());
 }
 
 literal_args: /* epsilon */

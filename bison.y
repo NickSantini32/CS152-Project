@@ -137,7 +137,7 @@ void checkIfVarIsArray(const std::string value){
 }
 
 void checkArrayIndex(const std::string value){
-  int i = stoi(value);
+  int i = std::stoi(value);
   if (i < 0){
     std::stringstream ss;
     ss << "ERROR: Array index '" << value << "' is negative";

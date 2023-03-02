@@ -104,6 +104,9 @@ std::string createTempVar(){
 %left MULT DIV MOD
 %left R_PAREN L_PAREN
 
+%code requires {
+    Node;
+}
 %union {
   const char *op_val;
   Node node;

@@ -225,7 +225,7 @@ func_call: identifier L_PAREN literal_args R_PAREN
 {
   $$ = new Node();
   $$->name = createTempVar();
-  printf("call %s, %s\n", $1, $3);
+  printf("call %s, %s\n", $1, $$->name.c_str());
 }       
 
 bool_exp : num_exp comparator num_exp

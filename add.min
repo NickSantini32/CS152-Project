@@ -8,11 +8,6 @@
    #write c;
 #}
 function void main() {
-   #int a;
-   #int b;
-   #int c;
-   a = elf(a, a);
-   #b = 50;
-   #c = a + b;
-   #write c;
+  int a;
+  a = elf(a, a);
 }

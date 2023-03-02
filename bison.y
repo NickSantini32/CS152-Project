@@ -105,6 +105,16 @@ void checkIfVarDeclared(const char* v){
   }
 }
 
+void checkIfFuncDeclared(const char* v){
+  std::string value(v);
+  if (existsInVec(symbol_table, value))
+    return;
+
+  std::stringstream ss;
+  ss << "ERROR: Function '" << value << "' not declared";
+  yyerror(ss.str().c_str()); 
+}
+
 %}
 
 %start prog_start
@@ -138,9 +148,10 @@ functions: /* epsilon */
 
 function: FUNC return_type identifier 
 {
-        std::string func_name = $3;
-        add_function_to_symbol_table(func_name);
-        printf("func %s\n", $3);
+  checkIfFuncDeclared($3);
+  std::string func_name = $3;
+  add_function_to_symbol_table(func_name);
+  printf("func %s\n", $3);
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
 {printf("endfunc\n\n");} 

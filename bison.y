@@ -14,6 +14,8 @@ extern int yylex(void);
 void yyerror(const char *msg);
 extern int currLine;
 
+vector<string> args;
+
 char *identToken;
 int numberToken;
 int count_names = 0;
@@ -107,7 +109,7 @@ std::string createTempVar(){
 
 %union {
   const char *op_val;
-  struct Args *arg_val;
+  int *arg_val;
   struct Node *node;
 }
 %token <op_val> NUM IDENT
@@ -264,16 +266,16 @@ return_type : INT
         | VOID
 
 args: /* epsilon */
-        | { $1 = new Args(); $1->num = 0; } arguments
+        | arguments
 {
-  for (int i = 0; i < $1->args.size(); i++)
+  for (int i = 0; i < args.size(); i++)
   {
-    printf("= %s, %i\n", $1->args.at(i).c_str(), i);
+    printf("= %s, %i\n", args.at(i).c_str(), i);
   }
 }
 
-arguments: { $1 = $$; } argument 
-          | { $1 = $$; $3 = $$; } argument COMMA arguments 
+arguments: argument
+          | argument COMMA arguments 
 
 argument: INT identifier 
 { 
@@ -281,7 +283,7 @@ argument: INT identifier
   std::string name = $2;
   Type t = Integer;
   add_variable_to_symbol_table(name, t);
-  args->args.push_back(name);
+  args.push_back(name);
   printf(". %s\n", $2);
 }
 

@@ -136,6 +136,20 @@ void checkIfVarIsArray(const std::string value){
   yyerror(ss.str().c_str());
 }
 
+void checkArrayIndex(const std::string value){
+  int i = stoi(value);
+  if (i < 0){
+    std::stringstream ss;
+    ss << "ERROR: Array index '" << value << "' is negative";
+    yyerror(ss.str().c_str());
+  }
+}
+
+void runArrayChecks(const std::string value){
+  checkIfVarDeclared(value);
+  checkIfVarIsArray(value);
+}
+
 void checkIfFuncDefined(const std::string value){
   for (int i = 0; i < symbol_table.size(); i++){
     if (symbol_table.at(i).name == value){
@@ -230,6 +244,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   std::string ident = $2->name;
   std::string size = $4->name;
   checkIfVarIsDuplicate(ident);
+  checkArrayIndex(index);
   Type t = Array;
   add_variable_to_symbol_table(ident, t);
   printf(".[] %s, %s\n", ident.c_str(), size.c_str());
@@ -239,8 +254,8 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 {
   std::string ident = $1->name;
   std::string index = $3->name;
-  checkIfVarDeclared(ident);
-  checkIfVarIsArray(ident);
+  runArrayChecks(ident);
+  checkArrayIndex(index);
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), index.c_str());
   $$ = new Node();
@@ -252,8 +267,8 @@ int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
   std::string ident = $1->name;
   std::string index = $3->name;
   std::string value = $6->name;
-  checkIfVarDeclared(ident);
-  checkIfVarIsArray(ident);
+  runArrayChecks(ident);
+  checkArrayIndex(index);
   printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
 }
 

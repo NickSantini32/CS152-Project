@@ -244,7 +244,7 @@ assignment: identifier ASSIGN num_exp STATE_END
   std::string ident = $1;
   std::string value = $3;
   checkIfVarDeclared(ident);
-  printf("= %s, %s\n", ident.c_str(), value.c_str());); 
+  printf("= %s, %s\n", ident.c_str(), value.c_str()); 
 }
 
 /* identifier ASSIGN NUM STATE_END 

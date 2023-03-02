@@ -105,7 +105,7 @@ void checkIfVarDeclared(const char* v){
   }
 }
 
-void checkIfFuncDeclared(const char* v){
+void checkIfFuncDefined(const char* v){
   std::string value(v);
   for (int i = 0; i < symbol_table.size(); i++){
     if (symbol_table.at(i).name == value){
@@ -114,7 +114,7 @@ void checkIfFuncDeclared(const char* v){
   }
 
   std::stringstream ss;
-  ss << "ERROR: Function '" << value << "' not declared";
+  ss << "ERROR: Function '" << value << "' not defined";
   yyerror(ss.str().c_str()); 
 }
 
@@ -259,7 +259,7 @@ num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
-  checkIfFuncDeclared($1);
+  checkIfFuncDefined($1);
   $$ = new Node();
   $$->name = createTempVar();
   printf("call %s, %s\n", $1, $$->name.c_str());

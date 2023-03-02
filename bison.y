@@ -96,11 +96,6 @@ std::string createTempVar(){
   return ss.str(); 
 }
 
-void runVariableChecks(const char* v){
-  checkIfVarDeclared(v);
-  checkIfVarIsDuplicate(v);
-}
-
 void checkIfVarIsDuplicate(const char* v){
   std::string value(v);
   if (find(value)){
@@ -117,6 +112,11 @@ void checkIfVarDeclared(const char* v){
     ss << "ERROR: Variable '" << value << "' not declared";
     yyerror(ss.str().c_str());
   }
+}
+
+void runVariableChecks(const char* v){
+  checkIfVarDeclared(v);
+  checkIfVarIsDuplicate(v);
 }
 
 void checkIfFuncDefined(const char* v){

@@ -217,7 +217,7 @@ num_exp : num_exp num_op num_exp_2
 
 num_exp_2 : num_or_ident
         | int_arr_access 
-        | L_PAREN num_exp R_PAREN { $$ = $2; }
+        | L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
         /* | func_call */
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}

@@ -216,12 +216,17 @@ num_exp : num_exp num_op num_exp_2
 num_exp_2 : num_or_ident
         | int_arr_access 
         | L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
-        | func_call { $$ = new Node(); $$->name = $1; }
+        | func_call
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
         | IDENT { $$ = new Node(); $$->name = $1;}
 
-func_call: identifier L_PAREN literal_args R_PAREN       
+func_call: identifier L_PAREN literal_args R_PAREN
+{
+  $$ = new Node();
+  $$->name = createTempVar();
+  printf("call %s, %s\n", $1, $3);
+}       
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

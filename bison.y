@@ -118,6 +118,16 @@ void checkIfFuncDefined(const char* v){
   yyerror(ss.str().c_str()); 
 }
 
+void checkIfMainDefined(){
+  for (int i = 0; i < symbol_table.size(); i++){
+    if (symbol_table.at(i).name == "main"){
+      return;
+    }
+  }
+
+  yyerror("ERROR: Main function not defined");
+}
+
 %}
 
 %start prog_start
@@ -144,7 +154,7 @@ void checkIfFuncDefined(const char* v){
 
 
 %%
-prog_start: functions
+prog_start: functions { checkIfMainDefined(); }
 
 functions: /* epsilon */
         | function functions

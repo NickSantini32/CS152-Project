@@ -105,15 +105,6 @@ void checkIfVarIsDuplicate(const char* v){
   }
 }
 
-void checkIfVarDeclared(const char* v){
-  std::string value(v);
-  if (!find(value)){
-    std::stringstream ss;
-    ss << "ERROR: Variable '" << value << "' not declared";
-    yyerror(ss.str().c_str());
-  }
-}
-
 void checkIfVarIsKeyword(const char* v){
   std::string value(v);
   if (value == "int" || value == "if" || value == "elif" || value == "else" || value == "while" || value == "for" || value == "do" || value == "read" || value == "write" || value == "function" || value == "return" || value == "void" || value == "true" || value == "false"){
@@ -123,9 +114,14 @@ void checkIfVarIsKeyword(const char* v){
   }
 }
 
-void runVariableChecks(const char* v){
-  checkIfVarDeclared(v);
-  checkIfVarIsDuplicate(v);
+void checkIfVarDeclared(const char* v){
+  std::string value(v);
+  if (!find(value)){
+    std::stringstream ss;
+    ss << "ERROR: Variable '" << value << "' not declared";
+    yyerror(ss.str().c_str());
+  }
+  checkIfVarIsKeyword(v);
 }
 
 void checkIfFuncDefined(const char* v){
@@ -208,15 +204,17 @@ statement: int_declaration
 
 int_declaration: INT identifier STATE_END 
 { 
-        // add the variable to the symbol table.
-        std::string value = $2;
-        Type t = Integer;
-        add_variable_to_symbol_table(value, t);
-        printf(". %s\n", $2); 
+  checkIfVarIsDuplicate(v);
+  // add the variable to the symbol table.
+  std::string value = $2;
+  Type t = Integer;
+  add_variable_to_symbol_table(value, t);
+  printf(". %s\n", $2); 
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
+  checkIfVarIsDuplicate(v);
   // add the variable to the symbol table.
   std::string value = $2;
   Type t = Integer;
@@ -226,7 +224,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
-  runVariableChecks($1);
+  checkIfVarDeclared($1);
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
@@ -236,13 +234,13 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  runVariableChecks($1);
+  checkIfVarDeclared($1);
   printf("[]= %s, %s, %s\n", $1, $3, $6);
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
-  runVariableChecks($1);
+  checkIfVarDeclared($1);
   printf("= %s, %s\n", $1, $3); 
 }
 

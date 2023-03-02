@@ -205,7 +205,7 @@ void checkIfMainDefined(){
 
 
 %%
-prog_start: functions
+prog_start: functions { checkIfMainDefined(); }
 
 functions: /* epsilon */
         | function functions
@@ -291,7 +291,7 @@ assignment: identifier ASSIGN num_exp STATE_END
 { printf("= %s, %s\n", $1, $3); } 
         |  */
 
-return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2);}
+return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name);}
         | RETURN STATE_END
 
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
@@ -429,7 +429,6 @@ identifier: IDENT
 int main(int argc, char **argv)
 {
    yyparse();
-   checkIfMainDefined();
    print_symbol_table();
    return 0;
 }

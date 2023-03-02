@@ -210,7 +210,7 @@ num_exp : num_exp num_op num_exp_2
   const std::string left = $3->name;
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
-  $$ = new char(t.c_str());
+  $$ = new char((char)t.c_str());
   delete $3;
 }
         | num_exp_2 { $$ = (char*)$1->name.c_str(); delete $1; }

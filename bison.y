@@ -291,7 +291,7 @@ assignment: identifier ASSIGN num_exp STATE_END
 { printf("= %s, %s\n", $1, $3); } 
         |  */
 
-return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name);}
+return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str());}
         | RETURN STATE_END
 
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp

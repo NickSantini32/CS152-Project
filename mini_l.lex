@@ -2,6 +2,7 @@
 
 %{
 // #define YYSTYPE char *
+#include "defs.h"
 #include "y.tab.h"
 
 int lc=1;

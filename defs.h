@@ -1,12 +1,9 @@
 /* heading.h */
-#ifndef _heading_h_
-#define _heading_h_
-
-#define YY_NO_UNPUT
+#ifndef _defs_h_
+#define _defs_h_
 
 #include <string>
 
-using namespace std;
 
 struct Node {
     std::string code;

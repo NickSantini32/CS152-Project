@@ -10,6 +10,7 @@ struct Node {
     std::string name;
 };
 struct Args {
+    int num;
     std::vector<std::string> args;
 };
 #endif

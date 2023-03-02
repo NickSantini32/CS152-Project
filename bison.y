@@ -104,15 +104,10 @@ std::string createTempVar(){
 %left MULT DIV MOD
 %left R_PAREN L_PAREN
 
-%code requires {
-  struct Node {
-    std::string code;
-    std::string name;
-  };
-}
+
 %union {
   const char *op_val;
-  vector<std::string> *arg_val;
+  struct Args *arg_val;
   struct Node *node;
 }
 %token <op_val> NUM IDENT
@@ -269,17 +264,24 @@ return_type : INT
         | VOID
 
 args: /* epsilon */
-        | { $1 = 0; } arguments
+        | { $1 = new Args(); $1->num = 0; } arguments
+{
+  for (int i = 0; i < $1->args.size(); i++)
+  {
+    printf("= %s, %i\n", $1->args.at(i).c_str(), i);
+  }
+}
 
 arguments: { $1 = $$; } argument 
-          | { $1 = $$; $3 = $$ + 1; } argument COMMA arguments 
+          | { $1 = $$; $3 = $$; } argument COMMA arguments 
 
 argument: INT identifier 
 { 
   // add the variable to the symbol table.
-  std::string value = $2;
+  std::string name = $2;
   Type t = Integer;
-  add_variable_to_symbol_table(value, t);
+  add_variable_to_symbol_table(name, t);
+  args->args.push_back(name);
   printf(". %s\n", $2);
 }
 

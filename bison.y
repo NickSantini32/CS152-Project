@@ -115,8 +115,8 @@ std::string createTempVar(){
   struct Node *node;
 }
 %token <op_val> NUM IDENT
-%type <op_val> identifier num_op num_or_ident num_exp readWrite
-%type <node> int_arr_access num_exp_2
+%type <op_val> identifier num_op num_exp readWrite
+%type <node> int_arr_access num_exp_2 num_or_ident
 
 
 %%
@@ -209,9 +209,8 @@ num_exp : num_exp num_op num_exp_2
 {
   const std::string right = $1;
   const std::string left = $3->name;
-  printf("eeeeee %s, %s\n", right.c_str(), left.c_str());
   std::string t = createTempVar();
-  printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
+  printf("%s %s, %s, %s\n", $2, t.c_str(), $1, left.c_str());
   $$ = (char*)(t.c_str());
 }
         | num_exp_2

@@ -96,6 +96,20 @@ std::string createTempVar(){
   return ss.str(); 
 }
 
+void runVariableChecks(const char* v){
+  checkIfVarDeclared(v);
+  checkIfVarIsDuplicate(v);
+}
+
+void checkIfVarIsDuplicate(const char* v){
+  std::string value(v);
+  if (find(value)){
+    std::stringstream ss;
+    ss << "ERROR: Duplicate variable declaration '" << value << "'";
+    yyerror(ss.str().c_str());
+  }
+}
+
 void checkIfVarDeclared(const char* v){
   std::string value(v);
   if (!find(value)){
@@ -203,7 +217,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
-  checkIfVarDeclared($1);
+  runVariableChecks($1);
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
@@ -213,13 +227,13 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  checkIfVarDeclared($1);
+  runVariableChecks($1);
   printf("[]= %s, %s, %s\n", $1, $3, $6);
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
-  checkIfVarDeclared($1);
+  runVariableChecks($1);
   printf("= %s, %s\n", $1, $3); 
 }
 

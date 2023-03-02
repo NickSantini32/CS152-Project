@@ -99,7 +99,9 @@ std::string createTempVar(){
 void checkIfVarDeclared(char* v){
   std::string value(v);
   if (!find(value)){
-    yyerror("ERROR: Variable '%s' not declared", value.c_str());
+    std::stringstream ss;
+    ss << "ERROR: Variable '" << value << "' not declared";
+    yyerror(ss.str().c_str());
   }
 }
 

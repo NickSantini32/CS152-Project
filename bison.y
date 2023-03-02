@@ -4,7 +4,8 @@
 #include<sstream>
 #include<vector>
 #include<string>
-#include <iostream>
+#include<cstdlib>
+#include<iostream>
 
 #include "y.tab.h"
 extern FILE* yyin;

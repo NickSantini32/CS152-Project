@@ -204,6 +204,7 @@ statement: int_declaration
 
 int_declaration: INT identifier STATE_END 
 { 
+  printf($2);
   checkIfVarIsDuplicate($2);
   // add the variable to the symbol table.
   std::string value = $2;
@@ -262,7 +263,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
-num_exp : num_exp_node {  $$ = (char*)$1->name.c_str(); printf($$); delete $1; }
+num_exp : num_exp_node {  $$ = (char*)$1->name.c_str(); delete $1; }
 
 num_exp_node: num_exp_terminal
         | num_exp_terminal num_op num_exp_node

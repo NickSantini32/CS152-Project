@@ -204,7 +204,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
 
-num_exp : num_exp_2 { $$ = $1->name; delete $1; }
+num_exp : num_exp_2 { $$ = (char)$1->name.c_str(); delete $1; }
 
 num_exp_2: num_exp_2 num_op num_exp_3
 {

@@ -293,8 +293,26 @@ argument: INT identifier
   printf(". %s\n", $2);
 }
 
-literal_args: num_exp 
-            | num_exp COMMA literal_args 
+literal_args: /* epsilon */
+            | literal_arguments
+{
+  for (int i = 0; i < args.size(); i++)
+  {
+    printf("param %s\n", args.at(i).c_str());
+  }
+  args.clear();
+}
+
+
+literal_arguments: literal_argument
+            | literal_argument COMMA literal_arguments
+
+literal_argument: num_exp
+{ 
+  // add the variable to the symbol table.
+  std::string name = $1;
+  args.push_back(name);
+}
 
 identifier: IDENT 
 { 

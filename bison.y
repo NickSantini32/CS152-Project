@@ -369,7 +369,7 @@ literal_arguments: literal_argument
 literal_argument: num_exp
 { 
   // add the variable to the symbol table.
-  std::string name = $1;
+  std::string name = $1->name;
   printf("param %s\n", name.c_str());
 }
 

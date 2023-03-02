@@ -177,7 +177,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
   $$ = new Node();
-  $$->name = temp.c_str();
+  $$->name = temp;
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
@@ -212,8 +212,9 @@ num_exp : num_exp num_op num_exp_2
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = (char*)(t.c_str());
+  delete $3;
 }
-        | num_exp_2 { $$ = (char*)$1->name.c_str();}
+        | num_exp_2 { $$ = (char*)$1->name.c_str(); delete $1; }
 
 num_exp_2 : num_or_ident
         | int_arr_access 

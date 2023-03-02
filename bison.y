@@ -112,7 +112,7 @@ std::string createTempVar(){
 }
 %union {
   const char *op_val;
-  Node node;
+  struct Node node;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_or_ident num_exp num_exp_2 readWrite int_arr_access

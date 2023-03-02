@@ -118,7 +118,7 @@ std::string createTempVar(){
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_2 num_exp_3 num_exp_4 num_or_ident func_call //dynamic allocation cleaned up in num_exp
+%type <node> int_arr_access num_exp_2 num_exp_3 paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -204,9 +204,10 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
 
-num_exp : num_exp_2 { $$ = (char)$1->name.c_str(); delete $1; }
+num_exp : num_exp_2 { $$ = (char*)$1->name.c_str(); delete $1; }
 
-num_exp_2: num_exp_2 num_op num_exp_3
+num_exp_2: num_exp_3
+        | num_exp_3 num_op num_exp_2
 {
   const std::string right = $1;
   const std::string left = $3->name;
@@ -215,14 +216,13 @@ num_exp_2: num_exp_2 num_op num_exp_3
   $$ = new Node();
   $$->name = t;
 }
-        | num_exp_3 { $$ = (char*)$1->name.c_str(); delete $1; }
 
 num_exp_3 : num_or_ident
         | int_arr_access 
-        | num_exp_4
+        | paren_exp
         | func_call
 
-num_exp_4 : L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
+paren_exp : L_PAREN num_exp_2 R_PAREN { $$ = new Node(); $$->name = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
         | IDENT { $$ = new Node(); $$->name = $1;}

@@ -3,6 +3,7 @@
 %{
 // #define YYSTYPE char *
 // #include "defs.h"
+#include <string>
 #include "y.tab.h"
 
 int lc=1;

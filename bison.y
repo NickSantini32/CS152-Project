@@ -1,5 +1,5 @@
 %{
-#include "defs.h"
+// #include "defs.h"
 #include<stdio.h>
 #include<sstream>
 #include<vector>
@@ -105,7 +105,10 @@ std::string createTempVar(){
 %left R_PAREN L_PAREN
 
 %code requires {
-    Node;
+  struct Node {
+    std::string code;
+    std::string name;
+  };
 }
 %union {
   const char *op_val;

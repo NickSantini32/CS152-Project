@@ -114,6 +114,15 @@ void checkIfVarDeclared(const char* v){
   }
 }
 
+void checkIfVarIsKeyword(const char* v){
+  std::string value(v);
+  if (value == "int" || value == "if" || value == "elif" || value == "else" || value == "while" || value == "for" || value == "do" || value == "read" || value == "write" || value == "function" || value == "return" || value == "void" || value == "true" || value == "false"){
+    std::stringstream ss;
+    ss << "ERROR: Variable '" << value << "' is a keyword";
+    yyerror(ss.str().c_str());
+  }
+}
+
 void runVariableChecks(const char* v){
   checkIfVarDeclared(v);
   checkIfVarIsDuplicate(v);

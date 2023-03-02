@@ -311,7 +311,7 @@ literal_argument: num_exp
 { 
   // add the variable to the symbol table.
   std::string name = $1;
-  args.push_back(name);
+  printf("param %s\n", name.c_str());
 }
 
 identifier: IDENT 

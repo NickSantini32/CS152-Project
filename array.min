@@ -12,6 +12,6 @@ function void main() {
    a[2] = 200;
    write a[2];
 
-   a[3] = a[0] * a[1];
+   a[3] = a[0] * (a[1] + c);
    write a[3];
 }

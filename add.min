@@ -9,5 +9,5 @@
 #}
 function void main() {
   int a;
-  a = elf(a, a);
+  a = 10;
 }

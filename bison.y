@@ -106,11 +106,11 @@ std::string createTempVar(){
 
 %union {
   const char *op_val;
-  struct Node node;  
+  // struct Node node;  
 }
 %token <op_val> NUM IDENT
-%type <op_val> identifier num_op num_or_ident num_exp num_exp_2 readWrite
-%type <node> int_arr_access
+%type <op_val> identifier num_op num_or_ident num_exp num_exp_2 readWrite int_arr_access
+/* %type <node> int_arr_access */
 
 
 %%
@@ -170,7 +170,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
-  $$ = temp;
+  $$ = temp.c_str();
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END

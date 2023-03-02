@@ -46,7 +46,7 @@ Function *get_function() {
   return &symbol_table[last];
 }
 
-bool find(std::string &value) {
+bool find(const std::string &value) {
   Function *f = get_function();
   for(int i=0; i < f->declarations.size(); i++) {
     Symbol *s = &f->declarations[i];

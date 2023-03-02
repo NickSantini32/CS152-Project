@@ -213,7 +213,7 @@ num_exp : num_exp num_op num_exp_2
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = (char*)(t.c_str());
 }
-        | num_exp_2 { $$ = (char*)$1->name; delete $1; }
+        | num_exp_2 { $$ = (char*)$1->name;}
 
 num_exp_2 : num_or_ident
         | int_arr_access 

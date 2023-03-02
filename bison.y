@@ -107,8 +107,11 @@ void checkIfVarDeclared(const char* v){
 
 void checkIfFuncDeclared(const char* v){
   std::string value(v);
-  if (existsInVec(symbol_table, value))
-    return;
+  for (int i = 0; i < symbol_table.size(); i++){
+    if (symbol_table.at(i).name == value){
+      return;
+    }
+  }
 
   std::stringstream ss;
   ss << "ERROR: Function '" << value << "' not declared";

@@ -114,13 +114,11 @@ std::string createTempVar(){
 }
 %union {
   const char *op_val;
-  int *arg_val;
   struct Node *node;
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_2 num_or_ident func_call //dynamic allocation cleaned up in num_exp
-%type <arg_val> argument arguments //cleaned up in args
+%type <node> int_arr_access num_exp_2 num_exp_3 num_or_ident func_call //dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -136,7 +134,7 @@ function: FUNC return_type identifier
         printf("func %s\n", $3);
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
-{printf("endfunc\n");} 
+{printf("endfunc\n\n");} 
 
 components: /* epsilon */
         | loop components
@@ -219,8 +217,10 @@ num_exp : num_exp num_op num_exp_2
 
 num_exp_2 : num_or_ident
         | int_arr_access 
-        | L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
+        | num_exp_3
         | func_call
+
+num_exp_3 : L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
         | IDENT { $$ = new Node(); $$->name = $1;}
@@ -275,7 +275,7 @@ args: /* epsilon */
 {
   for (int i = 0; i < args.size(); i++)
   {
-    printf("= %s, %i\n", args.at(i).c_str(), i);
+    printf("= %s, $%i\n", args.at(i).c_str(), i);
   }
   args.clear();
 }

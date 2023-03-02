@@ -116,7 +116,7 @@ std::string createTempVar(){
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_2 num_or_ident //dynamic allocation cleaned up in num_exp
+%type <node> int_arr_access num_exp_2 num_or_ident func_call //dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -133,9 +133,6 @@ function: FUNC return_type identifier
 } 
         L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
 {printf("endfunc\n");} 
-
-
-func_call: identifier L_PAREN literal_args R_PAREN 
 
 components: /* epsilon */
         | loop components
@@ -219,10 +216,12 @@ num_exp : num_exp num_op num_exp_2
 num_exp_2 : num_or_ident
         | int_arr_access 
         | L_PAREN num_exp R_PAREN { $$ = new Node(); $$->name = $2; }
-        | func_call
+        | func_call { $$ = new Node(); $$->name = $1; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
-        | IDENT { $$ = new Node(); $$->name = $1;}      
+        | IDENT { $$ = new Node(); $$->name = $1;}
+
+func_call: identifier L_PAREN literal_args R_PAREN       
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

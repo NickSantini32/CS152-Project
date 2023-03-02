@@ -178,7 +178,7 @@ function: FUNC return_type identifier
 { 
   std::string func_name = $3;
   add_function_to_symbol_table(func_name);
-  printf("func %s\n", $3);
+  printf("func %s\n", func_name.c_str());
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
 {printf("endfunc\n\n");}
@@ -212,19 +212,20 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
   // add the variable to the symbol table.
   std::string ident = $2;
+  std::string size = $4;
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
-  printf(".[] %s, %s\n", ident.c_str(), $4);
+  printf(".[] %s, %s\n", ident.c_str(), size.c_str());
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
   std::string ident = $1;
+  std::string index = $3;
   checkIfVarDeclared(ident);
   std::string temp = createTempVar();
-  printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), $3);
-  // printf("%s\n", (char*)temp.c_str());
+  printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), index.c_str());
   $$ = new Node();
   $$->name = temp;
 }
@@ -232,15 +233,18 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
   std::string ident = $1;
+  std::string index = $3;
+  std::string value = $6;
   checkIfVarDeclared(ident);
-  printf("[]= %s, %s, %s\n", ident.c_str(), $3, $6);
+  printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
   std::string ident = $1;
+  std::string value = $3;
   checkIfVarDeclared(ident);
-  printf("= %s, %s\n", ident.c_str(), $3); 
+  printf("= %s, %s\n", ident.c_str(), value.c_str());); 
 }
 
 /* identifier ASSIGN NUM STATE_END 
@@ -289,10 +293,11 @@ num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
-  checkIfFuncDefined($1);
+  std::string func_name = $1;
+  checkIfFuncDefined(func_name);
   $$ = new Node();
   $$->name = createTempVar();
-  printf("call %s, %s\n", $1, $$->name.c_str());
+  printf("call %s, %s\n", func_name.c_str(), $$->name.c_str());
 }       
 
 bool_exp : num_exp comparator num_exp

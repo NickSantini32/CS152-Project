@@ -163,9 +163,10 @@ void checkIfMainDefined(){
   const char *op_val;
   struct Node *node;
 }
-%token <op_val> NUM IDENT
-%type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_node num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp and num_exp_node
+%token <op_val> NUM IDENT 
+%type <op_val> num_op readWrite
+%type <node> identifier 
+%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -176,7 +177,7 @@ functions: /* epsilon */
 
 function: FUNC return_type identifier 
 { 
-  std::string func_name = $3;
+  std::string func_name = $3->name;
   add_function_to_symbol_table(func_name);
   printf("func %s\n", func_name.c_str());
 } 
@@ -201,7 +202,7 @@ statement: int_declaration
 int_declaration: INT identifier STATE_END 
 {  
   // add the variable to the symbol table.
-  std::string ident = $2;
+  std::string ident = $2->name;
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
@@ -211,8 +212,8 @@ int_declaration: INT identifier STATE_END
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
   // add the variable to the symbol table.
-  std::string ident = $2;
-  std::string size = $4;
+  std::string ident = $2->name;
+  std::string size = $4->name;
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
@@ -221,8 +222,8 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
-  std::string ident = $1;
-  std::string index = $3;
+  std::string ident = $1->name;
+  std::string index = $3->name;
   checkIfVarDeclared(ident);
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), index.c_str());
@@ -232,17 +233,17 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  std::string ident = $1;
-  std::string index = $3;
-  std::string value = $6;
+  std::string ident = $1->name;
+  std::string index = $3->name;
+  std::string value = $6->name;
   checkIfVarDeclared(ident);
   printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
-  std::string ident = $1;
-  std::string value = $3;
+  std::string ident = $1->name;
+  std::string value = $3->name;
   checkIfVarDeclared(ident);
   printf("= %s, %s\n", ident.c_str(), value.c_str()); 
 }
@@ -265,10 +266,8 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
-num_exp : num_exp_node {  $$ = (char*)$1->name.c_str(); delete $1; }
-
-num_exp_node: num_exp_terminal
-        | num_exp_terminal num_op num_exp_node
+num_exp: num_exp_terminal
+        | num_exp_terminal num_op num_exp
 {
   const std::string right = $1->name;
   const std::string left = $3->name;
@@ -286,7 +285,7 @@ num_exp_terminal : num_or_ident
         | paren_exp
         | func_call
 
-paren_exp : L_PAREN num_exp_node R_PAREN { $$ = $2; }
+paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
         | IDENT { $$ = new Node(); $$->name = $1;}
@@ -324,11 +323,11 @@ bool : TRUE
 logic_op : AND
         | OR
 
-IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2);}
+IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name);}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 {
   std::string t = createTempVar();
-  printf("=[] %s, %s, %s\n", t.c_str(), $2, $4);
+  printf("=[] %s, %s, %s\n", t.c_str(), $2->name, $4->name);
   printf("%s %s\n", $1, t.c_str());
 }
 
@@ -354,11 +353,11 @@ arguments: argument
 argument: INT identifier 
 { 
   // add the variable to the symbol table.
-  std::string name = $2;
+  std::string name = $2->name;
   Type t = Integer;
   add_variable_to_symbol_table(name, t);
   args.push_back(name);
-  printf(". %s\n", $2);
+  printf(". %s\n", $2->name);
 }
 
 literal_args: /* epsilon */
@@ -377,7 +376,8 @@ literal_argument: num_exp
 identifier: IDENT 
 { 
   //printf("%s", $1); 
-  $$ = $1; 
+  $$ = new Node();
+  $$->name = $1; 
 }
 
 %%

@@ -4,6 +4,7 @@
 #include<sstream>
 #include<vector>
 #include<string>
+#include <iostream>
 
 #include "y.tab.h"
 extern FILE* yyin;
@@ -244,7 +245,7 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   std::string ident = $2->name;
   std::string size = $4->name;
   checkIfVarIsDuplicate(ident);
-  checkArrayIndex(index);
+  checkArrayIndex(size);
   Type t = Array;
   add_variable_to_symbol_table(ident, t);
   printf(".[] %s, %s\n", ident.c_str(), size.c_str());

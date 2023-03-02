@@ -9,6 +9,6 @@
 #}
 function void main() {
   int a;
-  int true;
+  int true1;
   a = 10;
 }

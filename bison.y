@@ -115,8 +115,8 @@ std::string createTempVar(){
   struct Node *node;
 }
 %token <op_val> NUM IDENT
-%type <op_val> identifier num_op num_or_ident num_exp num_exp_2 readWrite int_arr_access
-/* %type <node> int_arr_access */
+%type <op_val> identifier num_op num_or_ident num_exp readWrite
+%type <node> int_arr_access num_exp_2
 
 
 %%
@@ -176,9 +176,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   std::string temp = createTempVar();
   printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
   // printf("%s\n", (char*)temp.c_str());
-  char* e = new char[temp.length() + 1];
-  e = (char*)temp.c_str();
-  $$ = e;
+  $$.name = temp.c_str();
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
@@ -209,7 +207,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 num_exp : num_exp num_op num_exp_2
 {
   const std::string right = $1;
-  const std::string left = $3;
+  const std::string left = $3.name;
   printf("eeeeee %s, %s\n", right.c_str(), left.c_str());
   std::string t = createTempVar();
   printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());

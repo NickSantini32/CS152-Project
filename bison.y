@@ -195,7 +195,7 @@ void checkIfMainDefined(){
   struct Node *node;
 }
 %token <op_val> NUM IDENT 
-%type <op_val> num_op readWrite
+%type <op_val> addop num_op readWrite
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp
 
@@ -321,8 +321,9 @@ num_exp_terminal : num_or_ident
 
 paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 
-num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
+num_or_ident : NUM { $$ = new Node(); $$->name = $1;}      
         | IDENT { $$ = new Node(); $$->name = $1;}
+        | addop NUM { $$ = new Node(); $$->name = $1 + $2;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
@@ -343,6 +344,10 @@ num_op : PLUS { char e[] = "+"; $$ = e;}
         | MULT { char e[] = "*"; $$ = e;}
         | DIV { char e[] = "/"; $$ = e;}
         | MOD { char e[] = "%"; $$ = e;}
+        
+
+addop : PLUS { char e[] = "+"; $$ = e;}
+        | MINUS { char e[] = "-"; $$ = e;}
 
 comparator : GREATER
         | LESSER

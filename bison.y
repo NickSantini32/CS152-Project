@@ -83,7 +83,7 @@ void print_symbol_table(void) {
     printf("function: %s\n", symbol_table[i].name.c_str());
     for(int j=0; j<symbol_table[i].declarations.size(); j++) {
       printf("  locals: %s\n", symbol_table[i].declarations[j].name.c_str());
-      delete symbol_table[i].declarations[j];
+      delete symbol_table[i].declarations[j].name;
     }
   }
   printf("--------------------\n");

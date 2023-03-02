@@ -118,7 +118,7 @@ std::string createTempVar(){
 }
 %token <op_val> NUM IDENT
 %type <op_val> identifier num_op num_exp readWrite
-%type <node> int_arr_access num_exp_node num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp
+%type <node> int_arr_access num_exp_node num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp and num_exp_node
 
 
 %%
@@ -163,11 +163,11 @@ int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
-        // add the variable to the symbol table.
-        std::string value = $2;
-        Type t = Integer;
-        add_variable_to_symbol_table(value, t);
-        printf(".[] %s, %s\n", $2, $4); 
+  // add the variable to the symbol table.
+  std::string value = $2;
+  Type t = Integer;
+  add_variable_to_symbol_table(value, t);
+  printf(".[] %s, %s\n", $2, $4); 
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 

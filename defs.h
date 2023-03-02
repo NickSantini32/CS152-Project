@@ -9,8 +9,4 @@ struct Node {
     std::string code;
     std::string name;
 };
-struct Args {
-    int num;
-    std::vector<std::string> args;
-};
 #endif

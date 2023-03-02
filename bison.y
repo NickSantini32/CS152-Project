@@ -277,6 +277,7 @@ args: /* epsilon */
   {
     printf("= %s, %i\n", args.at(i).c_str(), i);
   }
+  args.clear();
 }
 
 arguments: argument

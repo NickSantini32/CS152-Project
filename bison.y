@@ -323,7 +323,7 @@ paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}      
         | IDENT { $$ = new Node(); $$->name = $1;}
-        | addop NUM { $$ = new Node(); $$->name = $1 + $2;}
+        | addop NUM { $$ = new Node(); $$->name = std::string($1) + $2;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {

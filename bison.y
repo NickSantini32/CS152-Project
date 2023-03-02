@@ -14,7 +14,7 @@ extern int yylex(void);
 void yyerror(const char *msg);
 extern int currLine;
 
-vector<string> args;
+std::vector<std::string> args;
 
 char *identToken;
 int numberToken;

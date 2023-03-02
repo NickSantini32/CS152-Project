@@ -210,7 +210,7 @@ num_exp : num_exp num_op num_exp_2
   const std::string right = $1;
   const std::string left = $3->name;
   std::string t = createTempVar();
-  printf("%s %s, %s, %s\n", $2, t.c_str(), $1, left.c_str());
+  printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = (char*)(t.c_str());
 }
         | num_exp_2
@@ -220,8 +220,8 @@ num_exp_2 : num_or_ident
         | L_PAREN num_exp R_PAREN
         /* | func_call */
 
-num_or_ident : NUM 
-        | identifier        
+num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
+        | IDENT { $$ = new Node(); $$->name = $1;}      
 
 bool_exp : num_exp comparator num_exp
         | bool_exp logic_op bool_exp

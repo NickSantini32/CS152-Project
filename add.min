@@ -7,7 +7,7 @@
    #c = a + b;
    #write c;
 #}
-function void main() {
+function void emain() {
   int a;
   a = 10;
 }

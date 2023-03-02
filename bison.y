@@ -131,7 +131,7 @@ function: FUNC return_type identifier
         add_function_to_symbol_table(func_name);
         printf("func %s\n", $3);
 } 
-        L_PAREN arguments R_PAREN L_BRACE components R_BRACE 
+        L_PAREN args R_PAREN L_BRACE components R_BRACE 
 {printf("endfunc\n");} 
 
 components: /* epsilon */
@@ -266,14 +266,23 @@ readWrite: READ  { char e[] = ".<"; $$ = e;}
 return_type : INT
         | VOID
 
+args: /* epsilon */
+        | arguments
+
 arguments: argument 
-          | argument COMMA arguments 
+          | arguments COMMA argument 
+
+argument: INT identifier 
+{ 
+  // add the variable to the symbol table.
+  std::string value = $2;
+  Type t = Integer;
+  add_variable_to_symbol_table(value, t);
+  printf(". %s\n", $2);
+}
 
 literal_args: num_exp 
             | num_exp COMMA literal_args 
-
-argument: /*epsilon*/ 
-          | INT identifier
 
 identifier: IDENT 
 { 

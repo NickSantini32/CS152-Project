@@ -96,7 +96,7 @@ std::string createTempVar(){
   return ss.str(); 
 }
 
-void checkIfVarIsDuplicate(const string value){
+void checkIfVarIsDuplicate(const std::string value){
   if (find(value)){
     std::stringstream ss;
     ss << "ERROR: Duplicate variable declaration '" << value << "'";
@@ -104,7 +104,7 @@ void checkIfVarIsDuplicate(const string value){
   }
 }
 
-void checkIfVarIsKeyword(const string value){
+void checkIfVarIsKeyword(const std::string value){
   if (value == "int" || value == "if" || value == "elif" || value == "else" || value == "while" || value == "for" || value == "do" || value == "read" || value == "write" || value == "function" || value == "return" || value == "void" || value == "true" || value == "false"){
     std::stringstream ss;
     ss << "ERROR: Variable '" << value << "' is a keyword";
@@ -112,7 +112,7 @@ void checkIfVarIsKeyword(const string value){
   }
 }
 
-void checkIfVarDeclared(const string value){
+void checkIfVarDeclared(const std::string value){
   if (!find(value)){
     std::stringstream ss;
     ss << "ERROR: Variable '" << value << "' not declared";
@@ -121,7 +121,7 @@ void checkIfVarDeclared(const string value){
   checkIfVarIsKeyword(v);
 }
 
-void checkIfFuncDefined(const string value){
+void checkIfFuncDefined(const std::string value){
   for (int i = 0; i < symbol_table.size(); i++){
     if (symbol_table.at(i).name == value){
       return;
@@ -201,29 +201,29 @@ statement: int_declaration
 int_declaration: INT identifier STATE_END 
 {  
   // add the variable to the symbol table.
-  std::string value = $2;
-  checkIfVarIsDuplicate(value.c_str());
+  std::string ident = $2;
+  checkIfVarIsDuplicate(ident);
   Type t = Integer;
-  add_variable_to_symbol_table(value, t);
-  printf(". %s\n", $2); 
+  add_variable_to_symbol_table(ident, t);
+  printf(". %s\n", ident.c_str()); 
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
 { 
   // add the variable to the symbol table.
-  std::string value = $2;
-  checkIfVarIsDuplicate(value.c_str());
+  std::string ident = $2;
+  checkIfVarIsDuplicate(ident);
   Type t = Integer;
-  add_variable_to_symbol_table(value, t);
-  printf(".[] %s, %s\n", $2, $4);
+  add_variable_to_symbol_table(ident, t);
+  printf(".[] %s, %s\n", ident.c_str(), $4);
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
 {
-  std::string value = $1;
-  checkIfVarDeclared(value.c_str());
+  std::string ident = $1;
+  checkIfVarDeclared(ident);
   std::string temp = createTempVar();
-  printf("=[] %s, %s, %s\n", temp.c_str(), $1, $3);
+  printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), $3);
   // printf("%s\n", (char*)temp.c_str());
   $$ = new Node();
   $$->name = temp;
@@ -231,14 +231,16 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
 {
-  checkIfVarDeclared($1);
-  printf("[]= %s, %s, %s\n", $1, $3, $6);
+  std::string ident = $1;
+  checkIfVarDeclared(ident);
+  printf("[]= %s, %s, %s\n", ident, $3, $6);
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
 { 
-  checkIfVarDeclared($1);
-  printf("= %s, %s\n", $1, $3); 
+  std::string ident = $1;
+  checkIfVarDeclared(ident);
+  printf("= %s, %s\n", ident, $3); 
 }
 
 /* identifier ASSIGN NUM STATE_END 

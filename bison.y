@@ -96,7 +96,7 @@ std::string createTempVar(){
   return ss.str(); 
 }
 
-void checkIfVarDeclared(char* v){
+void checkIfVarDeclared(const char* v){
   std::string value(v);
   if (!find(value)){
     std::stringstream ss;

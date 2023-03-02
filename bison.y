@@ -150,8 +150,7 @@ functions: /* epsilon */
         | function functions
 
 function: FUNC return_type identifier 
-{
-  checkIfFuncDeclared($3);
+{ 
   std::string func_name = $3;
   add_function_to_symbol_table(func_name);
   printf("func %s\n", $3);
@@ -260,6 +259,7 @@ num_or_ident : NUM { $$ = new Node(); $$->name = $1;}
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
+  checkIfFuncDeclared($1);
   $$ = new Node();
   $$->name = createTempVar();
   printf("call %s, %s\n", $1, $$->name.c_str());

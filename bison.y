@@ -83,7 +83,6 @@ void print_symbol_table(void) {
     printf("function: %s\n", symbol_table[i].name.c_str());
     for(int j=0; j<symbol_table[i].declarations.size(); j++) {
       printf("  locals: %s\n", symbol_table[i].declarations[j].name.c_str());
-      delete symbol_table[i].declarations[j].name;
     }
   }
   printf("--------------------\n");
@@ -263,7 +262,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
 
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
-num_exp : num_exp_node { $$ = (char*)$1->name.c_str(); delete $1; }
+num_exp : num_exp_node {  $$ = (char*)$1->name.c_str(); printf($$); delete $1; }
 
 num_exp_node: num_exp_terminal
         | num_exp_terminal num_op num_exp_node

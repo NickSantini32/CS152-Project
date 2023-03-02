@@ -9,4 +9,5 @@
 #}
 function void main() {
   int a[10];
+  a[] = 5;
 }

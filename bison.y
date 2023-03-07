@@ -295,6 +295,10 @@ return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str())
         | RETURN STATE_END
 
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+{
+     
+}
+
 if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
         | ELSE L_BRACE components R_BRACE
@@ -339,8 +343,19 @@ func_call: identifier L_PAREN literal_args R_PAREN
   printf("call %s, %s\n", func_name.c_str(), $$->name.c_str());
 }       
 
-bool_exp : num_exp comparator num_exp
-        | bool_exp logic_op bool_exp
+bool_exp : num_exp comparator num_exp {
+	   std::string exp1 = $1->name;
+	   std::string exp2 = $3->name;
+	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
+	}
+
+        | bool_exp logic_op bool_exp {
+	   /*
+	   std::string exp1 = $1->name;
+	   std::string exp2 = $3->name;
+	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());
+	   */
+	}
         | bool
         | num_exp
 
@@ -354,18 +369,42 @@ num_op : PLUS { char e[] = "+"; $$ = e;}
 addop : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}
 
-comparator : GREATER
-        | LESSER
-        | GEQ
-        | LEQ
-        | EQUAL
-        | NEQ
+comparator : GREATER {
+	   std::string x = createTempVar();
+	   printf("> %s, ", x.c_str());
+	}
+        | LESSER {
+	   std::string x = createTempVar();
+	   printf("< %s, ", x.c_str());
+	}
+        | GEQ {
+	   std::string x = createTempVar();
+	   printf(">= %s, ", x.c_str());
+	}
+        | LEQ {
+	   std::string x = createTempVar();
+	   printf("<= %s, ", x.c_str());
+        }
+        | EQUAL {
+	   std::string x = createTempVar();
+	   printf("== %s, ", x.c_str());
+	}          
+        | NEQ {
+	   std::string x = createTempVar();
+	   printf("!= %s, ", x.c_str());
+	}
 
 bool : TRUE
         | FALSE
 
-logic_op : AND
-        | OR
+logic_op : AND {
+	   std::string x = createTempVar();
+	   printf("&& %s, ", x.c_str());
+	}
+        | OR {
+	   std::string x = createTempVar();
+	   printf("|| %s, ", x.c_str());
+	}
 
 IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name.c_str());}
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END

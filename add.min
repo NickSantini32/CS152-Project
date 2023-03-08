@@ -1,4 +1,4 @@
-function void main() {
+function void main1() {
    int a;
    int b;
    int c;

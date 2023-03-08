@@ -1,0 +1,20 @@
+## This is a nested loop 
+
+void main(){
+
+  int i;
+  int j;
+
+  i = 0;
+  while (i < 2) {
+
+    j = 1;
+    while (j <= 3) {
+      write j;
+      j = j + 1;
+    }
+
+    i = i + 1;
+  }
+
+}

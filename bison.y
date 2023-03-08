@@ -222,6 +222,7 @@ void checkIfMainDefined(){
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
 %type <node> comparator logic_op bool_exp loop components statement
+%type <node> int_declaration int_arr_declaration int_arr_assignment assignment IO //statements
 
 %%
 prog_start: functions { checkIfMainDefined(); }
@@ -241,7 +242,7 @@ function: FUNC return_type identifier L_PAREN args R_PAREN L_BRACE components R_
 
 components: /* epsilon */ { Node* n = new Node(); n->code = ""; $$ = n;}
         | loop components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
-        | statement components { Node* n = new Node(); n->code = ""; $$ = n;}//$$->code = $1->code + $2->code; delete $1; delete $2; }
+        | statement components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
 
 statement: int_declaration
         | assignment
@@ -249,8 +250,8 @@ statement: int_declaration
         /* | int_dec_assignment */
         | int_arr_declaration
         | if_exp
-        | COMMENT
-        | return_statement
+        | COMMENT { Node* n = new Node(); n->code = ""; $$ = n;}
+        | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
         | IO
 
@@ -261,7 +262,9 @@ int_declaration: INT identifier STATE_END
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
-  printf(". %s\n", ident.c_str()); 
+  $$ = new Node();
+  $$->code = ". " + ident;
+  // printf(". %s\n", ident.c_str()); 
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
@@ -273,7 +276,9 @@ int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END
   checkArrayIndex(size);
   Type t = Array;
   add_variable_to_symbol_table(ident, t);
-  printf(".[] %s, %s\n", ident.c_str(), size.c_str());
+  $$ = new Node();
+  $$->code = ".[] " + ident + ", " + size;
+  // printf(".[] %s, %s\n", ident.c_str(), size.c_str());
 } 
 
 int_arr_access: identifier L_ARRAY num_exp R_ARRAY 
@@ -286,6 +291,7 @@ int_arr_access: identifier L_ARRAY num_exp R_ARRAY
   printf("=[] %s, %s, %s\n", temp.c_str(), ident.c_str(), index.c_str());
   $$ = new Node();
   $$->name = temp;
+  $$->code = "=[] " + temp + ", " + ident + ", " + index;
 }
 
 int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
@@ -295,7 +301,9 @@ int_arr_assignment: identifier L_ARRAY num_exp R_ARRAY ASSIGN num_exp STATE_END
   std::string value = $6->name;
   runArrayChecks(ident);
   checkArrayIndex(index);
-  printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
+  $$ = new Node();
+  $$->code = "[]= " + ident + ", " + index + ", " + value;
+  // printf("[]= %s, %s, %s\n", ident.c_str(), index.c_str(), value.c_str());
 }
 
 assignment: identifier ASSIGN num_exp STATE_END 
@@ -303,7 +311,9 @@ assignment: identifier ASSIGN num_exp STATE_END
   std::string ident = $1->name;
   std::string value = $3->name;
   checkIfVarDeclared(ident);
-  printf("= %s, %s\n", ident.c_str(), value.c_str()); 
+  // printf("= %s, %s\n", ident.c_str(), value.c_str()); 
+  $$ = new Node();
+  $$->code = "= " + ident + ", " + value;
 }
 
 /* identifier ASSIGN NUM STATE_END 
@@ -465,12 +475,19 @@ logic_op : AND {
 	   $$->code = "||";
 	}
 
-IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name.c_str());}
+IO : readWrite identifier STATE_END {
+  // printf("%s %s\n", $1, $2->name.c_str());
+  $$ = new Node();
+  $$->code = $1 + " " + $2->name + "\n";
+  }
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 {
-  std::string t = createTempVar();
-  printf("=[] %s, %s, %s\n", t.c_str(), $2->name.c_str(), $4->name.c_str());
-  printf("%s %s\n", $1, t.c_str());
+  std::string t = createTempVarNOPRINT();
+  // printf("=[] %s, %s, %s\n", t.c_str(), $2->name.c_str(), $4->name.c_str());
+  // printf("%s %s\n", $1, t.c_str());
+  $$ = new Node();
+  $$->code = "=[] " + t + ", " + $2->name + ", " + $4->name + "\n";
+  $$->code += $1 + " " + t + "\n";
 }
 
 readWrite: READ  { char e[] = ".<"; $$ = e;}

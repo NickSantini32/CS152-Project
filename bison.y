@@ -257,7 +257,6 @@ statement: int_declaration { printf("e-1"); $$ = $1; }
 
 int_declaration: INT identifier STATE_END 
 {  
-  printf("e3");
   // add the variable to the symbol table.
   std::string ident = $2->name;
   checkIfVarIsDuplicate(ident);
@@ -539,7 +538,7 @@ literal_argument: num_exp
 
 identifier: IDENT 
 { 
-  //printf("%s", $1); 
+  printf("%s", $1); 
   $$ = new Node();
   $$->name = $1; 
 }

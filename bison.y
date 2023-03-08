@@ -326,19 +326,19 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;
         Node * node = new Node();
         printf("e");
-        // Node * bool_exp_node = $3;    
-        // Node * components_node = $6;
-        // std::string start_label= "beginloop" + loopCount;
-        // std::string body_label = "loopbody" + loopCount;
-        // std::string end_label= "loopend" + loopCount; 
-        // loopCount++;
-        // node->code += ": " + start_label + "\n";
-        // node->code += ". " + bool_exp_node->name + "\n";      
-        // node->code += bool_exp_node->code;
-        // node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
-        // //node->code += components_node->code;
-        // node->code += ":= " + end_label + "\n";
-        // node->code += ": " + body_label + "\n";
+        Node * bool_exp_node = $3;    
+        Node * components_node = $6;
+        std::string start_label= "beginloop" + loopCount;
+        std::string body_label = "loopbody" + loopCount;
+        std::string end_label= "loopend" + loopCount; 
+        loopCount++;
+        node->code += ": " + start_label + "\n";
+        node->code += ". " + bool_exp_node->name + "\n";      
+        node->code += bool_exp_node->code;
+        node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
+        //node->code += components_node->code;
+        node->code += ":= " + end_label + "\n";
+        node->code += ": " + body_label + "\n";
         
 
         //delete bool_exp_node;      

@@ -240,7 +240,7 @@ function: FUNC return_type identifier
         | COMMENT
 
 components: /* epsilon */ { $$ = new Node(); $$->code = ""; }
-        | loop components { $$ = new Node(); $$->code = "";}//$$->code = $1->code + $2->code; }//delete $1; delete $2; }
+        | loop components { $$ = new Node(); $$->code = ""; $$->code = $1->code + $2->code; delete $1; delete $2; }
         | statement components { $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
 
 statement: int_declaration
@@ -340,7 +340,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         node->code += ": " + body_label + "\n";
         
 
-        delete bool_exp_node;      
+        //delete bool_exp_node;      
         //printf(node->code.c_str());
         //delete node;
         $$ = node;

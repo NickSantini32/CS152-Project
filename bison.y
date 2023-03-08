@@ -263,8 +263,8 @@ int_declaration: INT identifier STATE_END
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
   printf("e0");
-  $$ = new Node();
-  $$->code = ". " + ident;
+  // $$ = new Node();
+  // $$->code = ". " + ident;
   // printf(". %s\n", ident.c_str()); 
   printf("e1");
 } 

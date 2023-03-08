@@ -330,8 +330,8 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string start_label= new_label("beginloop");
         std::string body_label = new_label("loopbody");
         std::string end_label= new_label("loopend"); 
-        node->code = ". " + bool_exp_node->name + "\n";
         node->code += ": " + start_label + "\n";
+        node->code = ". " + bool_exp_node->name + "\n";      
         node->code += bool_exp_node->code;
         node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
         node->code + ":= " + end_label + "\n";

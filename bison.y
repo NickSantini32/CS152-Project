@@ -230,9 +230,12 @@ prog_start: functions { checkIfMainDefined(); }
 functions: /* epsilon */
         | function functions
 
-function: FUNC return_type identifier L_PAREN args R_PAREN L_BRACE components R_BRACE {
+function: FUNC return_type identifier {
           std::string func_name = $3->name;
           add_function_to_symbol_table(func_name);
+        }
+        L_PAREN args R_PAREN L_BRACE components R_BRACE {
+          
           // printf("func %s\n", func_name.c_str());
           // printf($8->code.c_str()); 
           // delete $8; 
@@ -260,7 +263,7 @@ int_declaration: INT identifier STATE_END
   // add the variable to the symbol table.
   std::string ident = $2->name;
   printf("e0");
-  // checkIfVarIsDuplicate(ident);
+  checkIfVarIsDuplicate(ident);
   // Type t = Integer;
   // add_variable_to_symbol_table(ident, t);
   // $$ = new Node();

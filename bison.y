@@ -115,7 +115,7 @@ std::string new_label(std::string s){
   std::stringstream ss;
   ss << s << loopCount;
   loopCount++;
-  return s;
+  return ss.str();
 }
 
 void checkIfVarIsDuplicate(const std::string value){
@@ -386,6 +386,7 @@ bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
      $$ = $2;
+     $$->code = $$->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
 	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
         | bool
@@ -418,6 +419,7 @@ comparator : GREATER {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
+     $$->code = "<";
 	}
         | GEQ {
 	   std::string x = createTempVarNOPRINT();

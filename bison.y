@@ -92,17 +92,17 @@ void print_symbol_table(void) {
   printf("--------------------\n");
 }
 
-std::string createTempVar(){ 
-  std::string s = createTempVarNOPRINT();
-  printf(". %s\n", s.c_str());
-  return s; 
-}
-
 std::string createTempVarNOPRINT(){ 
   std::stringstream ss;
   ss << "_temp" << tempCount;    
   tempCount++;
   return ss.str(); 
+}
+
+std::string createTempVar(){ 
+  std::string s = createTempVarNOPRINT();
+  printf(". %s\n", s.c_str());
+  return s; 
 }
 
 std::string new_label(){

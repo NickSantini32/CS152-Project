@@ -7,7 +7,7 @@
 #include <iostream>
 
 struct Node {
-    std::string code;
-    std::string name;
+    std::string code = "";
+    std::string name = "";
 };
 #endif

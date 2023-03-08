@@ -240,8 +240,8 @@ function: FUNC return_type identifier
         | COMMENT
 
 components: /* epsilon */ //{ $$ = new Node(); $$->code = ""; }
-        | loop components //{ $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
-        | statement components ///{ $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
+        | loop components { $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
+        | statement components //{ $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
 
 statement: int_declaration
         | assignment

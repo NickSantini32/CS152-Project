@@ -242,9 +242,9 @@ function: FUNC return_type identifier L_PAREN args R_PAREN L_BRACE components R_
 
 components: /* epsilon */ { Node* n = new Node(); n->code = ""; $$ = n;}
         | loop components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
-        | statement components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
+        | statement components { printf("e-2"); Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
 
-statement: int_declaration
+statement: int_declaration { printf("e-1"); $$ = $1; }
         | assignment
         | int_arr_assignment
         /* | int_dec_assignment */

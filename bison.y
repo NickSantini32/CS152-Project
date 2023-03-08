@@ -237,15 +237,15 @@ function: FUNC return_type identifier {
         L_PAREN args R_PAREN L_BRACE components R_BRACE {  
           std::string func_name = $3->name;        
           printf("func %s\n", func_name.c_str());
-          // printf($8->code.c_str()); 
-          // delete $8; 
-          // printf("endfunc\n\n");
+          printf($8->code.c_str()); 
+          delete $8; 
+          printf("endfunc\n\n");
         }
         | COMMENT
 
-components: /* epsilon */ { printf("e-4"); Node* n = new Node(); n->code = ""; $$ = n;}
+components: /* epsilon */ { Node* n = new Node(); n->code = ""; $$ = n;}
         | loop components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
-        | statement components { printf("e-2"); Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
+        | statement components {  Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
 
 statement: int_declaration
         | assignment

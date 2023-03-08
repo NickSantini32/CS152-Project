@@ -369,11 +369,12 @@ num_exp: num_exp_terminal
   const std::string left = $3->name;
   delete $1;
   delete $3;
-  std::string t = createTempVar();
+  std::string t = createTempVarNOPRINT();
 
-  printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
+  // printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = new Node();
   $$->name = t;
+  $$->code = std::string($2) + " " + t + ", " + right + ", " + left + "\n";
 }
 
 num_exp_terminal : num_or_ident

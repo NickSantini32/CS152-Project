@@ -387,7 +387,7 @@ num_exp_terminal : num_or_ident
 paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}      
-        | IDENT 
+        | IDENT { $$ = new Node(); $$->name = $1; } 
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {

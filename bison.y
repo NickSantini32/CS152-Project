@@ -236,7 +236,7 @@ function: FUNC return_type identifier
   printf("func %s\n", func_name.c_str());
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
-        {printf($8->code.c_str()); delete $8; printf("endfunc\n\n");}
+        {printf($8->code.c_str()); delete $9; printf("endfunc\n\n");}
         | COMMENT
 
 components: /* epsilon */

@@ -93,26 +93,29 @@ void print_symbol_table(void) {
 }
 
 std::string createTempVar(){ 
+  std::string = createTempVarNOPRINT()
+  printf(". %s\n", s.c_str());
+  return s; 
+}
+
+std::string createTempVarNOPRINT(){ 
   std::stringstream ss;
-  ss << "_temp" << tempCount;  
-  printf(". %s\n", ss.str().c_str());
+  ss << "_temp" << tempCount;    
   tempCount++;
   return ss.str(); 
 }
 
-std::string startWhile(){ 
+std::string new_label(){
   std::stringstream ss;
-  ss << "beginloop" << loopCount;  
-  printf(": %s\n", ss.str().c_str());
+  ss << "_label" << loopCount;
   loopCount++;
-  return ss.str(); 
+  return ss.str();
 }
-
-std::string endWhile(){ 
+std::string new_label(std::string s){
   std::stringstream ss;
-  ss << "endloop" << loopCount;  
-  printf(": %s\n", ss.str().c_str());
-  return ss.str(); 
+  ss << s << loopCount;
+  loopCount++;
+  return s;
 }
 
 void checkIfVarIsDuplicate(const std::string value){
@@ -319,13 +322,26 @@ if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
         | ELSE L_BRACE components R_BRACE
 
-loop: WHILE { $4->code = startWhile(); }
-      L_PAREN bool_exp R_PAREN { 
-        std::string label = $4->code;
-        std::string exp = $4->name;
-        printf("?:= %s, %s\n", label.c_str(), exp.c_str());
+loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
+        std::string name;
+        Node * node = new Node();
+        Node * bool_exp_node = $3;
+        Node * components_node = $4;
+        std::string start_label= new_label("beginloop");
+        std::string body_label = new_label("loopbody");
+        std::string end_label= new_label("loopend"); 
+        node->code = ". " + bool_exp_node->name + "\n";
+        node->code += ": " + start_label + "\n";
+        node->code += bool_exp_node->code;
+        node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
+        node->code + ":= " + end_label + "\n";
+        node->code += ": " + body_label + "\n";
+        node->code += components_node->code;
+
+        delete bool_exp_node;
+        printf(node->code.c_str());
+        //$$ = node;
       }
-      L_BRACE components R_BRACE
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
@@ -392,37 +408,36 @@ addop : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}
 
 comparator : GREATER {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
 	   printf("> %s, ", x.c_str());
 	}
         | LESSER {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf("< %s, ", x.c_str());
 	}
         | GEQ {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
 	   printf(">= %s, ", x.c_str());
 	}
         | LEQ {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
 	   printf("<= %s, ", x.c_str());
         }
         | EQUAL {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
 	   printf("== %s, ", x.c_str());
 	}          
         | NEQ {
-	   std::string x = createTempVar();
+	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
 	   printf("!= %s, ", x.c_str());

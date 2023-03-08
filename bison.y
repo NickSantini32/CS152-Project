@@ -536,8 +536,8 @@ literal_argument: num_exp
 identifier: IDENT 
 { 
   //printf("%s", $1); 
-  // $$ = new Node();
-  // $$->name = $1; 
+  $$ = new Node();
+  $$->name = $1; 
 }
 
 %%

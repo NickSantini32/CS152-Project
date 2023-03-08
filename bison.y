@@ -376,7 +376,8 @@ num_exp: num_exp_terminal
   // printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
   $$ = new Node();
   $$->name = t;
-  $$->code = std::string($2) + " " + t + ", " + right + ", " + left + "\n";
+  $$->code = ". " + t + "\n";
+  $$->code += std::string($2) + " " + t + ", " + right + ", " + left + "\n";
 }
 
 num_exp_terminal : num_or_ident

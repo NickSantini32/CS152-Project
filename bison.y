@@ -259,7 +259,7 @@ int_declaration: INT identifier STATE_END
 {  
   // add the variable to the symbol table.
   std::string ident = $2->name;
-  // checkIfVarIsDuplicate(ident);
+  checkIfVarIsDuplicate(ident);
   // Type t = Integer;
   // add_variable_to_symbol_table(ident, t);
   printf("e0");

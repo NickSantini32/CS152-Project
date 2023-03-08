@@ -258,7 +258,7 @@ statement: int_declaration { printf("e-1"); /*$$ = $1;*/ }
 int_declaration: INT identifier STATE_END 
 {  
   // add the variable to the symbol table.
-  // std::string ident = $2->name;
+  std::string ident = $2->name;
   // checkIfVarIsDuplicate(ident);
   // Type t = Integer;
   // add_variable_to_symbol_table(ident, t);

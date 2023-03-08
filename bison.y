@@ -217,8 +217,8 @@ void checkIfMainDefined(){
 %token <op_val> NUM IDENT 
 %type <op_val> addop num_op readWrite
 %type <node> identifier 
-%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call comparator logic_op bool_exp//dynamic allocation cleaned up in num_exp
-
+%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
+%type <node> comparator logic_op bool_exp
 
 %%
 prog_start: functions { checkIfMainDefined(); }
@@ -322,7 +322,7 @@ if_else_exp : /* epsilon */
 loop: WHILE { std::string label = startWhile(); }
       L_PAREN bool_exp R_PAREN { 
         //std::string label = $3->name;
-        std::string exp = $2->name;
+        std::string exp = $3->name;
         printf("?:= %s, %s\n", label.c_str(), exp.c_str());
       }
       L_BRACE components R_BRACE

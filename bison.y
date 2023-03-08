@@ -266,7 +266,7 @@ int_declaration: INT identifier STATE_END
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
   $$ = new Node();
-  $$->code = ". " + ident;
+  $$->code = ". " + ident + "\n";
   // printf(". %s\n", ident.c_str()); 
 } 
 

@@ -264,7 +264,7 @@ int_declaration: INT identifier STATE_END
   add_variable_to_symbol_table(ident, t);
   $$ = new Node();
   $$->code = ". " + ident;
-  // printf(". %s\n", ident.c_str()); 
+  printf(". %s\n", ident.c_str()); 
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END

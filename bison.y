@@ -478,7 +478,8 @@ logic_op : AND {
 IO : readWrite identifier STATE_END {
   // printf("%s %s\n", $1, $2->name.c_str());
   $$ = new Node();
-  $$->code = $1 + " " + $2->name + "\n";
+  std::string t = $1;
+  $$->code = t + " " + $2->name + "\n";
   }
         | readWrite identifier L_ARRAY num_exp R_ARRAY STATE_END
 {
@@ -487,7 +488,8 @@ IO : readWrite identifier STATE_END {
   // printf("%s %s\n", $1, t.c_str());
   $$ = new Node();
   $$->code = "=[] " + t + ", " + $2->name + ", " + $4->name + "\n";
-  $$->code += $1 + " " + t + "\n";
+  std::string s = $1;
+  $$->code += s + " " + t + "\n";
 }
 
 readWrite: READ  { char e[] = ".<"; $$ = e;}

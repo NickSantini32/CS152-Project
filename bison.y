@@ -221,7 +221,7 @@ void checkIfMainDefined(){
 %type <op_val> addop num_op readWrite
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
-%type <node> comparator logic_op bool_exp loop components
+%type <node> comparator logic_op bool_exp loop components statement
 
 %%
 prog_start: functions { checkIfMainDefined(); }

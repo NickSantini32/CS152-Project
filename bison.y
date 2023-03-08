@@ -217,7 +217,7 @@ void checkIfMainDefined(){
 %token <op_val> NUM IDENT 
 %type <op_val> addop num_op readWrite
 %type <node> identifier 
-%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call //dynamic allocation cleaned up in num_exp
+%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call comparator logic_op //dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -319,8 +319,12 @@ if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
         | ELSE L_BRACE components R_BRACE
 
-loop: WHILE { startWhile(); }
-      L_PAREN bool_exp R_PAREN { }
+loop: WHILE { std::string label = startWhile(); }
+      L_PAREN bool_exp R_PAREN { 
+        //std::string label = $3->name;
+        std::string exp = $3->name;
+        printf("?:= %s, %s\n", label.c_str(), exp.c_str());
+      }
       L_BRACE components R_BRACE
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
@@ -367,15 +371,14 @@ bool_exp : num_exp comparator num_exp {
 	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
 
-        | bool_exp logic_op bool_exp {
+        //| bool_exp logic_op bool_exp {
 	   /*
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
 	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());
 	   */
-	}
+	//}
         | bool
-        | num_exp
 
 num_op : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}
@@ -389,26 +392,38 @@ addop : PLUS { char e[] = "+"; $$ = e;}
 
 comparator : GREATER {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("> %s, ", x.c_str());
 	}
         | LESSER {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("< %s, ", x.c_str());
 	}
         | GEQ {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf(">= %s, ", x.c_str());
 	}
         | LEQ {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("<= %s, ", x.c_str());
         }
         | EQUAL {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("== %s, ", x.c_str());
 	}          
         | NEQ {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("!= %s, ", x.c_str());
 	}
 
@@ -417,10 +432,14 @@ bool : TRUE
 
 logic_op : AND {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("&& %s, ", x.c_str());
 	}
         | OR {
 	   std::string x = createTempVar();
+     $$ = new Node();
+     $$->name = x;
 	   printf("|| %s, ", x.c_str());
 	}
 

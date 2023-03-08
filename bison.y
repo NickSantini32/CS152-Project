@@ -323,7 +323,6 @@ if_else_exp : /* epsilon */
         | ELSE L_BRACE components R_BRACE
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
-        //std::string name;
         Node * node = new Node();
         Node * bool_exp_node = $3;
         Node * components_node = $6;

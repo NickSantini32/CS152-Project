@@ -319,9 +319,9 @@ if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
         | ELSE L_BRACE components R_BRACE
 
-loop: WHILE { $$ = new Node(); $$->code = startWhile(); }
+loop: WHILE { $4->code = startWhile(); }
       L_PAREN bool_exp R_PAREN { 
-        std::string label = $$->code;
+        std::string label = $4->code;
         std::string exp = $4->name;
         printf("?:= %s, %s\n", label.c_str(), exp.c_str());
       }

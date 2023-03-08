@@ -335,7 +335,6 @@ if_else_exp : /* epsilon */
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;
         Node * node = new Node();
-        printf("e");
         Node * bool_exp_node = $3;    
         Node * components_node = $6;
         std::string start_label= "beginloop" + loopCount;
@@ -351,9 +350,8 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         node->code += ": " + body_label + "\n";
         
 
-        delete bool_exp_node;      
-        printf(node->code.c_str());
-        delete node;
+        // delete bool_exp_node;      
+        // printf(node->code.c_str());
         $$ = node;
       }
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */

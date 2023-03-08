@@ -337,7 +337,9 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         Node * node = new Node();
         Node * bool_exp_node = $3;    
         Node * components_node = $6;
-        std::string start_label = "beginloop" + std::to_string(loopCount);
+        std::stringstream ss;
+        ss << "beginloop" << loopCount;
+        std::string start_label = ss.str();
         std::string body_label = "loopbody" + loopCount;
         std::string end_label = "endloop" + loopCount; 
         loopCount++;

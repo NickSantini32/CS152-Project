@@ -1,6 +1,6 @@
 ## This is a nested loop 
 
-void main(){
+function void main(){
 
   int i;
   int j;

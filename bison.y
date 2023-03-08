@@ -249,7 +249,7 @@ statement: int_declaration { printf("e-1"); $$ = $1; }
         | int_arr_assignment
         /* | int_dec_assignment */
         | int_arr_declaration
-        | if_exp
+        /* | if_exp */
         | COMMENT { Node* n = new Node(); n->code = ""; $$ = n;}
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
@@ -359,7 +359,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         $$ = node;
       }
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */
-      | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
+      /* | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE */
 
 int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
 
@@ -538,7 +538,7 @@ literal_argument: num_exp
 
 identifier: IDENT 
 { 
-  printf("%s", $1); 
+  //printf("%s", $1); 
   $$ = new Node();
   $$->name = $1; 
 }

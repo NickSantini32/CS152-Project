@@ -373,11 +373,12 @@ num_exp: num_exp_terminal
   delete $3;
   std::string t = createTempVarNOPRINT();
 
-  printf("%s %s, %s, %s\n", $2, t.c_str(), right.c_str(), left.c_str());
+  
   $$ = new Node();
   $$->name = t;
   $$->code = ". " + t + "\n";
   $$->code += std::string($2) + " " + t + ", " + right + ", " + left + "\n";
+  printf($$->code.c_str());
 }
 
 num_exp_terminal : num_or_ident

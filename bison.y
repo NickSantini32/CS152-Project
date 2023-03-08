@@ -231,8 +231,8 @@ functions: /* epsilon */
         | function functions
 
 function: FUNC return_type identifier L_PAREN args R_PAREN L_BRACE components R_BRACE {
-          // std::string func_name = $3->name;
-          // add_function_to_symbol_table(func_name);
+          std::string func_name = $3->name;
+          add_function_to_symbol_table(func_name);
           // printf("func %s\n", func_name.c_str());
           // printf($8->code.c_str()); 
           // delete $8; 

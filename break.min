@@ -1,6 +1,6 @@
 # This is a simple loop with a break statement
 
-void main(){
+function void main(){
   int i;
 
   i = 0;

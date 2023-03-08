@@ -1,6 +1,6 @@
 ## This is an if-else statement
 
-void main() {
+function void main() {
   int a;
   int b;
   int c;

@@ -338,11 +338,11 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         Node * bool_exp_node = $3;    
         Node * components_node = $6;
         std::stringstream ss;
-        ss << "beginloop" << loopCount;
+        ss << "beginloop" << loopCount << "\n";
         std::string start_label = ss.str();
-        ss.clear(); ss << "loopbody" << loopCount;
+        ss.clear(); ss << "loopbody" << loopCount << "\n";
         std::string body_label = ss.str();
-        ss.clear(); ss << "endloop" << loopCount;
+        ss.clear(); ss << "endloop" << loopCount << "\n";
         std::string end_label = ss.str();
         loopCount++;
         node->code += ": " + start_label + "\n";

@@ -303,7 +303,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
         | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 
-int_dec_assignment: INT identifier ASSIGN num_exp STATE_END
+int_dec_assignment: INT assignment
 
 num_exp: num_exp_terminal
         | num_exp_terminal num_op num_exp

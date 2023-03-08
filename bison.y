@@ -401,6 +401,7 @@ bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
      $$ = $2;
+     $$->name = createTempVarNOPRINT();
      $$->code = $$->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
 	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}

@@ -239,9 +239,9 @@ function: FUNC return_type identifier
         {printf($9->code.c_str()); delete $9; printf("endfunc\n\n");}
         | COMMENT
 
-components: /* epsilon */
-        | loop components
-        | statement components
+components: /* epsilon */ { $$ = new Node(); $$->code = ""; }
+        | loop components { $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
+        | statement components { $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
 
 statement: int_declaration
         | assignment
@@ -341,9 +341,9 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         
 
         delete bool_exp_node;      
-        printf(node->code.c_str());
+        //printf(node->code.c_str());
         //delete node;
-        //$$ = node;
+        $$ = node;
       }
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE

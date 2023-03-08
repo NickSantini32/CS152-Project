@@ -218,7 +218,7 @@ void checkIfMainDefined(){
   struct Node *node;
 }
 %token <op_val> NUM IDENT 
-%type <op_val> addop num_op readWrite
+%type <op_val> mulop num_op readWrite
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
 %type <node> comparator logic_op bool_exp loop components statement
@@ -387,8 +387,7 @@ num_exp_terminal : num_or_ident
 paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}      
-        | IDENT { $$ = new Node(); $$->name = $1;}
-        | addop NUM { $$ = new Node(); $$->name = std::string($1) + $2;}
+        | IDENT 
 
 func_call: identifier L_PAREN literal_args R_PAREN
 {
@@ -421,13 +420,11 @@ bool_exp : num_exp comparator num_exp {
 
 num_op : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}
-        | MULT { char e[] = "*"; $$ = e;}
+        | mulop
+
+mulop : MULT { char e[] = "*"; $$ = e;}
         | DIV { char e[] = "/"; $$ = e;}
         | MOD { char e[] = "%"; $$ = e;}
-        
-
-addop : PLUS { char e[] = "+"; $$ = e;}
-        | MINUS { char e[] = "-"; $$ = e;}
 
 comparator : GREATER {
      $$ = new Node();

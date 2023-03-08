@@ -322,12 +322,7 @@ if_else_exp : /* epsilon */
 loop: WHILE { std::string label = startWhile(); }
       L_PAREN bool_exp R_PAREN { 
         //std::string label = $3->name;
-        std::string exp = $3->name;
-        std::string exp = $1->name;
-        std::string exp = $2->name;
         std::string exp = $4->name;
-        std::string exp = $5->name;
-        std::string exp = $6->name;
         printf("?:= %s, %s\n", label.c_str(), exp.c_str());
       }
       L_BRACE components R_BRACE

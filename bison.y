@@ -319,8 +319,9 @@ if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
         | ELSE L_BRACE components R_BRACE
 
-loop: WHILE { }
-      L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE
+loop: WHILE { startWhile(); }
+      L_PAREN bool_exp R_PAREN { }
+      L_BRACE components R_BRACE
         /* | DO L_BRACE components R_BRACE WHILE L_PAREN bool_exp R_PAREN */
         | FOR L_PAREN int_dec_assignment STATE_END bool_exp STATE_END statement R_PAREN L_BRACE components R_BRACE
 

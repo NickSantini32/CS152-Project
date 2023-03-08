@@ -1,9 +1,13 @@
+#function void main() {
+   #int a;
+   #int b;
+   #int c;
+   #a = 100;
+   #b = 50;
+   #c = a + b;
+   #write c;
+#}
 function void main() {
-   int a;
-   int b;
-   int c;
-   a = 100;
-   b = 50;
-   c = a + b;
-   write c;
+  int a[5];
+  continue
 }

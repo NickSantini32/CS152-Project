@@ -7,6 +7,3 @@ function void main() {
    c = a + b;
    write c;
 }
-#function void main() {
- ##continue
-#}

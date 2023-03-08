@@ -243,11 +243,11 @@ function: FUNC return_type identifier {
         }
         | COMMENT
 
-components: /* epsilon */ /*{ printf("e-4"); Node* n = new Node(); n->code = ""; $$ = n;}*/
+components: /* epsilon */ { printf("e-4"); Node* n = new Node(); n->code = ""; $$ = n;}
         | loop components { Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
-        | statement components /*{ printf("e-2"); Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}*/
+        | statement components { printf("e-2"); Node* n = new Node(); n->code = $1->code + $2->code; delete $1; delete $2; $$ = n;}
 
-statement: int_declaration { printf("e-1"); /*$$ = $1;*/ }
+statement: int_declaration
         | assignment
         | int_arr_assignment
         /* | int_dec_assignment */
@@ -262,14 +262,12 @@ int_declaration: INT identifier STATE_END
 {  
   // add the variable to the symbol table.
   std::string ident = $2->name;
-  printf("e0");
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
   $$ = new Node();
   $$->code = ". " + ident;
-  printf(". %s\n", ident.c_str()); 
-  printf("e1");
+  // printf(". %s\n", ident.c_str()); 
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END

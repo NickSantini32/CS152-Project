@@ -234,9 +234,8 @@ function: FUNC return_type identifier {
           std::string func_name = $3->name;
           add_function_to_symbol_table(func_name);
         }
-        L_PAREN args R_PAREN L_BRACE components R_BRACE {
-          
-          // printf("func %s\n", func_name.c_str());
+        L_PAREN args R_PAREN L_BRACE components R_BRACE {          
+          printf("func %s\n", func_name.c_str());
           // printf($8->code.c_str()); 
           // delete $8; 
           // printf("endfunc\n\n");
@@ -264,11 +263,11 @@ int_declaration: INT identifier STATE_END
   std::string ident = $2->name;
   printf("e0");
   checkIfVarIsDuplicate(ident);
-  // Type t = Integer;
-  // add_variable_to_symbol_table(ident, t);
-  // $$ = new Node();
-  // $$->code = ". " + ident;
-  // printf(". %s\n", ident.c_str()); 
+  Type t = Integer;
+  add_variable_to_symbol_table(ident, t);
+  $$ = new Node();
+  $$->code = ". " + ident;
+  printf(". %s\n", ident.c_str()); 
   printf("e1");
 } 
 

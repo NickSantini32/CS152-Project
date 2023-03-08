@@ -386,7 +386,7 @@ bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
      $$ = $2;
-	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
+	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
         | bool
         //| bool_exp logic_op bool_exp {

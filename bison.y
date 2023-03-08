@@ -262,9 +262,11 @@ int_declaration: INT identifier STATE_END
   checkIfVarIsDuplicate(ident);
   Type t = Integer;
   add_variable_to_symbol_table(ident, t);
+  printf("e0");
   $$ = new Node();
   $$->code = ". " + ident;
-  printf(". %s\n", ident.c_str()); 
+  // printf(". %s\n", ident.c_str()); 
+  printf("e1");
 } 
 
 int_arr_declaration: INT identifier L_ARRAY num_exp R_ARRAY STATE_END

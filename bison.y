@@ -400,9 +400,11 @@ func_call: identifier L_PAREN literal_args R_PAREN
 bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
-     $$ = $2;
+     $$ = new Node();
      $$->name = createTempVarNOPRINT();
-     $$->code = $$->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
+     $$->code = ". " + $$->name + "\n";
+     $$->code += $2->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
+     delete $2;
 	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
         /* | bool */

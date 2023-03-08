@@ -346,9 +346,9 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string end_label = ss.str();
         loopCount++;
         node->code += ": " + start_label + "\n";
-        node->code += ". " + bool_exp_node->name + "\n";      
+        // node->code += ". " + bool_exp_node->name + "\n";      
         node->code += bool_exp_node->code;
-        node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
+        node->code += "?:= "+ start_label + ", " + bool_exp_node->name + "\n";
         node->code += components_node->code;
         node->code += ":= " + end_label + "\n";
         node->code += ": " + body_label + "\n";
@@ -401,6 +401,7 @@ bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
      $$ = $2;
+     $$->name = createTempVarNOPRINT();
      $$->code = $$->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
 	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
@@ -425,39 +426,27 @@ addop : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}
 
 comparator : GREATER {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = ">";
 	}
         | LESSER {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = "<";
 	}
         | GEQ {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = ">=";
 	}
         | LEQ {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = "<=";
         }
         | EQUAL {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = "==";
 	}          
         | NEQ {
-	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
-     $$->name = x;
      $$->code = "!=";
 	}
 

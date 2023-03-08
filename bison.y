@@ -105,18 +105,18 @@ std::string createTempVar(){
   return s; 
 }
 
-std::string new_label(){
-  std::stringstream ss;
-  ss << "_label" << loopCount;
-  loopCount++;
-  return ss.str();
-}
-std::string new_label(std::string s){
-  std::stringstream ss;
-  ss << s << loopCount;
-  loopCount++;
-  return ss.str();
-}
+// std::string new_label(){
+//   std::stringstream ss;
+//   ss << "_label" << loopCount;
+//   loopCount++;
+//   return ss.str();
+// }
+// std::string new_label(std::string s){
+//   std::stringstream ss;
+//   ss << s << loopCount;
+//   loopCount++;
+//   return ss.str();
+// }
 
 void checkIfVarIsDuplicate(const std::string value){
   if (find(value)){
@@ -236,7 +236,7 @@ function: FUNC return_type identifier
   printf("func %s\n", func_name.c_str());
 } 
         L_PAREN args R_PAREN L_BRACE components R_BRACE 
-{printf("endfunc\n\n");}
+        {printf($8->code.c_str()); delete $8; printf("endfunc\n\n");}
         | COMMENT
 
 components: /* epsilon */
@@ -335,9 +335,10 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         node->code += ". " + bool_exp_node->name + "\n";      
         node->code += bool_exp_node->code;
         node->code += "?:= "+ body_label + ", " + bool_exp_node->name + "\n";
+        //node->code += components_node->code;
         node->code += ":= " + end_label + "\n";
         node->code += ": " + body_label + "\n";
-        //node->code += components_node->code;
+        
 
         delete bool_exp_node;      
         printf(node->code.c_str());

@@ -316,7 +316,8 @@ assignment: identifier ASSIGN num_exp STATE_END
   checkIfVarDeclared(ident);
   // printf("= %s, %s\n", ident.c_str(), value.c_str()); 
   $$ = new Node();
-  $$->code = "= " + ident + ", " + value + "\n";
+  $$->code = $3->code;
+  $$->code += "= " + ident + ", " + value + "\n";
 }
 
 /* identifier ASSIGN NUM STATE_END 

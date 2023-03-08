@@ -415,7 +415,7 @@ comparator : GREATER {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf("> %s, ", x.c_str());
+     $$->code = ">";
 	}
         | LESSER {
 	   std::string x = createTempVarNOPRINT();
@@ -427,25 +427,25 @@ comparator : GREATER {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf(">= %s, ", x.c_str());
+     $$->code = ">=";
 	}
         | LEQ {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf("<= %s, ", x.c_str());
+     $$->code = "<=";
         }
         | EQUAL {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf("== %s, ", x.c_str());
+     $$->code = "==";
 	}          
         | NEQ {
 	   std::string x = createTempVarNOPRINT();
      $$ = new Node();
      $$->name = x;
-	   printf("!= %s, ", x.c_str());
+     $$->code = "!=";
 	}
 
 bool : TRUE

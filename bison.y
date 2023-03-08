@@ -338,7 +338,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         //node->code += components_node->code;
         node->code += ":= " + end_label + "\n";
         node->code += ": " + body_label + "\n";
-        
+        printf("e");
 
         delete bool_exp_node;      
         //printf(node->code.c_str());

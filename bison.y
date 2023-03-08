@@ -331,6 +331,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string body_label = "loopbody" + loopCount;
         std::string end_label= "loopend" + loopCount; 
         loopCount++;
+        printf("e");
         node->code += ": " + start_label + "\n";
         node->code += ". " + bool_exp_node->name + "\n";      
         node->code += bool_exp_node->code;
@@ -338,7 +339,7 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         //node->code += components_node->code;
         node->code += ":= " + end_label + "\n";
         node->code += ": " + body_label + "\n";
-        printf("e");
+        
 
         delete bool_exp_node;      
         //printf(node->code.c_str());

@@ -455,13 +455,13 @@ logic_op : AND {
 	   std::string x = createTempVar();
      $$ = new Node();
      $$->name = x;
-	   printf("&& %s, ", x.c_str());
+     $$->code = "&&";
 	}
         | OR {
 	   std::string x = createTempVar();
      $$ = new Node();
      $$->name = x;
-	   printf("|| %s, ", x.c_str());
+	   $$->code = "||";
 	}
 
 IO : readWrite identifier STATE_END {printf("%s %s\n", $1, $2->name.c_str());}

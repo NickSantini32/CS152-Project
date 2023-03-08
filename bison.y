@@ -239,7 +239,7 @@ function: FUNC return_type identifier
         {printf($9->code.c_str()); delete $9; printf("endfunc\n\n");}
         | COMMENT
 
-components: /* epsilon */ //{ $$ = new Node(); $$->code = ""; }
+components: /* epsilon */ { $$ = new Node(); $$->code = ""; }
         | loop components { $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
         | statement components //{ $$ = new Node(); $$->code = $1->code + $2->code; delete $1; delete $2; }
 

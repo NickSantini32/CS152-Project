@@ -328,8 +328,8 @@ return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str())
 /* if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
 
 if_else_exp : /* epsilon */
-        | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
-        | ELSE L_BRACE components R_BRACE */
+        /* | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+        | ELSE L_BRACE components R_BRACE */ 
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;

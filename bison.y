@@ -322,7 +322,7 @@ if_else_exp : /* epsilon */
 loop: WHILE { std::string label = startWhile(); }
       L_PAREN bool_exp R_PAREN { 
         //std::string label = $3->name;
-        std::string exp = $3->name;
+        std::string exp = $2->name;
         printf("?:= %s, %s\n", label.c_str(), exp.c_str());
       }
       L_BRACE components R_BRACE
@@ -371,7 +371,7 @@ bool_exp : num_exp comparator num_exp {
      $$ = $2;
 	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
-
+        | bool
         //| bool_exp logic_op bool_exp {
 	   /*
 	   std::string exp1 = $1->name;
@@ -379,7 +379,7 @@ bool_exp : num_exp comparator num_exp {
 	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());
 	   */
 	//}
-        | bool
+        
 
 num_op : PLUS { char e[] = "+"; $$ = e;}
         | MINUS { char e[] = "-"; $$ = e;}

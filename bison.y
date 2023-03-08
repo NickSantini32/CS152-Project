@@ -325,14 +325,11 @@ assignment: identifier ASSIGN num_exp STATE_END
 return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str());}
         | RETURN STATE_END
 
-if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
-{
-     
-}
+/* if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
 
 if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
-        | ELSE L_BRACE components R_BRACE
+        | ELSE L_BRACE components R_BRACE */
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;
@@ -404,7 +401,7 @@ bool_exp : num_exp comparator num_exp {
      $$->code = $$->code + " " + $$->name + ", " + exp1 + ", " + exp2 +"\n";
 	   //printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
-        | bool
+        /* | bool */
         //| bool_exp logic_op bool_exp {
 	   /*
 	   std::string exp1 = $1->name;

@@ -93,7 +93,7 @@ void print_symbol_table(void) {
 }
 
 std::string createTempVar(){ 
-  std::string = createTempVarNOPRINT()
+  std::string s = createTempVarNOPRINT();
   printf(". %s\n", s.c_str());
   return s; 
 }

@@ -217,7 +217,7 @@ void checkIfMainDefined(){
 %token <op_val> NUM IDENT 
 %type <op_val> addop num_op readWrite
 %type <node> identifier 
-%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call comparator logic_op //dynamic allocation cleaned up in num_exp
+%type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call comparator logic_op bool_exp//dynamic allocation cleaned up in num_exp
 
 
 %%
@@ -368,6 +368,7 @@ func_call: identifier L_PAREN literal_args R_PAREN
 bool_exp : num_exp comparator num_exp {
 	   std::string exp1 = $1->name;
 	   std::string exp2 = $3->name;
+     $$ = $2;
 	   printf("%s, %s\n", exp1.c_str(), exp2.c_str());	   
 	}
 

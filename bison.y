@@ -265,7 +265,7 @@ break_stmt: BREAK STATE_END {
           ss << "endloop" << loopCount;
           n->code = ":= " + ss.str() + "\n"; 
           $$ = n;
-          printf(n->code.c_str());
+          printf($$->code.c_str());
         }
 
 int_declaration: INT identifier STATE_END {  
@@ -365,6 +365,8 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         node->code += ":= " + start_label + "\n";
         node->code += ": " + end_label + "\n";
 
+        printf(components_node->code.c_str());
+        
         // delete bool_exp_node;      
         // printf(node->code.c_str());
         $$ = node;

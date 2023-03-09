@@ -350,11 +350,15 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           ss << "else" << ifCount;
           std::string else1 = ss.str();
           
-          
           ifCount++;
           $$->code = $3->code;
           $$->code += "?:= " + if_true + ", " + $3->name + "\n";
-          $$->code += ($8->code == "") ? ":= " + endif + "\n" : ":= " + else1 + "\n" ;
+          if ($8->code == ""){
+            $$->code += ":= " + endif + "\n"; 
+          }
+          else {
+            $$->code += ":= " + else1 + "\n"; 
+          }
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;   
           $$->code += $8->code;  
@@ -379,20 +383,24 @@ if_else_exp : /* epsilon */ { $$ = new Node(); $$->code = ""; }
           $$->code = ":= " + endif + "\n";
           $$->code += ": " + else1 + "\n";
           $$->code += $3->code;
+          delete $3;
         }
 
-loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
+loop: {loopCount++;} WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
+        localLoopCount = loopCount;
+
         std::string name;
         Node * node = new Node();
         Node * bool_exp_node = $3;    
         Node * components_node = $6;
         std::stringstream ss;
-        ss << "beginloop" << loopCount;
+        ss << "beginloop" << localLoopCount;
         std::string start_label = ss.str();
-        ss.clear(); ss.str(std::string()); ss << "loopbody" << loopCount;
+        ss.clear(); ss.str(std::string()); ss << "loopbody" << localLoopCount;
         std::string body_label = ss.str();
-        ss.clear(); ss.str(std::string()); ss << "endloop" << loopCount;
+        ss.clear(); ss.str(std::string()); ss << "endloop" << localLoopCount;
         std::string end_label = ss.str();
+
         loopCount++;
         node->code += ": " + start_label + "\n";
         // node->code += ". " + bool_exp_node->name + "\n";      
@@ -414,21 +422,20 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
 /* int_dec_assignment: INT identifier ASSIGN num_exp STATE_END */
 
 num_exp: num_exp_terminal
-        | num_exp_terminal num_op num_exp
-{
-  const std::string right = $1->name;
-  const std::string left = $3->name;
-  delete $1;
-  delete $3;
-  std::string t = createTempVarNOPRINT();
+        | num_exp_terminal num_op num_exp {
+            const std::string right = $1->name;
+            const std::string left = $3->name;
+            delete $1;
+            delete $3;
+            std::string t = createTempVarNOPRINT();
 
-  
-  $$ = new Node();
-  $$->name = t;
-  $$->code = ". " + t + "\n";
-  $$->code += std::string($2) + " " + t + ", " + right + ", " + left + "\n";
-  // printf($$->code.c_str());
-}
+            
+            $$ = new Node();
+            $$->name = t;
+            $$->code = ". " + t + "\n";
+            $$->code += std::string($2) + " " + t + ", " + right + ", " + left + "\n";
+            // printf($$->code.c_str());
+        }
 
 num_exp_terminal : num_or_ident
         | int_arr_access 

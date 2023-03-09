@@ -387,7 +387,7 @@ if_else_exp : /* epsilon */ { $$ = new Node(); $$->code = ""; }
         }
 
 loop: {loopCount++;} WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
-        localLoopCount = loopCount;
+        int localLoopCount = loopCount;
 
         std::string name;
         Node * node = new Node();

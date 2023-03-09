@@ -401,7 +401,7 @@ loop: {loopCount++;} WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         ss.clear(); ss.str(std::string()); ss << "endloop" << localLoopCount;
         std::string end_label = ss.str();
 
-        //loopCount++;
+        loopCount--;
         node->code += ": " + start_label + "\n";
         // node->code += ". " + bool_exp_node->name + "\n";      
         node->code += bool_exp_node->code;

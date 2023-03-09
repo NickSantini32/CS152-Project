@@ -23,7 +23,7 @@ char *identToken;
 int numberToken;
 int count_names = 0;
 int tempCount = 0;
-int loopCount = 0;
+int loopCount = -1;
 int ifCount = 0;
 
 enum Type { Integer, Array };

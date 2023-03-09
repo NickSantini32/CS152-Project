@@ -348,10 +348,11 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           std::string endif = ss.str();
           ifCount++;
           $$->code = $3->code;
-          $$->code += "?: " + if_true + ", " + $3->name + "\n";
+          $$->code += "?:= " + if_true + ", " + $3->name + "\n";
           $$->code += ":= " + endif + "\n";
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
+          $$->code += ": " + endif + "\n";
         }
 
 if_else_exp : /* epsilon */
@@ -380,8 +381,6 @@ loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         node->code += components_node->code;  
         node->code += ":= " + start_label + "\n";
         node->code += ": " + end_label + "\n";
-
-        printf(components_node->code.c_str());
         
         // delete bool_exp_node;      
         // printf(node->code.c_str());

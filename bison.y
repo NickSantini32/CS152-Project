@@ -349,15 +349,20 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           } else {
             ss << "else" << ifCount;
           }
-          
           std::string endif_orElse = ss.str();
+          ss.clear(); ss.str(std::string());
+          
+          ss << "endif" << ifCount;
+          std::string endif = ss.str();
+          
+          
           ifCount++;
           $$->code = $3->code;
           $$->code += "?:= " + if_true + ", " + $3->name + "\n";
           $$->code += ":= " + endif_orElse + "\n";
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
-          $$->code += ":= " + endif_orElse + "\n";
+          $$->code += ":= " + endif + "\n";
           $$->code += $8->code;       
 
           delete $3;

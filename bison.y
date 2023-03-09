@@ -352,7 +352,6 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           $$->code += ":= " + endif + "\n";
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
-          $$ = $6;
         }
 
 if_else_exp : /* epsilon */

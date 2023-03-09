@@ -257,7 +257,7 @@ statement: int_declaration
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
         | IO
-        | BREAK { Node* n = new Node(); n->code = ""; $$ = n;}
+        | BREAK STATE_END { Node* n = new Node(); n->code = ""; $$ = n;}
 
 int_declaration: INT identifier STATE_END 
 {  

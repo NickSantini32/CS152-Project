@@ -344,16 +344,21 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           ss << "if_true" << ifCount;
           std::string if_true = ss.str();
           ss.clear(); ss.str(std::string());
-          ss << "endif" << ifCount;
-          std::string endif = ss.str();
+          if ($8->code == "") {
+            ss << "endif" << ifCount;
+          } else {
+            ss << "else" << ifCount;
+          }
+          
+          std::string endif_orElse = ss.str();
           ifCount++;
           $$->code = $3->code;
           $$->code += "?:= " + if_true + ", " + $3->name + "\n";
-          $$->code += ":= " + endif + "\n";
+          $$->code += ":= " + endif_orElse + "\n";
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
-          $$->code += ": " + endif + "\n";
-          $$->code += $8->code;
+          $$->code += ": " + endif_orElse + "\n";
+          $$->code += $8->code;       
 
           delete $3;
           delete $6;
@@ -373,7 +378,7 @@ if_else_exp : /* epsilon */
 
           $$->code = ": " + else1 + "\n";
           $$->code += $3->code;
-          $$->code += ":= " + endif + "\n";
+          $$->code += ": " + endif + "\n";
         }
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {

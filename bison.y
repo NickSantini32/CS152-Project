@@ -222,7 +222,7 @@ void checkIfMainDefined(){
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
 %type <node> comparator logic_op bool_exp loop components statement
-%type <node> int_declaration int_arr_declaration int_arr_assignment assignment IO break_stmt//statements
+%type <node> int_declaration int_arr_declaration int_arr_assignment assignment IO break_stmt if_exp if_else_exp//statements
 
 %%
 prog_start: functions { checkIfMainDefined(); }
@@ -252,7 +252,7 @@ statement: int_declaration
         | int_arr_assignment
         /* | int_dec_assignment */
         | int_arr_declaration
-        | if_exp { Node* n = new Node(); n->code = ""; $$ = n;}
+        | if_exp 
         | COMMENT { Node* n = new Node(); n->code = ""; $$ = n;}
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
@@ -336,7 +336,9 @@ assignment: identifier ASSIGN num_exp STATE_END
 return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str());}
         | RETURN STATE_END
 
-if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp { 
+          $$ = $6;
+        }
 
 if_else_exp : /* epsilon */
         | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp

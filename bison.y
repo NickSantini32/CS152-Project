@@ -265,10 +265,10 @@ break_stmt: BREAK STATE_END {
           ss << "endloop" << loopCount;
           n->code = ":= " + ss.str() + "\n"; 
           $$ = n;
+          printf(n->code.c_str());
         }
 
-int_declaration: INT identifier STATE_END 
-{  
+int_declaration: INT identifier STATE_END {  
   // add the variable to the symbol table.
   std::string ident = $2->name;
   checkIfVarIsDuplicate(ident);

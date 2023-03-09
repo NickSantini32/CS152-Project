@@ -222,7 +222,7 @@ void checkIfMainDefined(){
 %type <node> identifier 
 %type <node> int_arr_access num_exp num_exp_terminal paren_exp num_or_ident func_call//dynamic allocation cleaned up in num_exp
 %type <node> comparator logic_op bool_exp loop components statement
-%type <node> int_declaration int_arr_declaration int_arr_assignment assignment IO //statements
+%type <node> int_declaration int_arr_declaration int_arr_assignment assignment IO break_stmt//statements
 
 %%
 prog_start: functions { checkIfMainDefined(); }
@@ -257,7 +257,15 @@ statement: int_declaration
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
         | IO
-        | BREAK STATE_END { Node* n = new Node(); n->code = ""; $$ = n;}
+        | break_stmt
+
+break_stmt: BREAK STATE_END { 
+          Node* n = new Node(); 
+          std::stringstream ss;
+          ss << "endloop" << loopCount;
+          n->code = ":= " + ss.str() + "\n"; 
+          $$ = n;
+        }
 
 int_declaration: INT identifier STATE_END 
 {  

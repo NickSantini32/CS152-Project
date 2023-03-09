@@ -72,6 +72,7 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
 "true" { pn += yyleng; return TRUE;}
 "false" { pn += yyleng; return FALSE;}
 "continue" { pn += yyleng; return CONTINUE;}
+"break" { pn += yyleng; return BREAK;}
 
 {COMMENT} { lc++; pn=0; return COMMENT;}
 {NUM} { 
@@ -88,7 +89,6 @@ INVIDENT [0-9][a-zA-Z0-9_]*[a-zA-Z_]+[a-zA-Z0-9_]*
    char * token = new char[yyleng];
    strcpy(token, yytext);
    yylval.op_val = token;
-   // yylval.op_val = strdup(yytext);
    identToken = yytext;
    return IDENT;
 }

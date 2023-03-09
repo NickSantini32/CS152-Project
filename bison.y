@@ -24,6 +24,7 @@ int numberToken;
 int count_names = 0;
 int tempCount = 0;
 int loopCount = 0;
+int ifCount = 0;
 
 enum Type { Integer, Array };
 struct Symbol {
@@ -337,6 +338,20 @@ return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str())
         | RETURN STATE_END
 
 if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp { 
+          $$ = new Node();
+
+          std::stringstream ss;
+          ss << "if_true" << ifCount;
+          std::string if_true = ss.str();
+          ss.clear(); ss.str(std::string());
+          ss << "endif" << ifCount;
+          std::string endif = ss.str();
+          ifCount++;
+          $$->code = $3->code;
+          $$->code += "?: " + if_true + ", " + $3->name + "\n";
+          $$->code += ":= " + endif + "\n";
+          $$->code += ": " + if_true + "\n";
+          $$->code += $6->code;
           $$ = $6;
         }
 
@@ -405,8 +420,7 @@ paren_exp : L_PAREN num_exp R_PAREN { $$ = $2; }
 num_or_ident : NUM { $$ = new Node(); $$->name = $1;}      
         | IDENT { $$ = new Node(); $$->name = $1; } 
 
-func_call: identifier L_PAREN literal_args R_PAREN
-{
+func_call: identifier L_PAREN literal_args R_PAREN {
   std::string func_name = $1->name;
   checkIfFuncDefined(func_name);
   $$ = new Node();

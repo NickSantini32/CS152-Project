@@ -343,27 +343,22 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           std::stringstream ss;
           ss << "if_true" << ifCount;
           std::string if_true = ss.str();
-          ss.clear(); ss.str(std::string());
-          if ($8->code == "") {
-            ss << "endif" << ifCount;
-          } else {
-            ss << "else" << ifCount;
-          }
-          std::string endif_orElse = ss.str();
-          ss.clear(); ss.str(std::string());
-          
+          ss.clear(); ss.str(std::string());        
           ss << "endif" << ifCount;
           std::string endif = ss.str();
+          ss.clear(); ss.str(std::string());        
+          ss << "else" << ifCount;
+          std::string else1 = ss.str();
           
           
           ifCount++;
           $$->code = $3->code;
           $$->code += "?:= " + if_true + ", " + $3->name + "\n";
-          $$->code += ":= " + endif_orElse + "\n";
+          $$->code += ($8->code == "") ? ":= " + endif + "\n" : ":= " + else1 + "\n" ;
           $$->code += ": " + if_true + "\n";
-          $$->code += $6->code;
-          $$->code += ": " + endif + "\n";
-          $$->code += $8->code;       
+          $$->code += $6->code;   
+          $$->code += $8->code;  
+          $$->code += ": " + endif + "\n";     
 
           delete $3;
           delete $6;
@@ -381,9 +376,9 @@ if_else_exp : /* epsilon */ { $$ = new Node(); $$->code = ""; }
           ss << "endif" << ifCount;
           std::string endif = ss.str();
 
-          $$->code = ": " + else1 + "\n";
+          $$->code = ":= " + endif + "\n";
+          $$->code += ": " + else1 + "\n";
           $$->code += $3->code;
-          $$->code += ": " + endif + "\n";
         }
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {

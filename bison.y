@@ -327,11 +327,11 @@ assignment: identifier ASSIGN num_exp STATE_END
 return_statement: RETURN num_exp STATE_END {printf("ret %s\n", $2->name.c_str());}
         | RETURN STATE_END
 
-/* if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
 
 if_else_exp : /* epsilon */
-        /* | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
-        | ELSE L_BRACE components R_BRACE */ 
+        | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
+        | ELSE L_BRACE components R_BRACE 
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;
@@ -379,7 +379,7 @@ num_exp: num_exp_terminal
   $$->name = t;
   $$->code = ". " + t + "\n";
   $$->code += std::string($2) + " " + t + ", " + right + ", " + left + "\n";
-  printf($$->code.c_str());
+  // printf($$->code.c_str());
 }
 
 num_exp_terminal : num_or_ident

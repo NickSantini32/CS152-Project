@@ -353,6 +353,7 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
           $$->code += ": " + endif + "\n";
+          $$->code += $8->code;
 
           delete $3;
           delete $6;

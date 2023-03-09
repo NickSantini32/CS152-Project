@@ -353,11 +353,27 @@ if_exp : IF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp {
           $$->code += ": " + if_true + "\n";
           $$->code += $6->code;
           $$->code += ": " + endif + "\n";
+
+          delete $3;
+          delete $6;
+          delete $8;
         }
 
 if_else_exp : /* epsilon */
-        | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp
-        | ELSE L_BRACE components R_BRACE 
+        /* | ELIF L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE if_else_exp */
+        | ELSE L_BRACE components R_BRACE {
+          $$ = new Node();
+          std::stringstream ss;
+          ss << "else" << ifCount;
+          std::string else1 = ss.str();
+          ss.clear(); ss.str(std::string());
+          ss << "endif" << ifCount;
+          std::string endif = ss.str();
+
+          $$->code = ": " + else1 + "\n";
+          $$->code = $3->code;
+          $$->code += ": " + endif + "\n";
+        }
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {
         std::string name;

@@ -265,7 +265,7 @@ break_stmt: BREAK STATE_END {
           ss << "endloop" << loopCount;
           n->code = ":= " + ss.str() + "\n"; 
           $$ = n;
-          printf($$->code.c_str());
+          // printf($$->code.c_str());
         }
 
 int_declaration: INT identifier STATE_END {  

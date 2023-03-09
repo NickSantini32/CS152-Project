@@ -372,8 +372,8 @@ if_else_exp : /* epsilon */
           std::string endif = ss.str();
 
           $$->code = ": " + else1 + "\n";
-          $$->code = $3->code;
-          $$->code += ": " + endif + "\n";
+          $$->code += $3->code;
+          $$->code += ":= " + endif + "\n";
         }
 
 loop: WHILE L_PAREN bool_exp R_PAREN L_BRACE components R_BRACE {

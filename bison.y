@@ -252,7 +252,7 @@ statement: int_declaration
         | int_arr_assignment
         /* | int_dec_assignment */
         | int_arr_declaration
-        | if_exp
+        | if_exp { Node* n = new Node(); n->code = ""; $$ = n;}
         | COMMENT { Node* n = new Node(); n->code = ""; $$ = n;}
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }

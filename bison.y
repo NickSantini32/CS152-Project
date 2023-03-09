@@ -201,7 +201,7 @@ void checkIfMainDefined(){
 
 %start prog_start
 //etc... LIST ALL TOKEN NAMES HERE (in print statements)
-%token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT CONTINUE
+%token STATE_END PLUS MINUS MULT DIV MOD L_ARRAY R_ARRAY L_PAREN R_PAREN L_BRACE R_BRACE EQUAL GREATER LESSER LEQ GEQ NEQ ASSIGN AND OR COMMA INT IF ELIF ELSE WHILE FOR DO READ WRITE FUNC RETURN VOID TRUE FALSE COMMENT CONTINUE BREAK
 
 %left PLUS MINUS
 %left MULT DIV MOD
@@ -252,11 +252,12 @@ statement: int_declaration
         | int_arr_assignment
         /* | int_dec_assignment */
         | int_arr_declaration
-        /* | if_exp */
+        | if_exp
         | COMMENT { Node* n = new Node(); n->code = ""; $$ = n;}
         | return_statement { Node* n = new Node(); n->code = ""; $$ = n;}
         | CONTINUE { if (!inLoop) yyerror("ERROR: Continue statement not in loop"); }
         | IO
+        | BREAK { Node* n = new Node(); n->code = ""; $$ = n;}
 
 int_declaration: INT identifier STATE_END 
 {  

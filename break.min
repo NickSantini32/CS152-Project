@@ -12,5 +12,5 @@ function void main(){
 
     i = i + 1;
   }
-
+  break;
 }

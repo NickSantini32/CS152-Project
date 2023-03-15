@@ -263,6 +263,9 @@ statement: int_declaration
 break_stmt: BREAK STATE_END { 
           Node* n = new Node(); 
           std::stringstream ss;
+          if (loopCount < 0)
+            yyerror("ERROR: Break statement not in loop");
+            
           ss << "endloop" << loopCount;
           n->code = ":= " + ss.str() + "\n"; 
           $$ = n;
